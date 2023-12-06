@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDP", "MDP.csproj", "{2EA34AE6-9B0A-4131-85A3-A603C6D30FE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2EA34AE6-9B0A-4131-85A3-A603C6D30FE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EA34AE6-9B0A-4131-85A3-A603C6D30FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EA34AE6-9B0A-4131-85A3-A603C6D30FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EA34AE6-9B0A-4131-85A3-A603C6D30FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE80F874-9AFC-470E-9857-5B293457DFAB}
+	EndGlobalSection
+EndGlobal

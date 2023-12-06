@@ -1,0 +1,6 @@
+@MDP_HostAddress = http://localhost:5010
+
+GET {{MDP_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
