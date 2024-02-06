@@ -7,53 +7,63 @@ namespace MDP.Controllers
     [Route("pages")]
     public class PagesController : ControllerBase
     {
-
-        public CommunityPageModel GetCommunityPage()
+        [HttpGet(Name = "community")]
+        public CommunityPageModel GetCommunityPage(int id)
         {
             throw new NotImplementedException();
         }
 
-        public CompanyPageModel GetCompanyPage()
+        [HttpGet(Name = "company")]
+        public CompanyPageModel GetCompanyPage(int id)
         {
             throw new NotImplementedException();
         }
 
-        //Do the same as above for the rest of the models
-        public UserPageModel GetUserPage()
-        {
-            throw new NotImplementedException();
-        }
-
-        public WorkPageModel GetWorkPage()
-        {
-            throw new NotImplementedException();
-        }
-
+        [HttpGet(Name = "favorites")]
         public FavoritesPageModel GetFavoritesPage()
         {
             throw new NotImplementedException();
         }
 
+        [HttpGet(Name = "home")]
         public HomePageModel GetHomePage()
         {
-               throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
+        public InterestSetupPageModel GetInterestSetupPage()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet(Name = "interestupdate")]
         public InterestUpdatePageModel GetInterestUpdatePage()
         {
             throw new NotImplementedException();
         }
 
-        public PersonPageModel GetPersonPage()
+        [HttpGet(Name = "person")]
+        public PersonPageModel GetPersonPage(int id)
         {
             throw new NotImplementedException();
         }
 
+        [HttpGet(Name = "search")]
         public SearchPageModel GetSearchPage()
         {
             throw new NotImplementedException();
         }
 
-        
+        [HttpGet(Name = "user")]
+        public UserPageModel GetUserPage(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet(Name = "work")]
+        public WorkPageModel GetWorkPage(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
