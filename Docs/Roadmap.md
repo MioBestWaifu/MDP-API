@@ -1,0 +1,11 @@
+# Roadmap
+- Versão 0:
+    - Realizar completamente requisições de: Person e Company
+    - Realizar requisições de User sem lista
+    - Realizar abstratamente requisições de Work
+    - Realizar requisições de Search apenas com query
+    - Realizar requisições mock de Favorites, Home, InterestUpdate e InterestSetup para testes
+- Versão 1: 
+    - Implementar tokenização
+    - Utilizar tokens para completar requisições de Favorites, Home, InterestUpdate e InterestSetup
+    - Implementar interações de rating de User, Person, Company e Work
