@@ -1,4 +1,4 @@
-﻿namespace MDP.Models.Pages
+﻿namespace MDP.Models
 {
     public class Link
     {
