@@ -4,7 +4,7 @@ using MDP.Models.Pages;
 namespace MDP.Controllers
 {
     [ApiController]
-    [Route("api/pages")]
+    [Route("pages")]
     public class PagesController : ControllerBase
     {
         [HttpGet("community")]
