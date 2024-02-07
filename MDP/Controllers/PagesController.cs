@@ -4,63 +4,64 @@ using MDP.Models.Pages;
 namespace MDP.Controllers
 {
     [ApiController]
-    [Route("pages")]
+    [Route("api/pages")]
     public class PagesController : ControllerBase
     {
-        [HttpGet(Name = "community")]
+        [HttpGet("community")]
         public CommunityPageModel GetCommunityPage(int id)
         {
             throw new NotImplementedException();
         }
 
-        [HttpGet(Name = "company")]
+        [HttpGet("company")]
         public CompanyPageModel GetCompanyPage(int id)
         {
             throw new NotImplementedException();
         }
 
-        [HttpGet(Name = "favorites")]
+        [HttpGet("favorites")]
         public FavoritesPageModel GetFavoritesPage()
         {
             throw new NotImplementedException();
         }
 
-        [HttpGet(Name = "home")]
+        [HttpGet("home")]
         public HomePageModel GetHomePage()
         {
             throw new NotImplementedException();
         }
 
+        [HttpGet("interestsetup")]
         public InterestSetupPageModel GetInterestSetupPage()
         {
             throw new NotImplementedException();
         }
 
-        [HttpGet(Name = "interestupdate")]
+        [HttpGet("interestupdate")]
         public InterestUpdatePageModel GetInterestUpdatePage()
         {
             throw new NotImplementedException();
         }
 
-        [HttpGet(Name = "person")]
+        [HttpGet("person")]
         public PersonPageModel GetPersonPage(int id)
         {
             throw new NotImplementedException();
         }
 
-        [HttpGet(Name = "search")]
+        [HttpGet("search")]
         public SearchPageModel GetSearchPage()
         {
             throw new NotImplementedException();
         }
 
-        [HttpGet(Name = "user")]
+        [HttpGet("user")]
         public UserPageModel GetUserPage(int id)
         {
             throw new NotImplementedException();
         }
 
-        [HttpGet(Name = "work")]
+        [HttpGet("work")]
         public WorkPageModel GetWorkPage(int id)
         {
             throw new NotImplementedException();
