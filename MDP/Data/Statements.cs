@@ -26,5 +26,8 @@
             getCompanyRolesByCompanyId = "SELECT name FROM roles WHERE id IN (SELECT role FROM companyroles WHERE company = @company)",
             getAllCompanyImages = "SELECT * FROM companyimages WHERE company = @company",
             getRecentCompanyReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC LIMIT @limit)";
+
+        public static string getUserById = "SELECT * FROM users WHERE id = @user",
+            getAllUserImages = "SELECT * FROM userimages WHERE user = @user";
     }
 }
