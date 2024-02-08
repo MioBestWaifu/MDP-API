@@ -30,15 +30,14 @@ namespace MDP.Data
             logger.LogInformation("\n" + connectionString + "\n");
         }
 
-        public async Task<MySqlDataReader> ExecuteQueryAsync(MySqlCommand command)
+        public async Task SetConnection(MySqlCommand command)
         {
             using (var connection = new MySqlConnection(connectionString))
             {
-                command.Connection = connection;
-                
+                command.Connection = connection; 
                 await connection.OpenAsync();
-                return command.ExecuteReaderAsync(CommandBehavior.Default);
             }
         }
+
     }
 }
