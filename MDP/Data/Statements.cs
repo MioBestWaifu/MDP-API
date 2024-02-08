@@ -16,7 +16,7 @@
             getWorkDemographics = "SELECT name FROM demographics WHERE id IN (SELECT demographics FROM workdemographics WHERE work = @work)",
             getAllWorkImages = "SELECT * FROM workimages WHERE work = @work",
             getRecentWorkReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC LIMIT @limit)",
-            getAllWorkReviws = "SELECT * from reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC)";
+            getAllWorkReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC)";
 
         public static string getPersonById = "SELECT * FROM persons WHERE id = @person",
             getPersonRolesByPersonId = "SELECT name FROM roles WHERE id IN (SELECT role FROM personroles WHERE person = @person)",

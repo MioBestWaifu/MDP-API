@@ -54,46 +54,56 @@ namespace MDP.Data
             return com;
         }
 
-        public static MySqlCommand
+        public static MySqlCommand GetWorkById (int work)
         {
-
+            MySqlCommand com = new MySqlCommand(Statements.getWorkById);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
         }
 
-        public static MySqlCommand
+        public static MySqlCommand GetWorkCategoriesByWorkId (int work)
         {
-
+            MySqlCommand com = new MySqlCommand(Statements.getWorkCategoriesByWorkId);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
         }
 
-
-        public static MySqlCommand
+        public static MySqlCommand GetWorkOtherNames (int work)
         {
-
-        }
-
-
-        public static MySqlCommand
-        {
-
-        }
-
-
-        public static MySqlCommand
-        {
-
+            MySqlCommand com = new MySqlCommand(Statements.getWorkOtherNames);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
         }
 
 
-        public static MySqlCommand
+        public static MySqlCommand GetWorkDemographics (int work)
         {
-
+            MySqlCommand com = new MySqlCommand(Statements.getWorkDemographics);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
         }
 
-
-        public static MySqlCommand
+        public static MySqlCommand GetAllWorkImages (int work)
         {
-
+            MySqlCommand com = new MySqlCommand(Statements.getAllWorkImages);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
         }
 
+        public static MySqlCommand GetRecentWorkReviews (int work, int limit)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getRecentWorkReviews);
+            com.Parameters.AddWithValue("@work", work);
+            com.Parameters.AddWithValue("@limit", limit);
+            return com;
+        }
+
+        public static MySqlCommand GetAllWorkReviews (int work)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getAllWorkReviews);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
+        }
 
         public static MySqlCommand
         {
