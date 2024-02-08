@@ -39,5 +39,12 @@ namespace MDP.Data
             }
         }
 
+        public async Task<MySqlDataReader> ExecuteQuery(MySqlCommand command)
+        {
+            await SetConnection(command);
+            MySqlDataReader reader = await command.ExecuteReaderAsync() as MySqlDataReader ?? throw new Exception("Reader retornou nulo");
+            return reader;
+        }
+
     }
 }
