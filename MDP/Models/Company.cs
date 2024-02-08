@@ -25,10 +25,38 @@
         public static Company FromQuery(MySqlDataReader reader)
         {
             Company company = new Company();
-            company.Id = reader.GetInt32("id");
-            company.ShortName = reader.GetString("shortName");
-            company.FullName = reader.GetString("fullName");
-            company.FoundingDate = reader.GetDateTime("foundingDate");
+            try
+            {
+                company.Id = reader.GetInt32("id");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'id' column: {ex.Message}");
+            }
+            try
+            {
+                company.ShortName = reader.GetString("shortName");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'shortName' column: {ex.Message}");
+            }
+            try
+            {
+                company.FullName = reader.GetString("fullName");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'fullName' column: {ex.Message}");
+            }
+            try
+            {
+                company.FoundingDate = reader.GetDateTime("foundingDate");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'foundingDate' column: {ex.Message}");
+            }
             return company;
         }
     }

@@ -28,12 +28,59 @@
         public static Person FromQuery(MySqlDataReader reader)
         {
             Person person = new Person();
-            person.Id = reader.GetInt32("id");
-            person.ShortName = reader.GetString("shortName");
-            person.FullName = reader.GetString("fullName");
-            person.Nicknames = reader.GetString("nicknames").Split(',').ToList();
-            person.Birthday = reader.GetDateTime("birthday");
-            person.Description = reader.GetString("description");
+            try
+            {
+                person.Id = reader.GetInt32("id");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'id' column: {ex.Message}");
+            }
+
+            try
+            {
+                person.ShortName = reader.GetString("shortName");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'shortName' column: {ex.Message}");
+            }
+
+            try
+            {
+                person.FullName = reader.GetString("fullName");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'fullName' column: {ex.Message}");
+            }
+
+            try
+            {
+                person.Nicknames = reader.GetString("nicknames").Split(',').ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'nicknames' column: {ex.Message}");
+            }
+
+            try
+            {
+                person.Birthday = reader.GetDateTime("birthday");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'birthday' column: {ex.Message}");
+            }
+
+            try
+            {
+                person.Description = reader.GetString("description");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'description' column: {ex.Message}");
+            }
 
             return person;
         }

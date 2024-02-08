@@ -18,9 +18,30 @@
         public static Review FromQuery(MySqlDataReader reader)
         {
             Review review = new Review();
-            review.Rating = reader.GetInt32("rating");
-            review.Comment = reader.GetString("comment");
-            review.Date = reader.GetDateTime("date");
+            try
+            {
+                review.Rating = reader.GetInt32("rating");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'rating' column: {ex.Message}");
+            }
+            try
+            {
+                review.Comment = reader.GetString("comment");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'comment' column: {ex.Message}");
+            }
+            try
+            {
+                review.Date = reader.GetDateTime("date");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'date' column: {ex.Message}");
+            }
             return review;
         }
     }

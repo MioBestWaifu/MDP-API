@@ -19,9 +19,34 @@
         {
             Interest interest = new Interest();
             interest.Link = new Link();
-            interest.Link.MainLabel = reader.GetString("name");
-            interest.Link.ImgUrl = reader.GetString("url");
-            interest.Description = reader.GetString("description");
+
+            try
+            {
+                interest.Link.MainLabel = reader.GetString("name");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Column 'name' not found: {ex.Message}");
+            }
+
+            try
+            {
+                interest.Link.ImgUrl = reader.GetString("url");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Column 'url' not found: {ex.Message}");
+            }
+
+            try
+            {
+                interest.Description = reader.GetString("description");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Column 'description' not found: {ex.Message}");
+            }
+
             return interest;
         }
     }

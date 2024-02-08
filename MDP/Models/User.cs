@@ -26,12 +26,54 @@
         public static User FromQuery(MySqlDataReader reader)
         {
             User user = new User();
-            user.Id = reader.GetInt32("id");
-            user.Email = reader.GetString("email");
-            user.Password = reader.GetString("password");
-            user.Nickname = reader.GetString("nickname");
-            user.Description = reader.GetString("description");
-            user.Birthday = reader.GetDateTime("birthday");
+            try
+            {
+                user.Id = reader.GetInt32("id");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'id' column: {ex.Message}");
+            }
+            try
+            {
+                user.Email = reader.GetString("email");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'email' column: {ex.Message}");
+            }
+            try
+            {
+                user.Password = reader.GetString("password");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'password' column: {ex.Message}");
+            }
+            try
+            {
+                user.Nickname = reader.GetString("nickname");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'nickname' column: {ex.Message}");
+            }
+            try
+            {
+                user.Description = reader.GetString("description");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'description' column: {ex.Message}");
+            }
+            try
+            {
+                user.Birthday = reader.GetDateTime("birthday");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'birthday' column: {ex.Message}");
+            }
             return user;
         }
     }

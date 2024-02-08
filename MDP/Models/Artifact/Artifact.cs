@@ -31,12 +31,54 @@
         public static Artifact FromQuery(MySqlDataReader reader)
         {
             Artifact artifact = new Artifact();
-            artifact.Id = reader.GetInt32("id");
-            artifact.ShortName = reader.GetString("shortName");
-            artifact.FullName = reader.GetString("fullName");
-            artifact.Description = reader.GetString("description");
-            artifact.MainParticipant = reader.GetString("mainParticipant");
-            artifact.ReleaseDate = reader.GetDateTime("releaseDate");
+            try
+            {
+                artifact.Id = reader.GetInt32("id");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("id column not found");
+            }
+            try
+            {
+                artifact.ShortName = reader.GetString("shortName");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("shortName column not found");
+            }
+            try
+            {
+                artifact.FullName = reader.GetString("fullName");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("fullName column not found");
+            }
+            try
+            {
+                artifact.Description = reader.GetString("description");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("description column not found");
+            }
+            try
+            {
+                artifact.MainParticipant = reader.GetString("mainParticipant");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("mainParticipant column not found");
+            }
+            try
+            {
+                artifact.ReleaseDate = reader.GetDateTime("releaseDate");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("releaseDate column not found");
+            }
             return artifact;
         }
     }
