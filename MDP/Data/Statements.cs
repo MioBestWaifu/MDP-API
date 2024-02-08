@@ -31,6 +31,10 @@
             getAllCompanyReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC)";
 
         public static string getUserById = "SELECT * FROM users WHERE id = @user",
-            getAllUserImages = "SELECT * FROM userimages WHERE user = @user";
+            getAllUserImages = "SELECT * FROM userimages WHERE user = @user",
+            getUserInterestsByUserId = "SELECT * FROM interests WHERE id IN (SELECT interst FROM userinterests WHERE user = @user)";
+
+        public static string getInterestById = "SELECT * FROM interests WHERE id = @interest",
+            getInterestDemographicsByInterestId = "SELECT name FROM demographics WHERE id IN (SELECT demographic FROM interestdemographics WHERE interest = @interest)";
     }
 }
