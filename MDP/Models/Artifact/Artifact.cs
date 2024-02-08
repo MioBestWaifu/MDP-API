@@ -1,9 +1,10 @@
 ﻿namespace MDP.Models.Artifacts
 {
+    using MySql.Data.MySqlClient;
     using System;
     using System.Collections.Generic;
 
-    public class Artifact
+    public class Artifact : IQueryable<Artifact>
     {
         public int Id { get; set; }
         public string ShortName { get; set; }
@@ -21,5 +22,22 @@
         public string MainParticipant { get; set; }
         public double AverageRating { get; set; }
         public DateTime? ReleaseDate { get; set; }
+
+        /// <summary>
+        /// Cria um Artifact com id, shortName, fullName, description e releaseDate.
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static Artifact FromQuery(MySqlDataReader reader)
+        {
+            Artifact artifact = new Artifact();
+            artifact.Id = reader.GetInt32("id");
+            artifact.ShortName = reader.GetString("shortName");
+            artifact.FullName = reader.GetString("fullName");
+            artifact.Description = reader.GetString("description");
+            artifact.MainParticipant = reader.GetString("mainParticipant");
+            artifact.ReleaseDate = reader.GetDateTime("releaseDate");
+            return artifact;
+        }
     }
 }

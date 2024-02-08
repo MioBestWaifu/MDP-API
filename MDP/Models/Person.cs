@@ -1,9 +1,10 @@
 ﻿namespace MDP.Models
 {
+    using MySql.Data.MySqlClient;
     using System;
     using System.Collections.Generic;
 
-    public class Person
+    public class Person : IQueryable<Person>
     {
         public int Id { get; set; }
         public string ShortName { get; set; }
@@ -18,5 +19,23 @@
         public DateTime? Birthday { get; set; }
         public double AverageRating { get; set; }
         public string Gender { get; set; }
+
+        /// <summary>
+        /// Cria uma Person com id, shortName, fullName, nicknames, birthday e description.
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns></returns>
+        public static Person FromQuery(MySqlDataReader reader)
+        {
+            Person person = new Person();
+            person.Id = reader.GetInt32("id");
+            person.ShortName = reader.GetString("shortName");
+            person.FullName = reader.GetString("fullName");
+            person.Nicknames = reader.GetString("nicknames").Split(',').ToList();
+            person.Birthday = reader.GetDateTime("birthday");
+            person.Description = reader.GetString("description");
+
+            return person;
+        }
     }
 }
