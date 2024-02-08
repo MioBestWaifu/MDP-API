@@ -15,6 +15,16 @@
             getWorkOtherNames = "SELECT name FROM workothernames WHERE work = @work",
             getWorkDemographics = "SELECT name FROM demographics WHERE id IN (SELECT demographics FROM workdemographics WHERE work = @work)",
             getAllWorkImages = "SELECT * FROM workimages WHERE work = @work",
-            getRecentWorkReviews = "SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC LIMIT @limit";
+            getRecentWorkReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC LIMIT @limit)";
+
+        public static string getPersonById = "SELECT * FROM persons WHERE id = @person",
+            getPersonRolesByPersonId = "SELECT name FROM roles WHERE id IN (SELECT role FROM personroles WHERE person = @person)",
+            getAllPersonImages = "SELECT * FROM personimages WHERE person = @person",
+            getRecentPersonReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM personreviews WHERE person = @person ORDER BY id DESC LIMIT @limit)";
+
+        public static string getCompanyById = "SELECT * FROM companies WHERE id = @company",
+            getCompanyRolesByCompanyId = "SELECT name FROM roles WHERE id IN (SELECT role FROM companyroles WHERE company = @company)",
+            getAllCompanyImages = "SELECT * FROM companyimages WHERE company = @company",
+            getRecentCompanyReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC LIMIT @limit)";
     }
 }
