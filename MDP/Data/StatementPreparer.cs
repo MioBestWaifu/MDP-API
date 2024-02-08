@@ -105,27 +105,90 @@ namespace MDP.Data
             return com;
         }
 
-        public static MySqlCommand
+        public static MySqlCommand GetPersonById (int person)
         {
-
+            MySqlCommand com = new MySqlCommand(Statements.getPersonById);
+            com.Parameters.AddWithValue("@person", person);
+            return com;
         }
 
-
-        public static MySqlCommand
+        public static MySqlCommand GetPersonRolesByPersonId (int person)
         {
-
+            MySqlCommand com = new MySqlCommand(Statements.getPersonRolesByPersonId);
+            com.Parameters.AddWithValue("@person", person);
+            return com;
         }
 
-
-        public static MySqlCommand
+        public static MySqlCommand GetAllPersonImages (int person)
         {
-
+            MySqlCommand com = new MySqlCommand(Statements.getAllPersonImages);
+            com.Parameters.AddWithValue("@person", person);
+            return com;
         }
 
-
-        public static MySqlCommand
+        public static MySqlCommand GetRecentPersonReviews (int person, int limit)
         {
+            MySqlCommand com = new MySqlCommand(Statements.getRecentPersonReviews);
+            com.Parameters.AddWithValue("@person", person);
+            com.Parameters.AddWithValue("@limit", limit);
+            return com;
+        }
 
+        public static MySqlCommand GetAllPersonReviews (int person)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getAllPersonReviews);
+            com.Parameters.AddWithValue("@person", person);
+            return com;
+        }
+
+        public static MySqlCommand GetCompanyById (int company)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getCompanyById);
+            com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
+        public static MySqlCommand GetCompanyRolesByCompanyId (int company)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getCompanyRolesByCompanyId);
+            com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
+        public static MySqlCommand GetAllCompanyImages (int company)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getAllCompanyImages);
+            com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
+        public static MySqlCommand GetRecentCompanyReviews (int company, int limit)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getRecentCompanyReviews);
+            com.Parameters.AddWithValue("@company", company);
+            com.Parameters.AddWithValue("@limit", limit);
+            return com;
+        }
+
+        public static MySqlCommand GetAllCompanyReviews (int company)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getAllCompanyReviews);
+            com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
+        public static MySqlCommand GetUserById (int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getUserById);
+            com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
+        public static MySqlCommand GetAllUserImages (int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getAllUserImages);
+            com.Parameters.AddWithValue("@user", user);
+            return com;
         }
     }
 }
