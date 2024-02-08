@@ -4,6 +4,6 @@
     {
         public User User { get; set; }
 
-        public List<Interaction> Interactions { get; set; }
+        public List<Review> Interactions { get; set; }
     }
 }
