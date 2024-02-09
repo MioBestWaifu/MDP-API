@@ -114,6 +114,7 @@
         /// <param name="reader"></param>
         public void SetAgeRating(MySqlDataReader reader)
         {
+            reader.Read();
             this.AgeRating = reader.GetString("name");
         }
 
@@ -123,6 +124,7 @@
         /// <param name="reader"></param>
         public void SetMedia(MySqlDataReader reader)
         {
+            reader.Read();
             this.Media = reader.GetString("name");
         }
 
@@ -132,6 +134,7 @@
         /// <param name="reader"></param>
         public void SetMainParticipantRole(MySqlDataReader reader)
         {
+            reader.Read();
             this.MainParticipantRole = reader.GetString("name");
         }
 
@@ -157,6 +160,16 @@
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Passar reader sem chamar Read(). Espera uma coluna chamada average.
+        /// </summary>
+        /// <param name="reader"></param>
+        public void SetAverageRating(MySqlDataReader reader)
+        {
+            reader.Read();
+            this.AverageRating = reader.GetDouble("average");
         }
     }
 }

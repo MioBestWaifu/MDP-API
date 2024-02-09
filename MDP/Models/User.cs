@@ -7,8 +7,8 @@
     public class User : IQueryable<User>
     {
         public int Id { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
         public string Nickname { get; set; }
         public string CardImgUrl { get; set; }
         public string MainImgUrl { get; set; }
@@ -74,7 +74,51 @@
             {
                 Console.WriteLine($"Error retrieving 'birthday' column: {ex.Message}");
             }
+            try
+            {
+                user.Gender = reader.GetString("gender");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'gender' column: {ex.Message}");
+            }
             return user;
+        }
+
+        public void SetImgUrls(MySqlDataReader reader)
+        {
+            this.OtherImgUrls = new List<string>();
+            while (reader.Read())
+            {
+                switch (reader.GetInt32("type"))
+                {
+                    case (int)ImageTypes.CardImage:
+                        this.CardImgUrl = reader.GetString("url");
+                        break;
+                    case (int)ImageTypes.MainImage:
+                        this.MainImgUrl = reader.GetString("url");
+                        break;
+                    case (int)ImageTypes.OtherImage:
+                        this.OtherImgUrls.Add(reader.GetString("url"));
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Passar o reader direto da query, sem chamar Read()
+        /// </summary>
+        /// <param name="reader"></param>
+        public void SetCountry(MySqlDataReader reader)
+        {
+            reader.Read();
+            this.Country = reader.GetString("name");
+        }
+
+        public void RemoveSensitiveInformation()
+        {
+            this.Email = null;
+            this.Password = null;
         }
     }
 }

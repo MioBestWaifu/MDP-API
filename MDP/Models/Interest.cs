@@ -49,5 +49,18 @@
 
             return interest;
         }
+
+        /// <summary>
+        /// Cria o targetDemographics e o popula. Passar o reader direto da query, sem chamar Read().
+        /// </summary>
+        /// <param name="reader"></param>
+        public void SetDemographics(MySqlDataReader reader)
+        {
+            this.TargetDemographics = new List<string>();
+            while (reader.Read())
+            {
+                this.TargetDemographics.Add(reader.GetString("name"));
+            }
+        }
     }
 }

@@ -44,5 +44,20 @@
             }
             return review;
         }
+
+        public void SetUser(User user)
+        {
+            this.User = user;
+        }
+
+        /*
+         * Essa porra pode dar problema pela forma de iteração do reader e interação com a base de dados. Os getallreviews trazem apenas os
+         * ids dos usuários, então tem que estar coordenado pra não dar problema. Rever isso.
+         */
+        public void SetUser(MySqlDataReader reader)
+        {
+            reader.Read();
+            this.User = User.FromQuery(reader);
+        }
     }
 }
