@@ -81,5 +81,71 @@
             }
             return artifact;
         }
+
+        /// <summary>
+        /// Cria o targetDemographics e o popula. Passar o reader direto da query, sem chamar Read().
+        /// </summary>
+        /// <param name="reader"></param>
+        public void SetDemographics(MySqlDataReader reader)
+        {
+            this.TargetDemographics = new List<string>();
+            while (reader.Read())
+            {
+                this.TargetDemographics.Add(reader.GetString("name"));
+            }
+        }
+
+        /// <summary>
+        /// Cria o categories e o popula. Passar o reader direto da query, sem chamar Read()
+        /// </summary>
+        /// <param name="reader"></param>
+        public void SetCategories(MySqlDataReader reader)
+        {
+            this.Categories = new List<string>();
+            while (reader.Read())
+            {
+                this.Categories.Add(reader.GetString("name"));
+            }
+        }
+
+        /// <summary>
+        /// Passar o reader direto da query, sem chamar Read()
+        /// </summary>
+        /// <param name="reader"></param>
+        public void SetAgeRating(MySqlDataReader reader)
+        {
+            this.AgeRating = reader.GetString("name");
+        }
+
+        /// <summary>
+        /// Passar o reader direto da query, sem chamar Read()
+        /// </summary>
+        /// <param name="reader"></param>
+        public void SetMedia(MySqlDataReader reader)
+        {
+            this.Media = reader.GetString("name");
+        }
+
+        /// <summary>
+        /// Passar o reader direto da query, sem chamar Read()
+        /// </summary>
+        /// <param name="reader"></param>
+        public void SetMainParticipantRole(MySqlDataReader reader)
+        {
+            this.MainParticipantRole = reader.GetString("name");
+        }
+
+        /// <summary>
+        /// Passar o reader direto da query, sem chamar Read()
+        /// </summary>
+        /// <param name="reader"></param>
+        public void SetImgUrls(MySqlDataReader reader)
+        {
+            this.OtherImgUrls = new List<string>();
+            while (reader.Read())
+            {
+                this.OtherImgUrls.Add(reader.GetString("url"));
+            }
+        }
     }
 }
