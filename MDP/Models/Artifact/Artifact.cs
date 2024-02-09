@@ -142,7 +142,7 @@
         /// Passar o reader direto da query, sem chamar Read()
         /// </summary>
         /// <param name="reader"></param>
-        public void SetImgUrls(MySqlDataReader reader)
+        public void SetImageUrls(MySqlDataReader reader)
         {
             this.OtherImgUrls = new List<string>();
             while (reader.Read())
@@ -170,6 +170,15 @@
         {
             reader.Read();
             this.AverageRating = reader.GetDouble("average");
+        }
+
+        public void SetOtherNames(MySqlDataReader reader)
+        {
+            this.OtherNames = new List<string>();
+            while (reader.Read())
+            {
+                this.OtherNames.Add(reader.GetString("name"));
+            }
         }
     }
 }

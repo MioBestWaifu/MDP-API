@@ -83,6 +83,20 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetWorkMedia (int work)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getWorkMedia);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
+        }
+
+        public static MySqlCommand GetWorkMainParticipantRole (int work)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getWorkMainParticipantRole);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
+        }
+
         public static MySqlCommand GetAllWorkImages (int work)
         {
             MySqlCommand com = new MySqlCommand(Statements.getAllWorkImages);

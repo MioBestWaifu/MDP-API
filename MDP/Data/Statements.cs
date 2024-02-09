@@ -14,6 +14,8 @@
             getWorkCategoriesByWorkId = "SELECT name FROM categories WHERE id IN (SELECT category FROM workcategories WHERE work = @work)",
             getWorkOtherNames = "SELECT name FROM workothernames WHERE work = @work",
             getWorkDemographics = "SELECT name FROM demographics WHERE id IN (SELECT demographics FROM workdemographics WHERE work = @work)",
+            getWorkMedia = "SELECT name FROM medias WHERE id = (SELECT media FROM works WHERE works.id = @work)",
+            getWorkMainParticipantRole = "SELECT name FROM roles WHERE id = (SELECT mainParticipantRole FROM works WHERE works.id = @work)",
             getAllWorkImages = "SELECT * FROM workimages WHERE work = @work",
             getRecentWorkReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC LIMIT @limit)",
             getAllWorkReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC)",
