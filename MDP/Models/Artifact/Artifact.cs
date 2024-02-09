@@ -144,7 +144,18 @@
             this.OtherImgUrls = new List<string>();
             while (reader.Read())
             {
-                this.OtherImgUrls.Add(reader.GetString("url"));
+                switch(reader.GetInt32("type"))
+                {
+                    case (int)ImageTypes.CardImage:
+                        this.CardImgUrl = reader.GetString("url");
+                        break;
+                    case (int)ImageTypes.MainImage:
+                        this.MainImgUrl = reader.GetString("url");
+                        break;
+                    case (int)ImageTypes.OtherImage:
+                        this.OtherImgUrls.Add(reader.GetString("url"));
+                        break;
+                }
             }
         }
     }
