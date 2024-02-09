@@ -28,7 +28,8 @@
             getRecentPersonReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM personreviews WHERE person = @person ORDER BY id DESC LIMIT @limit)",
             getAllPersonReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM personreviews WHERE person = @person ORDER BY id DESC)",
             getPersonAverageRating = "SELECT CAST((SELECT SUM(rating) FROM reviews WHERE id IN (SELECT review FROM personreviews WHERE person = @person ORDER BY id DESC))/(SELECT COUNT(rating)" +
-            " FROM reviews WHERE id IN (SELECT review FROM personreviews WHERE person = @person ORDER BY id DESC)) AS FLOAT) AS average";
+            " FROM reviews WHERE id IN (SELECT review FROM personreviews WHERE person = @person ORDER BY id DESC)) AS FLOAT) AS average",
+            getPersonCountry = "SELECT name FROM countries WHERE countries.id = (SELECT country FROM persons WHERE persons.id = @person)";
 
         public static string getCompanyById = "SELECT * FROM companies WHERE id = @company",
             getCompanyRolesByCompanyId = "SELECT name FROM roles WHERE id IN (SELECT role FROM companyroles WHERE company = @company)",
@@ -36,7 +37,8 @@
             getRecentCompanyReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC LIMIT @limit)",
             getAllCompanyReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC)",
             getCompanyAverageRating = "SELECT CAST((SELECT SUM(rating) FROM reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC))/(SELECT COUNT(rating)" +
-            " FROM reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC)) AS FLOAT) AS average";
+            " FROM reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC)) AS FLOAT) AS average",
+            getCompanyCountry = "SELECT name FROM countries WHERE countries.id = (SELECT country FROM companies WHERE companies.id = @company)";
 
         public static string getUserById = "SELECT * FROM users WHERE id = @user",
             getAllUserImages = "SELECT * FROM userimages WHERE user = @user",

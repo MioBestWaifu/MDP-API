@@ -169,6 +169,13 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetPersonCountry (int person)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getPersonCountry);
+            com.Parameters.AddWithValue("@person", person);
+            return com;
+        }
+
         public static MySqlCommand GetCompanyById (int company)
         {
             MySqlCommand com = new MySqlCommand(Statements.getCompanyById);
@@ -208,6 +215,13 @@ namespace MDP.Data
         public static MySqlCommand GetCompanyAverageRating (int company)
         {
             MySqlCommand com = new MySqlCommand(Statements.getCompanyAverageRating);
+            com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
+        public static MySqlCommand GetCompanyCounry(int company)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getCompanyCountry);
             com.Parameters.AddWithValue("@company", company);
             return com;
         }
