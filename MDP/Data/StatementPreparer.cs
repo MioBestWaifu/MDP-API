@@ -233,6 +233,13 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetUserCountry (int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getUserCountry);
+            com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
         public static MySqlCommand GetInterestById (int interest)
         {
             MySqlCommand com = new MySqlCommand(Statements.getInterestById);

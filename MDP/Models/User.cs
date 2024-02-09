@@ -85,7 +85,7 @@
             return user;
         }
 
-        public void SetImgUrls(MySqlDataReader reader)
+        public void SetImageUrls(MySqlDataReader reader)
         {
             this.OtherImgUrls = new List<string>();
             while (reader.Read())
