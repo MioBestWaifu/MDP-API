@@ -105,6 +105,13 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetWorkAverageRating (int work)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getWorkAverageRating);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
+        }
+
         public static MySqlCommand GetPersonById (int person)
         {
             MySqlCommand com = new MySqlCommand(Statements.getPersonById);
@@ -141,6 +148,13 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetPersonAverageRating (int person)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getPersonAverageRating);
+            com.Parameters.AddWithValue("@person", person);
+            return com;
+        }
+
         public static MySqlCommand GetCompanyById (int company)
         {
             MySqlCommand com = new MySqlCommand(Statements.getCompanyById);
@@ -173,6 +187,13 @@ namespace MDP.Data
         public static MySqlCommand GetAllCompanyReviews (int company)
         {
             MySqlCommand com = new MySqlCommand(Statements.getAllCompanyReviews);
+            com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
+        public static MySqlCommand GetCompanyAverageRating (int company)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getCompanyAverageRating);
             com.Parameters.AddWithValue("@company", company);
             return com;
         }
