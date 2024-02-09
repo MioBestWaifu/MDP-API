@@ -46,24 +46,24 @@
             return toReturn;
         }
 
-        private Task<MySqlDataReader> GetRoles(int id)
+        private async Task<MySqlDataReader> GetRoles(int id)
         {
-            return connector.ExecuteQuery(StatementPreparer.GetCompanyRolesByCompanyId(id));
+            return await connector.ExecuteQuery(StatementPreparer.GetCompanyRolesByCompanyId(id));
         }
 
-        private Task<MySqlDataReader> GetImages(int id)
+        private async Task<MySqlDataReader> GetImages(int id)
         {
-            return connector.ExecuteQuery(StatementPreparer.GetAllCompanyImages(id));
+            return await connector.ExecuteQuery(StatementPreparer.GetAllCompanyImages(id));
         }
 
-        private Task<MySqlDataReader> GetAverageRating(int id)
+        private async Task<MySqlDataReader> GetAverageRating(int id)
         {
-            return connector.ExecuteQuery(StatementPreparer.GetCompanyAverageRating(id));
+            return await connector.ExecuteQuery(StatementPreparer.GetCompanyAverageRating(id));
         }
 
-        private Task<MySqlDataReader> GetCountry(int id)
+        private async Task<MySqlDataReader> GetCountry(int id)
         {
-            return connector.ExecuteQuery(StatementPreparer.GetCompanyCountry(id));
+            return await connector.ExecuteQuery(StatementPreparer.GetCompanyCountry(id));
         }
     }
 }

@@ -38,14 +38,14 @@
             return toReturn;
         }
 
-        private Task<MySqlDataReader> GetImageUrls(int id)
+        private async Task<MySqlDataReader> GetImageUrls(int id)
         {
-            return connector.ExecuteQuery(StatementPreparer.GetAllUserImages(id));
+            return await connector.ExecuteQuery(StatementPreparer.GetAllUserImages(id));
         }
 
-        private Task<MySqlDataReader> GetCountry(int id)
+        private async Task<MySqlDataReader> GetCountry(int id)
         {
-            return connector.ExecuteQuery(StatementPreparer.GetUserCountry(id));
+            return await connector.ExecuteQuery(StatementPreparer.GetUserCountry(id));
         }
     }
 }

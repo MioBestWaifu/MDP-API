@@ -42,19 +42,19 @@
             return toReturn;
         }
 
-        private Task<MySqlDataReader> GetCountry (int id)
+        private async Task<MySqlDataReader> GetCountry (int id)
         {
-            return connector.ExecuteQuery(StatementPreparer.GetPersonCountry(id));
+            return await connector.ExecuteQuery(StatementPreparer.GetPersonCountry(id));
         }
 
-        private Task<MySqlDataReader> GetRoles (int id)
+        private async Task<MySqlDataReader> GetRoles (int id)
         {
-            return connector.ExecuteQuery(StatementPreparer.GetPersonRolesByPersonId(id));
+            return await connector.ExecuteQuery(StatementPreparer.GetPersonRolesByPersonId(id));
         }
 
-        private Task<MySqlDataReader> GetImages (int id)
+        private async Task<MySqlDataReader> GetImages (int id)
         {
-            return connector.ExecuteQuery(StatementPreparer.GetAllPersonImages(id));
+            return await connector.ExecuteQuery(StatementPreparer.GetAllPersonImages(id));
         }
 
     }
