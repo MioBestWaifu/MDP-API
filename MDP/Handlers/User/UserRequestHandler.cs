@@ -11,6 +11,8 @@
         {
             this.connector = connector;
         }
+
+        //Inicia 3 connections
         public async Task<User> HandleRequest(int id)
         {
             Task<MySqlDataReader> userTask = connector.ExecuteQuery(StatementPreparer.GetUserById(id));

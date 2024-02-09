@@ -219,7 +219,7 @@ namespace MDP.Data
             return com;
         }
 
-        public static MySqlCommand GetCompanyCounry(int company)
+        public static MySqlCommand GetCompanyCountry(int company)
         {
             MySqlCommand com = new MySqlCommand(Statements.getCompanyCountry);
             com.Parameters.AddWithValue("@company", company);

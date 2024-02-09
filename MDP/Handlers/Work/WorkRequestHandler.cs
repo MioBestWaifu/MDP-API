@@ -13,6 +13,7 @@ namespace MDP.Handlers.Work
             this.connector = connector;
         }
 
+        //Inicia 8 connections
         public async Task<Artifact> HandleRequest(int id)
         {
             Task<MySqlDataReader> artifactTask = connector.ExecuteQuery(StatementPreparer.GetWorkById(id));
