@@ -267,5 +267,19 @@ namespace MDP.Data
             com.Parameters.AddWithValue("@interest", interest);
             return com;
         }
+
+        public static MySqlCommand GetReviewById(int review)
+        {           
+            MySqlCommand com = new MySqlCommand(Statements.getReviewById);
+            com.Parameters.AddWithValue("@review", review);                
+            return com;
+        }
+
+        public static MySqlCommand GetReviewUserByReviewId(int review)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getReviewUserByReviewId);
+            com.Parameters.AddWithValue("@review", review);
+            return com;
+        }
     }
 }

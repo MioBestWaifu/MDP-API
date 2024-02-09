@@ -47,5 +47,8 @@
 
         public static string getInterestById = "SELECT * FROM interests WHERE id = @interest",
             getInterestDemographicsByInterestId = "SELECT name FROM demographics WHERE id IN (SELECT demographic FROM interestdemographics WHERE interest = @interest)";
+
+        public static string getReviewById = "SELECT * FROM reviews WHERE id = @review",
+            getReviewUserByReviewId = "SELECT * FROM users WHERE id = (SELECT user FROM reviews WHERE reviews.id = @review)";
     }
 }
