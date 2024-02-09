@@ -8,13 +8,8 @@
     /// <summary>
     /// Busca, cria e retorna uma única empresa baseada no Id dela.
     /// </summary>
-    public class CompanyRequestHandler : IRequestHandler<Company>
+    public class CompanyRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Company>
     {
-        private DatabaseConnector connector;
-        public CompanyRequestHandler(DatabaseConnector connector)
-        {
-            this.connector = connector;
-        }
         //Inicia 5 connections 
         public async Task<Company> HandleRequest(int id)
         {

@@ -8,15 +8,8 @@
     /// <summary>
     /// Busca, cria e retorna um único interest baseado no Id dele.
     /// </summary>
-    public class InterestRequestHandler : IRequestHandler<Interest>
+    public class InterestRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Interest>
     {
-        private DatabaseConnector connector;
-
-        public InterestRequestHandler(DatabaseConnector connector)
-        {
-            this.connector = connector;
-        }
-
         //Cria 2 connections
         public async Task<Interest> HandleRequest(int id)
         {

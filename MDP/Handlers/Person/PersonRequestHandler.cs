@@ -8,14 +8,8 @@
     /// <summary>
     /// Busca, cria e retorna uma única pessoa baseada no Id dela.
     /// </summary>
-    public class PersonRequestHandler : IRequestHandler<Person>
+    public class PersonRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Person>
     {
-        private DatabaseConnector connector;
-        public PersonRequestHandler(DatabaseConnector connector)
-        {
-            this.connector = connector;
-        }
-
         //Inicia 4 connections
         public async Task<Person> HandleRequest(int id)
         {

@@ -7,13 +7,8 @@
     /// <summary>
     /// Busca, cria e retorna um único usuário baseado no Id dele.
     /// </summary>
-    public class UserRequestHandler : IRequestHandler<User>
+    public class UserRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<User>
     {
-        private DatabaseConnector connector;
-        public UserRequestHandler(DatabaseConnector connector)
-        {
-            this.connector = connector;
-        }
 
         //Inicia 3 connections
         public async Task<User> HandleRequest(int id)

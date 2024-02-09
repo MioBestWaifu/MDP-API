@@ -9,14 +9,8 @@
     /// <summary>
     /// Busca, cria e retorna uma única review baseada no Id dela.
     /// </summary>
-    public class ReviewRequestHandler : IRequestHandler<Review>
-    {
-        private DatabaseConnector connector;
-        public ReviewRequestHandler(DatabaseConnector connector)
-        {
-            this.connector = connector;
-        }
-
+    public class ReviewRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Review>
+    { 
         //Inicia 1 connection
         /// <summary>
         /// Cria uma review com user, chamando o UserRequestHandler para buscar o usuário.

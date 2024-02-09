@@ -7,14 +7,8 @@ namespace MDP.Handlers.Work
     /// <summary>
     /// Busca, cria e retorna um único trabalho baseado no Id dele.
     /// </summary>
-    public class WorkRequestHandler : IRequestHandler<Artifact>
+    public class WorkRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Artifact>
     {
-        private DatabaseConnector connector;
-
-        public WorkRequestHandler(DatabaseConnector connector)
-        {
-            this.connector = connector;
-        }
 
         //Inicia 8 connections
         public async Task<Artifact> HandleRequest(int id)
