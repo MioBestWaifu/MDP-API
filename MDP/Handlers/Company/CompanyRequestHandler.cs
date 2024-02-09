@@ -5,6 +5,9 @@
     using MySql.Data.MySqlClient;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Busca, cria e retorna uma única empresa baseada no Id dela.
+    /// </summary>
     public class CompanyRequestHandler : IRequestHandler<Company>
     {
         private DatabaseConnector connector;

@@ -5,6 +5,9 @@
     using MySql.Data.MySqlClient;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Busca, cria e retorna uma única pessoa baseada no Id dela.
+    /// </summary>
     public class PersonRequestHandler : IRequestHandler<Person>
     {
         private DatabaseConnector connector;

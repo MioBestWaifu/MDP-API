@@ -5,6 +5,9 @@
     using MySql.Data.MySqlClient;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Busca, cria e retorna um único interest baseado no Id dele.
+    /// </summary>
     public class InterestRequestHandler : IRequestHandler<Interest>
     {
         private DatabaseConnector connector;
@@ -14,6 +17,7 @@
             this.connector = connector;
         }
 
+        //Cria 2 connections
         public async Task<Interest> HandleRequest(int id)
         {
             Task<MySqlDataReader> interestTask = connector.ExecuteQuery(StatementPreparer.GetInterestById(id));

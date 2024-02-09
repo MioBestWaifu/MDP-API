@@ -4,6 +4,9 @@
     using MDP.Models;
     using MySql.Data.MySqlClient;
 
+    /// <summary>
+    /// Busca, cria e retorna um único usuário baseado no Id dele.
+    /// </summary>
     public class UserRequestHandler : IRequestHandler<User>
     {
         private DatabaseConnector connector;

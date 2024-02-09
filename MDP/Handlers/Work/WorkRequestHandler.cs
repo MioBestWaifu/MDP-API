@@ -4,6 +4,9 @@ using MySql.Data.MySqlClient;
 
 namespace MDP.Handlers.Work
 {
+    /// <summary>
+    /// Busca, cria e retorna um único trabalho baseado no Id dele.
+    /// </summary>
     public class WorkRequestHandler : IRequestHandler<Artifact>
     {
         private DatabaseConnector connector;
