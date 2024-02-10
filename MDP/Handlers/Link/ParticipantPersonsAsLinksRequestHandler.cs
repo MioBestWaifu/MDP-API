@@ -12,6 +12,11 @@ namespace MDP.Handlers.Link
             Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkableParticipantPersons(id));
             MySqlDataReader reader = await linksTask;
             List<Link> toReturn = new List<Link>();
+            while (reader.Read())
+            {
+                toReturn.Add(Link.FromLinkablePerson(reader));
+            }
+            return toReturn;
         }
     }
 }
