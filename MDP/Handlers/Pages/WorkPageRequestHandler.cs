@@ -1,15 +1,15 @@
 ﻿
+using MDP.Data;
+using MDP.Handlers.Work;
+using MDP.Models.Artifacts;
+using MDP.Models.Pages;
+using MDP.Models;
+using MDP.Handlers.Review;
+using MDP.Utils;
+using MySql.Data.MySqlClient;
 
 namespace MDP.Handlers.Pages
 {
-    using MDP.Data;
-    using MDP.Handlers.Work;
-    using MDP.Models.Artifacts;
-    using MDP.Models.Pages;
-    using MDP.Models;
-    using MDP.Handlers.Review;
-    using MDP.Utils;
-    using MySql.Data.MySqlClient;
 
     public class WorkPageRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<WorkPageModel>
     {
@@ -24,7 +24,7 @@ namespace MDP.Handlers.Pages
             Task<List<Link>> personsTask = GetParticipantPersons(id);
             Task<List<Link>> companiesTask = GetParticipantCompanies(id);
             Task<List<Link>> newsTask = GetRecentNews(id);
-            Task<List<Review>> reviewsTask = new RecentWorkReviewsRequestHandler(conn).HandleRequest(id);
+            Task<List<Models.Review>> reviewsTask = new RecentWorkReviewsRequestHandler(conn).HandleRequest(id);
 
             Artifact artifact = await workTask;
             WorkPageModel toReturn = new WorkPageModel();

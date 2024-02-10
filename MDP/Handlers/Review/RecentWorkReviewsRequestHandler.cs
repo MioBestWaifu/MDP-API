@@ -1,28 +1,24 @@
-﻿
+﻿using MDP.Data;
+using MDP.Utils;
+using MySql.Data.MySqlClient;
+using MDP.Handlers.User;
 
 namespace MDP.Handlers.Review
 {
-    using MDP.Data;
-    using MDP.Models;
-    using MDP.Utils;
-    using System.Threading.Tasks;
-    using MySql.Data.MySqlClient;
-    using MDP.Handlers.User;
-
-    public class RecentWorkReviewsRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<List<Review>>
+    public class RecentWorkReviewsRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<List<Models.Review>>
     {
-        public async Task<List<Review>> HandleRequest(int id)
+        public async Task<List<Models.Review>> HandleRequest(int id)
         {
             Task<MySqlDataReader> reviewsTask = connector.ExecuteQuery(StatementPreparer.GetRecentWorkReviews(id,Constants.MAX_RECENT_REVIEWS));
             List<int> userIds = [];
-            List<Review> toReturn = [];
+            List<Models.Review> toReturn = [];
             MySqlDataReader reviewsReader = await reviewsTask;
             while (reviewsReader.Read())
             {
                 userIds.Add(reviewsReader.GetInt32("user"));
-                toReturn.Add(Review.FromQuery(reviewsReader));
+                toReturn.Add(Models.Review.FromQuery(reviewsReader));
             }
-            List<User> users = await new SimpleUserListRequestHandler(connector).HandleRequest(userIds);
+            List<Models.User> users = await new SimpleUserListRequestHandler(connector).HandleRequest(userIds);
             for (int i = 0; i < toReturn.Count; i++)
             {
                 toReturn[i].SetUser(users[i]);

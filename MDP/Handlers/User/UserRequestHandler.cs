@@ -1,17 +1,17 @@
-﻿namespace MDP.Handlers.User
-{
-    using MDP.Data;
-    using MDP.Models;
-    using MySql.Data.MySqlClient;
+﻿using MDP.Data;
+using MDP.Models;
+using MySql.Data.MySqlClient;
 
+namespace MDP.Handlers.User
+{
     /// <summary>
     /// Busca, cria e retorna um único usuário baseado no Id dele.
     /// </summary>
-    public class UserRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<User>
+    public class UserRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Models.User>
     {
 
         //Inicia 3 connections
-        public async Task<User> HandleRequest(int id)
+        public async Task<Models.User> HandleRequest(int id)
         {
             Task<MySqlDataReader> userTask = connector.ExecuteQuery(StatementPreparer.GetUserById(id));
             Task<MySqlDataReader> imageUrlsTask = GetImageUrls(id);
@@ -19,7 +19,7 @@
 
             MySqlDataReader userReader = await userTask;
             userReader.Read();
-            User toReturn = User.FromQuery(userReader);
+            Models.User toReturn = Models.User.FromQuery(userReader);
 
             Task? imageUrlsAfterTask = imageUrlsTask.ContinueWith((task) =>
             {

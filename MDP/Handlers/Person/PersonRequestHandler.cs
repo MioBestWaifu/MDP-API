@@ -1,17 +1,16 @@
-﻿namespace MDP.Handlers.Person
+﻿using MDP.Models;
+using MDP.Data;
+using MySql.Data.MySqlClient;
+using System.Threading.Tasks;
+namespace MDP.Handlers.Person
 {
-    using MDP.Models;
-    using MDP.Data;
-    using MySql.Data.MySqlClient;
-    using System.Threading.Tasks;
-
     /// <summary>
     /// Busca, cria e retorna uma única pessoa baseada no Id dela.
     /// </summary>
-    public class PersonRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Person>
+    public class PersonRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Models.Person>
     {
         //Inicia 4 connections
-        public async Task<Person> HandleRequest(int id)
+        public async Task<Models.Person> HandleRequest(int id)
         {
             Task<MySqlDataReader> personTask = connector.ExecuteQuery(StatementPreparer.GetPersonById(id));
             Task<MySqlDataReader> rolesTask = GetRoles(id);
@@ -20,7 +19,7 @@
 
             MySqlDataReader personReader = await personTask;
             personReader.Read();
-            Person toReturn = Person.FromQuery(personReader);
+            Models.Person toReturn = Models.Person.FromQuery(personReader);
 
             Task? rolesAfterTask = rolesTask.ContinueWith((task) =>
             {
