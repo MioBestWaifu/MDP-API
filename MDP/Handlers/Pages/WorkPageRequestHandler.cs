@@ -4,7 +4,6 @@ namespace MDP.Handlers.Pages
 {
     using MDP.Data;
     using MDP.Handlers.Work;
-    using MDP.Handlers.Link;
     using MDP.Models.Artifacts;
     using MDP.Models.Pages;
     using MDP.Models;
@@ -22,8 +21,8 @@ namespace MDP.Handlers.Pages
         public async Task<WorkPageModel> HandleRequest(int id)
         {
             Task<Artifact> workTask = new WorkRequestHandler(conn).HandleRequest(id);
-            Task<List<Link>> personsTask = new ParticipantPersonsAsLinksRequestHandler(conn).HandleRequest(id);
-            Task<List<Link>> companiesTask = new ParticipantCompaniesAsLinksRequestHandler(conn).HandleRequest(id);
+            Task<List<Link>> personsTask = GetParticipantPersons(id);
+            Task<List<Link>> companiesTask = GetParticipantCompanies(id);
             Task<List<Link>> newsTask = GetRecentNews(id);
             Task<List<Review>> reviewsTask = new RecentWorkReviewsRequestHandler(conn).HandleRequest(id);
 
@@ -44,6 +43,30 @@ namespace MDP.Handlers.Pages
             while (reader.Read())
             {
                 toReturn.Add(Link.FromLinkableNews(reader));
+            }
+            return toReturn;
+        }
+
+        public async Task<List<Link>> GetParticipantPersons(int id)
+        {
+            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkableParticipantPersons(id));
+            MySqlDataReader reader = await linksTask;
+            List<Link> toReturn = new List<Link>();
+            while (reader.Read())
+            {
+                toReturn.Add(Link.FromLinkablePerson(reader));
+            }
+            return toReturn;
+        }
+
+        public async Task<List<Link>> GetParticipantCompanies(int id)
+        {
+            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkableParticipantCompanies(id));
+            MySqlDataReader reader = await linksTask;
+            List<Link> toReturn = new List<Link>();
+            while (reader.Read())
+            {
+                toReturn.Add(Link.FromLinkableCompany(reader));
             }
             return toReturn;
         }
