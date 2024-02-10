@@ -50,5 +50,9 @@
 
         public static string getReviewById = "SELECT * FROM reviews WHERE id = @review",
             getReviewUserByReviewId = "SELECT * FROM users WHERE id = (SELECT user FROM reviews WHERE reviews.id = @review)";
+
+        public static string getLinkableParticipantPersons = "SELECT * FROM linkableworkpersons WHERE work = @work",
+            getLinkableParticipantCompanies = "SELECT * FROM linkableworkcompanies WHERE work = @work",
+            getLinkableCurrentAffiliates = "SELECT * FROM linkablecompanyaffiliations WHERE end IS NULL AND company = @company";
     }
 }

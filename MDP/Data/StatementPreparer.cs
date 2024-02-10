@@ -281,5 +281,26 @@ namespace MDP.Data
             com.Parameters.AddWithValue("@review", review);
             return com;
         }
+
+        public static MySqlCommand GetLinkableParticipantPersons(int work)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableParticipantPersons);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkableParticipantCompanies(int work)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableParticipantCompanies);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkableCurrentAffiliates(int company)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableCurrentAffiliates);
+            com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
     }
 }
