@@ -133,6 +133,13 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetUserFavoriteWorks(int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getUserFavoriteWorks);
+            com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
         public static MySqlCommand GetPersonById (int person)
         {
             MySqlCommand com = new MySqlCommand(Statements.getPersonById);

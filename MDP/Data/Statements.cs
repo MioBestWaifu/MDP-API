@@ -23,7 +23,8 @@ namespace MDP.Data
             getAllWorkReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC)",
             getWorkAverageRating = "SELECT CAST((SELECT SUM(rating) FROM reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC))/(SELECT COUNT(rating)" +
             " FROM reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC)) AS FLOAT) AS average",
-            getFirstWorks = "SELECT * FROM works LIMIT 30";
+            getFirstWorks = "SELECT * FROM works LIMIT 30",
+            getUserFavoriteWorks = "SELECT * FROM works WHERE id IN(SELECT work FROM favoriteworks WHERE user = @user)";
 
         public static string getPersonById = "SELECT * FROM persons WHERE id = @person",
             getPersonRolesByPersonId = "SELECT name FROM roles WHERE id IN (SELECT role FROM personroles WHERE person = @person)",
