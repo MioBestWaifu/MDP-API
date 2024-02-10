@@ -324,5 +324,13 @@ namespace MDP.Data
             com.Parameters.AddWithValue("@company", company);
             return com;
         }
+
+        public static MySqlCommand GetLinkableRecentWorkNews(int work, int limit)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableRecentWorkNews);
+            com.Parameters.AddWithValue("@work", work);
+            com.Parameters.AddWithValue("@limit", limit);
+            return com;
+        }
     }
 }

@@ -37,5 +37,15 @@ namespace MDP.Models
             toReturn.RedirectTo = "/company/" + reader.GetInt32("id");
             return toReturn;
         }
+
+        public static Link FromLinkableNews(MySqlDataReader reader)
+        {
+            Link toReturn = new Link();
+            toReturn.ImgUrl = reader.GetString("url");
+            toReturn.MainLabel = reader.GetString("title");
+            toReturn.SecondaryLabel = reader.GetString("text");
+            toReturn.RedirectTo = "/news/" + reader.GetInt32("id");
+            return toReturn;
+        }
     }
 }
