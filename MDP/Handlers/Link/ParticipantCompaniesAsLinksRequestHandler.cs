@@ -4,7 +4,7 @@ namespace MDP.Handlers.Link
     using MDP.Models;
     using MDP.Data;
     using MySql.Data.MySqlClient;
-    public class ParticipantCompaniesRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<List<Link>>
+    public class ParticipantCompaniesAsLinksRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<List<Link>>
     {
         public async Task<List<Link>> HandleRequest(int id)
         {

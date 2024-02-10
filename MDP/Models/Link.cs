@@ -19,6 +19,15 @@ namespace MDP.Models
             return toReturn;
         }
 
+        public static Link FromLinkableAffiliation(MySqlDataReader reader)
+        {
+            Link toReturn = new Link();
+            toReturn.ImgUrl = reader.GetString("url");
+            toReturn.MainLabel = reader.GetString("name");
+            toReturn.RedirectTo = "/person/" + reader.GetInt32("id");
+            return toReturn;
+        }
+
         public static Link FromLinkableCompany(MySqlDataReader reader)
         {
             Link toReturn = new Link();
