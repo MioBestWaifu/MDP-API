@@ -1,4 +1,6 @@
-﻿namespace MDP.Data
+﻿using MDP.Models;
+
+namespace MDP.Data
 {
     public class Statements
     {
@@ -41,7 +43,10 @@
             getCompanyCountry = "SELECT name FROM countries WHERE countries.id = (SELECT country FROM companies WHERE companies.id = @company)";
 
         public static string getUserById = "SELECT * FROM users WHERE id = @user",
+            getSimpleUserById = "SELECT * FROM simpleusers WHERE id = @user",
+            getListOfSimpleUsers = "SELECT * FROM simpleusers WHERE id IN (@users)",
             getAllUserImages = "SELECT * FROM userimages WHERE user = @user",
+            getUserMainImage = $"SELECT url FROM userimages WHERE user = @user AND type = {ImageTypes.MainImage}",
             getUserInterestsByUserId = "SELECT * FROM interests WHERE id IN (SELECT interest FROM userinterests WHERE user = @user)",
             getUserCountry = "SELECT name FROM countries WHERE countries.id = (SELECT country FROM users WHERE users.id = @user)";
 

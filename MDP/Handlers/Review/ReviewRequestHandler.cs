@@ -23,7 +23,7 @@
             MySqlDataReader reviewReader = await reviewTask;
             reviewReader.Read();
             Review toReturn = Review.FromQuery(reviewReader);
-            Task<User> userTask = new UserRequestHandler(connector).HandleRequest(reviewReader.GetInt32("user"));
+            Task<User> userTask = new SimpleUserRequestHandler(connector).HandleRequest(reviewReader.GetInt32("user"));
             toReturn.SetUser(await userTask);
 
             return toReturn;

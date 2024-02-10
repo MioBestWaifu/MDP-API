@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MDP.Utils;
+using MySql.Data.MySqlClient;
 
 namespace MDP.Data
 {
@@ -233,9 +234,17 @@ namespace MDP.Data
             return com;
         }
 
+
         public static MySqlCommand GetAllUserImages (int user)
         {
             MySqlCommand com = new MySqlCommand(Statements.getAllUserImages);
+            com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
+        public static MySqlCommand GetUserMainImage (int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getUserMainImage);
             com.Parameters.AddWithValue("@user", user);
             return com;
         }
@@ -251,6 +260,19 @@ namespace MDP.Data
         {
             MySqlCommand com = new MySqlCommand(Statements.getUserCountry);
             com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
+        public static MySqlCommand GetSimpleUserById(int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getSimpleUserById);
+            com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
+        public static MySqlCommand GetListOfSimpleUsers(List<int> users)
+        {
+            MySqlCommand com = new MySqlCommand(ListInserter.InsertInts(Statements.getListOfSimpleUsers,"@users",users));
             return com;
         }
 
