@@ -62,6 +62,12 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetFirstWorks ()
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getFirstWorks);
+            return com;
+        }
+
         public static MySqlCommand GetWorkCategoriesByWorkId (int work)
         {
             MySqlCommand com = new MySqlCommand(Statements.getWorkCategoriesByWorkId);
@@ -322,6 +328,13 @@ namespace MDP.Data
         {
             MySqlCommand com = new MySqlCommand(Statements.getLinkableCurrentAffiliates);
             com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkableRecentGlobalNews(int limit)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableRecentGlobalNews);
+            com.Parameters.AddWithValue("@limit", limit);
             return com;
         }
 
