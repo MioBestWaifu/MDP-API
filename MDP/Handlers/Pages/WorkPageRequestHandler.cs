@@ -8,6 +8,8 @@ namespace MDP.Handlers.Pages
     using MDP.Models.Artifacts;
     using MDP.Models.Pages;
     using MDP.Models;
+    using MDP.Handlers.Review;
+
     public class WorkPageRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<WorkPageModel>
     {
         /// <summary>
@@ -20,10 +22,12 @@ namespace MDP.Handlers.Pages
             Task<Artifact> workTask = new WorkRequestHandler(conn).HandleRequest(id);
             Task<List<Link>> personsTask = new ParticipantPersonsAsLinksRequestHandler(conn).HandleRequest(id);
             Task<List<Link>> companiesTask = new ParticipantCompaniesAsLinksRequestHandler(conn).HandleRequest(id);
+            Task<List<Review>> reviewsTask = new RecentWorkReviewsRequestHandler(conn).HandleRequest(id);
 
             Artifact artifact = await workTask;
             WorkPageModel toReturn = new WorkPageModel();
             toReturn.Participants = [.. await companiesTask,.. await personsTask];
+            toReturn.Reviews = await reviewsTask;
             toReturn.Work = artifact;
             return toReturn;
         }
