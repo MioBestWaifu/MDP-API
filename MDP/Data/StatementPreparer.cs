@@ -1,5 +1,6 @@
 ﻿using MDP.Utils;
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 
 namespace MDP.Data
 {
@@ -350,6 +351,22 @@ namespace MDP.Data
             MySqlCommand com = new MySqlCommand(Statements.getLinkableRecentWorkNews);
             com.Parameters.AddWithValue("@work", work);
             com.Parameters.AddWithValue("@limit", limit);
+            return com;
+        }
+
+        /// <summary>
+        /// Page é de índice 0
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="page"> 
+        /// É de índice 0 
+        /// </param>
+        /// <returns></returns>
+        public static MySqlCommand SearchWorks(string name, int page)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.searchWorks);
+            com.Parameters.AddWithValue("@name", "%"+name+"%");
+            com.Parameters.AddWithValue("@limit", page * Constants.MAX_SEARCH_WORKS);
             return com;
         }
     }

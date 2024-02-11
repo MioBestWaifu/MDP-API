@@ -1,4 +1,5 @@
 ﻿using MDP.Models;
+using MDP.Utils;
 
 namespace MDP.Data
 {
@@ -63,5 +64,16 @@ namespace MDP.Data
             getLinkableCurrentAffiliates = "SELECT * FROM linkablecompanyaffiliations WHERE end IS NULL AND company = @company",
             getLinkableRecentWorkNews = "SELECT * FROM linkableworknews WHERE work = @work ORDER BY id DESC LIMIT @limit",
             getLinkableRecentGlobalNews = "SELECT * FROM linkableglobalnews ORDER BY id DESC LIMIT @limit";
+
+        public static string searchWorks = $"SELECT * FROM works WHERE shortName LIKE @name OR fullName LIKE @name LIMIT {Constants.MAX_SEARCH_WORKS} OFFSET @offset",
+            searchPersons = "SELECT * FROM persons WHERE name LIKE @name",
+            searchCompanies = "SELECT * FROM companies WHERE name LIKE @name",
+            searchUsers = "SELECT * FROM users WHERE name LIKE @name",
+            searchInterests = "SELECT * FROM interests WHERE name LIKE @name",
+            searchCountries = "SELECT * FROM countries WHERE name LIKE @name",
+            searchDemographics = "SELECT * FROM demographics WHERE name LIKE @name",
+            searchCategories = "SELECT * FROM categories WHERE name LIKE @name",
+            searchMedias = "SELECT * FROM medias WHERE name LIKE @name",
+            searchRoles = "SELECT * FROM roles WHERE name LIKE @name";
     }
 }
