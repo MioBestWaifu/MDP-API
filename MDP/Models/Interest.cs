@@ -47,6 +47,15 @@
                 Console.WriteLine($"Column 'description' not found: {ex.Message}");
             }
 
+            try
+            {
+                interest.Selected = reader.GetBoolean("selectes");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Column 'selected' not found: {ex.Message}");
+            }
+
             return interest;
         }
 

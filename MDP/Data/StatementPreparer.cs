@@ -304,6 +304,13 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetAllInterestBasedOnUser(int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getAllInterestBasedOnUser);
+            com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
         public static MySqlCommand GetReviewById(int review)
         {           
             MySqlCommand com = new MySqlCommand(Statements.getReviewById);

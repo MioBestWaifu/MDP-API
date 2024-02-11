@@ -54,7 +54,8 @@ namespace MDP.Data
             getUserCountry = "SELECT name FROM countries WHERE countries.id = (SELECT country FROM users WHERE users.id = @user)";
 
         public static string getInterestById = "SELECT * FROM interests WHERE id = @interest",
-            getInterestDemographicsByInterestId = "SELECT name FROM demographics WHERE id IN (SELECT demographic FROM interestdemographics WHERE interest = @interest)";
+            getInterestDemographicsByInterestId = "SELECT name FROM demographics WHERE id IN (SELECT demographic FROM interestdemographics WHERE interest = @interest)",
+            getAllInterestBasedOnUser = "SELECT *,interests.id IN(SELECT interest FROM userinterests WHERE user = @user) as selected FROM interests";
 
         public static string getReviewById = "SELECT * FROM reviews WHERE id = @review",
             getReviewUserByReviewId = "SELECT * FROM users WHERE id = (SELECT user FROM reviews WHERE reviews.id = @review)";
