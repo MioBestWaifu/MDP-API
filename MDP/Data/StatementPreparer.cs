@@ -1,4 +1,6 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MDP.Utils;
+using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 
 namespace MDP.Data
 {
@@ -61,6 +63,12 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetFirstWorks ()
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getFirstWorks);
+            return com;
+        }
+
         public static MySqlCommand GetWorkCategoriesByWorkId (int work)
         {
             MySqlCommand com = new MySqlCommand(Statements.getWorkCategoriesByWorkId);
@@ -79,6 +87,20 @@ namespace MDP.Data
         public static MySqlCommand GetWorkDemographics (int work)
         {
             MySqlCommand com = new MySqlCommand(Statements.getWorkDemographics);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
+        }
+
+        public static MySqlCommand GetWorkMedia (int work)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getWorkMedia);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
+        }
+
+        public static MySqlCommand GetWorkMainParticipantRole (int work)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getWorkMainParticipantRole);
             com.Parameters.AddWithValue("@work", work);
             return com;
         }
@@ -109,6 +131,13 @@ namespace MDP.Data
         {
             MySqlCommand com = new MySqlCommand(Statements.getWorkAverageRating);
             com.Parameters.AddWithValue("@work", work);
+            return com;
+        }
+
+        public static MySqlCommand GetUserFavoriteWorks(int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getUserFavoriteWorks);
+            com.Parameters.AddWithValue("@user", user);
             return com;
         }
 
@@ -151,6 +180,13 @@ namespace MDP.Data
         public static MySqlCommand GetPersonAverageRating (int person)
         {
             MySqlCommand com = new MySqlCommand(Statements.getPersonAverageRating);
+            com.Parameters.AddWithValue("@person", person);
+            return com;
+        }
+
+        public static MySqlCommand GetPersonCountry (int person)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getPersonCountry);
             com.Parameters.AddWithValue("@person", person);
             return com;
         }
@@ -198,12 +234,20 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetCompanyCountry(int company)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getCompanyCountry);
+            com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
         public static MySqlCommand GetUserById (int user)
         {
             MySqlCommand com = new MySqlCommand(Statements.getUserById);
             com.Parameters.AddWithValue("@user", user);
             return com;
         }
+
 
         public static MySqlCommand GetAllUserImages (int user)
         {
@@ -212,10 +256,37 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetUserMainImage (int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getUserMainImage);
+            com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
         public static MySqlCommand GetUserInterestsByUserId (int user)
         {
             MySqlCommand com = new MySqlCommand(Statements.getUserInterestsByUserId);
             com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
+        public static MySqlCommand GetUserCountry (int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getUserCountry);
+            com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
+        public static MySqlCommand GetSimpleUserById(int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getSimpleUserById);
+            com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
+        public static MySqlCommand GetListOfSimpleUsers(List<int> users)
+        {
+            MySqlCommand com = new MySqlCommand(ListInserter.InsertInts(Statements.getListOfSimpleUsers,"@users",users));
             return com;
         }
 
@@ -230,6 +301,93 @@ namespace MDP.Data
         {
             MySqlCommand com = new MySqlCommand(Statements.getInterestDemographicsByInterestId);
             com.Parameters.AddWithValue("@interest", interest);
+            return com;
+        }
+
+        public static MySqlCommand GetAllInterestBasedOnUser(int user)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getAllInterestBasedOnUser);
+            com.Parameters.AddWithValue("@user", user);
+            return com;
+        }
+
+        public static MySqlCommand GetReviewById(int review)
+        {           
+            MySqlCommand com = new MySqlCommand(Statements.getReviewById);
+            com.Parameters.AddWithValue("@review", review);                
+            return com;
+        }
+
+        public static MySqlCommand GetReviewUserByReviewId(int review)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getReviewUserByReviewId);
+            com.Parameters.AddWithValue("@review", review);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkablePersonParticipationsByWork(int work)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkablePersonParticipationsByWork);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkablePersonParticipationsByPerson(int person)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkablePersonParticipationsByPerson);
+            com.Parameters.AddWithValue("@person", person);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkableCompanyParticipationsByWork(int work)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableCompanyParticipationsByWork);
+            com.Parameters.AddWithValue("@work", work);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkableAffiliationsByCompany(int company)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableAffiliationsByCompany);
+            com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkableAffiliationsByPerson(int person)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableAffiliationsByPerson);
+            com.Parameters.AddWithValue("@person", person);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkableRecentGlobalNews(int limit)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableRecentGlobalNews);
+            com.Parameters.AddWithValue("@limit", limit);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkableRecentWorkNews(int work, int limit)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableRecentWorkNews);
+            com.Parameters.AddWithValue("@work", work);
+            com.Parameters.AddWithValue("@limit", limit);
+            return com;
+        }
+
+        /// <summary>
+        /// Page é de índice 0
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="page"> 
+        /// É de índice 0 
+        /// </param>
+        /// <returns></returns>
+        public static MySqlCommand SearchWorks(string name, int page)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.searchWorks);
+            com.Parameters.AddWithValue("@name", "%"+name+"%");
+            com.Parameters.AddWithValue("@limit", page * Constants.MAX_SEARCH_WORKS);
             return com;
         }
     }

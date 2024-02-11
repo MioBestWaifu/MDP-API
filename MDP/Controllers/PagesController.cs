@@ -38,13 +38,13 @@ namespace MDP.Controllers
         }
 
         [HttpGet("interestupdate")]
-        public InterestUpdatePageModel GetInterestUpdatePage()
+        public UserPageModel GetInterestUpdatePage()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet("person")]
-        public PersonPageModel GetPersonPage(int id)
+        public UserPageModel GetPersonPage(int id)
         {
             throw new NotImplementedException();
         }

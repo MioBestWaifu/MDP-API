@@ -1,6 +1,7 @@
 ﻿namespace MDP.Handlers
 {
-    public interface IRequestHandler
+    public interface IRequestHandler <K>
     {
+        public abstract Task<K> HandleRequest(int id);
     }
 }

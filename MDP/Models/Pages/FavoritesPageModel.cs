@@ -5,7 +5,7 @@
 
     public class FavoritesPageModel : BasePageModel
     {
-        public List<string> Groups { get; set; } = new List<string>();
+        public List<string> Groups { get; set; } = ["Media","Category","Year"];
         public List<Artifact> AllFavorites { get; set; } = new List<Artifact>();
     }
 }

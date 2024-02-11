@@ -9,3 +9,4 @@
     - Implementar tokenização
     - Utilizar tokens para completar requisições de Favorites, Home, InterestUpdate e InterestSetup
     - Implementar interações de rating de User, Person, Company e Work
+    - Adicionar busca de user, person e company
