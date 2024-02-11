@@ -13,7 +13,7 @@ namespace MDP.Handlers.Pages
         }
         public async Task<List<Link>> GetCurrentAffiliates(int id)
         {
-            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkableCurrentAffiliates(id));
+            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkableAffiliationsByCompany(id));
             MySqlDataReader reader = await linksTask;
             List<Link> toReturn = new List<Link>();
             while (reader.Read())

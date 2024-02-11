@@ -60,9 +60,11 @@ namespace MDP.Data
         public static string getReviewById = "SELECT * FROM reviews WHERE id = @review",
             getReviewUserByReviewId = "SELECT * FROM users WHERE id = (SELECT user FROM reviews WHERE reviews.id = @review)";
 
-        public static string getLinkableParticipantPersons = "SELECT * FROM linkableworkpersons WHERE work = @work",
-            getLinkableParticipantCompanies = "SELECT * FROM linkableworkcompanies WHERE work = @work",
-            getLinkableCurrentAffiliates = "SELECT * FROM linkablecompanyaffiliations WHERE end IS NULL AND company = @company",
+        public static string getLinkablePersonParticipationsByWork = "SELECT * FROM linkableworkpersons WHERE work = @work",
+            getLinkablePersonParticipationsByPerson = "SELECT * FROM linkablepersonworks WHERE person = @person",
+            getLinkableCompanyParticipationsByWork = "SELECT * FROM linkableworkcompanies WHERE work = @work",
+            getLinkableAffiliationsByCompany = "SELECT * FROM linkablecompanyaffiliations WHERE end IS NULL AND company = @company",
+            getLinkableAffiliationsByPerson = "SELECT * FROM linkablepersonaffiliations WHERE end IS NULL AND person = @person",
             getLinkableRecentWorkNews = "SELECT * FROM linkableworknews WHERE work = @work ORDER BY id DESC LIMIT @limit",
             getLinkableRecentGlobalNews = "SELECT * FROM linkableglobalnews ORDER BY id DESC LIMIT @limit";
 

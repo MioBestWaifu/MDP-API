@@ -15,7 +15,17 @@ namespace MDP.Models
             toReturn.ImgUrl = reader.GetString("url");
             toReturn.MainLabel = reader.GetString("name");
             toReturn.SecondaryLabel = reader.GetString("role");
-            toReturn.RedirectTo = "/person/" + reader.GetInt32("id");
+            toReturn.RedirectTo = "/person/" + reader.GetInt32("person");
+            return toReturn;
+        }
+
+        public static Link FromLinkableWork(MySqlDataReader reader)
+        {
+            Link toReturn = new Link();
+            toReturn.ImgUrl = reader.GetString("url");
+            toReturn.MainLabel = reader.GetString("name");
+            toReturn.SecondaryLabel = reader.GetString("role");
+            toReturn.RedirectTo = "/work/" + reader.GetInt32("work");
             return toReturn;
         }
 
@@ -34,7 +44,7 @@ namespace MDP.Models
             toReturn.ImgUrl = reader.GetString("url");
             toReturn.MainLabel = reader.GetString("name");
             toReturn.SecondaryLabel = reader.GetString("role");
-            toReturn.RedirectTo = "/company/" + reader.GetInt32("id");
+            toReturn.RedirectTo = "/company/" + reader.GetInt32("company");
             return toReturn;
         }
 

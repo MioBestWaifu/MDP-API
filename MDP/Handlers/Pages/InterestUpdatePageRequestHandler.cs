@@ -4,12 +4,12 @@ using MySql.Data.MySqlClient;
 
 namespace MDP.Handlers.Pages
 {
-    public class InterestUpdatePageRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<InterestUpdatePageModel>
+    public class InterestUpdatePageRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<PersonPageModel>
     {
-        public async Task<InterestUpdatePageModel> HandleRequest(int id)
+        public async Task<PersonPageModel> HandleRequest(int id)
         {
             Task<MySqlDataReader> interestsTask = connector.ExecuteQuery(StatementPreparer.GetAllInterestBasedOnUser(id));
-            InterestUpdatePageModel toReturn = new InterestUpdatePageModel();
+            PersonPageModel toReturn = new PersonPageModel();
 
             MySqlDataReader reader = await interestsTask;
             while (reader.Read())

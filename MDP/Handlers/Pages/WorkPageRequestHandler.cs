@@ -49,7 +49,7 @@ namespace MDP.Handlers.Pages
 
         public async Task<List<Link>> GetParticipantPersons(int id)
         {
-            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkableParticipantPersons(id));
+            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkablePersonParticipationsByWork(id));
             MySqlDataReader reader = await linksTask;
             List<Link> toReturn = new List<Link>();
             while (reader.Read())
@@ -61,7 +61,7 @@ namespace MDP.Handlers.Pages
 
         public async Task<List<Link>> GetParticipantCompanies(int id)
         {
-            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkableParticipantCompanies(id));
+            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkableCompanyParticipationsByWork(id));
             MySqlDataReader reader = await linksTask;
             List<Link> toReturn = new List<Link>();
             while (reader.Read())

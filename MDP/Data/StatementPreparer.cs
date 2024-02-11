@@ -325,24 +325,38 @@ namespace MDP.Data
             return com;
         }
 
-        public static MySqlCommand GetLinkableParticipantPersons(int work)
+        public static MySqlCommand GetLinkablePersonParticipationsByWork(int work)
         {
-            MySqlCommand com = new MySqlCommand(Statements.getLinkableParticipantPersons);
+            MySqlCommand com = new MySqlCommand(Statements.getLinkablePersonParticipationsByWork);
             com.Parameters.AddWithValue("@work", work);
             return com;
         }
 
-        public static MySqlCommand GetLinkableParticipantCompanies(int work)
+        public static MySqlCommand GetLinkablePersonParticipationsByPerson(int person)
         {
-            MySqlCommand com = new MySqlCommand(Statements.getLinkableParticipantCompanies);
+            MySqlCommand com = new MySqlCommand(Statements.getLinkablePersonParticipationsByPerson);
+            com.Parameters.AddWithValue("@person", person);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkableCompanyParticipationsByWork(int work)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableCompanyParticipationsByWork);
             com.Parameters.AddWithValue("@work", work);
             return com;
         }
 
-        public static MySqlCommand GetLinkableCurrentAffiliates(int company)
+        public static MySqlCommand GetLinkableAffiliationsByCompany(int company)
         {
-            MySqlCommand com = new MySqlCommand(Statements.getLinkableCurrentAffiliates);
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableAffiliationsByCompany);
             com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
+        public static MySqlCommand GetLinkableAffiliationsByPerson(int person)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableAffiliationsByPerson);
+            com.Parameters.AddWithValue("@person", person);
             return com;
         }
 
