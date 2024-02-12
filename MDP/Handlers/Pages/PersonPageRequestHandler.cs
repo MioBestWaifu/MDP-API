@@ -6,16 +6,16 @@ using MySql.Data.MySqlClient;
 
 namespace MDP.Handlers.Pages
 {
-    public class PersonPageRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<UserPageModel>
+    public class PersonPageRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<PersonPageModel>
     {
-        public async Task<UserPageModel> HandleRequest(int id)
+        public async Task<PersonPageModel> HandleRequest(int id)
         {
             Task<Models.Person> personTask = new PersonRequestHandler(conn).HandleRequest(id);
             Task<MySqlDataReader> participationsTask = connector.ExecuteQuery(StatementPreparer.GetLinkablePersonParticipationsByPerson(id));
             Task<MySqlDataReader> affiliationsTask = connector.ExecuteQuery(StatementPreparer.GetLinkableAffiliationsByPerson(id));
 
             Models.Person person = await personTask;
-            UserPageModel toReturn = new UserPageModel();
+            PersonPageModel toReturn = new PersonPageModel();
             toReturn.Person = person;
             var participationsAfterTask = participationsTask.ContinueWith((task) =>
             {

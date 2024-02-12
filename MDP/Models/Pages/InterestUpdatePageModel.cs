@@ -1,6 +1,6 @@
 ﻿namespace MDP.Models.Pages
 {
-    public class UserPageModel
+    public class InterestUpdatePageModel
     {
         public Dictionary<string, List<Interest>> InterestDictionary { get; set; } = new Dictionary<string, List<Interest>>()
             {

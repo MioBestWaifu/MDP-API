@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MDP.Models.Pages;
+using MDP.Handlers.Pages;
+using MDP.Data;
 
 namespace MDP.Controllers
 {
@@ -7,6 +9,11 @@ namespace MDP.Controllers
     [Route("pages")]
     public class PagesController : ControllerBase
     {
+        private readonly DatabaseConnector conn;
+        public PagesController(DatabaseConnector conn)
+        {
+            this.conn = conn;
+        }
         [HttpGet("community")]
         public CommunityPageModel GetCommunityPage(int id)
         {
@@ -16,19 +23,19 @@ namespace MDP.Controllers
         [HttpGet("company")]
         public CompanyPageModel GetCompanyPage(int id)
         {
-            throw new NotImplementedException();
+            return new CompanyPageRequestHandler(conn).HandleRequest(id).Result;
         }
 
         [HttpGet("favorites")]
         public FavoritesPageModel GetFavoritesPage()
         {
-            throw new NotImplementedException();
+            return new FavoritesPageRequestHandler(conn).HandleRequest(1).Result;
         }
 
         [HttpGet("home")]
         public HomePageModel GetHomePage()
         {
-            throw new NotImplementedException();
+            return new HomePageRequestHandler(conn).HandleRequest(1).Result;
         }
 
         [HttpGet("interestsetup")]
@@ -38,33 +45,33 @@ namespace MDP.Controllers
         }
 
         [HttpGet("interestupdate")]
-        public UserPageModel GetInterestUpdatePage()
+        public InterestUpdatePageModel GetInterestUpdatePage()
         {
-            throw new NotImplementedException();
+            return new InterestUpdatePageRequestHandler(conn).HandleRequest(1).Result;
         }
 
         [HttpGet("person")]
-        public UserPageModel GetPersonPage(int id)
+        public PersonPageModel GetPersonPage(int id)
         {
-            throw new NotImplementedException();
+            return new PersonPageRequestHandler(conn).HandleRequest(id).Result;
         }
 
         [HttpGet("search")]
-        public SearchPageModel GetSearchPage()
+        public SearchPageModel GetSearchPage(string query)
         {
-            throw new NotImplementedException();
+            return new SearchPageRequestHandler(conn).HandleSearch(query).Result;
         }
 
         [HttpGet("user")]
         public UserPageModel GetUserPage(int id)
         {
-            throw new NotImplementedException();
+            return new UserPageRequestHandler(conn).HandleRequest(id).Result;
         }
 
         [HttpGet("work")]
         public WorkPageModel GetWorkPage(int id)
         {
-            throw new NotImplementedException();
+            return new WorkPageRequestHandler(conn).HandleRequest(id).Result;
         }
     }
 }

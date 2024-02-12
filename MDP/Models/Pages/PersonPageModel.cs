@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    public class UserPageModel : BasePageModel
+    public class PersonPageModel : BasePageModel
     {
         public Person Person { get; set; }
         public List<Link> ArtifactParticipations { get; set; } = [];
