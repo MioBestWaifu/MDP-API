@@ -93,6 +93,8 @@ INSERT INTO companyaffiliations (company,person,role,start) VALUES (1,1,1,"2020-
 
 # Associados ao user principal de testes
 INSERT INTO userimages (user,type,url) VALUES (1,2,"assets/imgs/users/1main.png"),(2,2,"assets/imgs/users/2main.png");
+INSERT INTO favoriteworks (work,user) VALUES (1,1),(5,1);
+
 # Global News 
 INSERT INTO news (title,text) VALUES ("Carousel test 1!","Believe if you want!"),("Carousel test 2","But i dont have crativity to describe it"),
 ("Carousel test 3","Because i thought three would look good");

@@ -25,7 +25,8 @@ namespace MDP.Data
             getWorkAverageRating = "SELECT CAST((SELECT SUM(rating) FROM reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC))/(SELECT COUNT(rating)" +
             " FROM reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC)) AS FLOAT) AS average",
             getFirstWorks = "SELECT * FROM works LIMIT 30",
-            getUserFavoriteWorks = "SELECT * FROM works WHERE id IN(SELECT work FROM favoriteworks WHERE user = @user)";
+            getUserFavoriteWorks = $"SELECT * FROM works LEFT JOIN (SELECT workimages.work, url as url FROM workimages WHERE type = {(int)ImageTypes.CardImage}) AS imgs " +
+            $"ON works.id = imgs.work WHERE works.id IN (SELECT work FROM favoriteworks WHERE user = @user)";
 
         public static string getPersonById = "SELECT * FROM persons WHERE id = @person",
             getPersonRolesByPersonId = "SELECT name FROM roles WHERE id IN (SELECT role FROM personroles WHERE person = @person)",
@@ -49,7 +50,7 @@ namespace MDP.Data
             getSimpleUserById = "SELECT * FROM simpleusers WHERE id = @user",
             getListOfSimpleUsers = "SELECT * FROM simpleusers WHERE id IN (@users)",
             getAllUserImages = "SELECT * FROM userimages WHERE user = @user",
-            getUserMainImage = $"SELECT url FROM userimages WHERE user = @user AND type = {ImageTypes.MainImage}",
+            getUserMainImage = $"SELECT url FROM userimages WHERE user = @user AND type = {(int)ImageTypes.MainImage}",
             getUserInterestsByUserId = "SELECT * FROM interests WHERE id IN (SELECT interest FROM userinterests WHERE user = @user)",
             getUserCountry = "SELECT name FROM countries WHERE countries.id = (SELECT country FROM users WHERE users.id = @user)";
 

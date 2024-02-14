@@ -21,7 +21,15 @@ namespace MDP.Handlers.Pages
             List<Artifact> toReturn = new List<Artifact>();
             while (reader.Read())
             {
-                toReturn.Add(Artifact.FromQuery(reader));
+                Artifact toAdd = Artifact.FromQuery(reader);
+                try
+                {
+                    toAdd.CardImgUrl = reader.GetString("url");
+                } catch (Exception ex)
+                {
+                    Console.WriteLine("url column not found");
+                }
+                toReturn.Add(toAdd);
             }
             return toReturn;
         }
