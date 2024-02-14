@@ -60,6 +60,17 @@ namespace MDP.Handlers.Work
             return toReturn;
         }
 
+        public async Task GetAcessoryInformation(Artifact artifact)
+        {
+            artifact.SetCategories(await GetCategories(artifact.Id));
+            artifact.SetDemographics(await GetTargetDemographics(artifact.Id));
+            artifact.SetOtherNames(await GetOtherNames(artifact.Id));
+            artifact.SetImageUrls(await GetImages(artifact.Id));
+            artifact.SetAverageRating(await GetAverageRating(artifact.Id));
+            artifact.SetMedia(await GetMedia(artifact.Id));
+            artifact.SetMainParticipantRole(await GetMainParticipantRole(artifact.Id));
+        }
+
         private async Task<MySqlDataReader> GetCategories(int id)
         {
             return await connector.ExecuteQuery(StatementPreparer.GetWorkCategoriesByWorkId(id));

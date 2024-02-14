@@ -93,6 +93,7 @@
             {
                 this.TargetDemographics.Add(reader.GetString("name"));
             }
+            reader.Close();
         }
 
         /// <summary>
@@ -106,6 +107,7 @@
             {
                 this.Categories.Add(reader.GetString("name"));
             }
+            reader.Close();
         }
 
         /// <summary>
@@ -116,6 +118,7 @@
         {
             reader.Read();
             this.AgeRating = reader.GetString("name");
+            reader.Close();
         }
 
         /// <summary>
@@ -136,6 +139,7 @@
         {
             reader.Read();
             this.MainParticipantRole = reader.GetString("name");
+            reader.Close();
         }
 
         /// <summary>
@@ -160,6 +164,7 @@
                         break;
                 }
             }
+            reader.Close();
         }
 
         /// <summary>
@@ -170,6 +175,7 @@
         {
             reader.Read();
             this.AverageRating = reader.GetDouble("average");
+            reader.Close();
         }
 
         public void SetOtherNames(MySqlDataReader reader)
@@ -179,6 +185,7 @@
             {
                 this.OtherNames.Add(reader.GetString("name"));
             }
+            reader.Close();
         }
     }
 }

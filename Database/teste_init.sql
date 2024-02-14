@@ -71,6 +71,7 @@ VALUES
 
 # Associados ao Work principal de teste
 INSERT INTO workcategories(work,category) VALUES (1,1);
+INSERT INTO workdemographics(work,demographics) VALUES (1,2),(1,3);
 INSERT INTO workcompanyparticipations(work,company,role) VALUES (1,1,3),(1,2,2),(1,3,2),(1,4,2);
 INSERT INTO workimages (work,type,url) VALUES (1,1,"assets/imgs/works/1card.png"),(1,2,"assets/imgs/works/1main.png");
 INSERT INTO news (title,text) VALUES ("Season 3 Coming!","Believe if you want!"),("Another Rezero news","But i dont have crativity to describe it"),
