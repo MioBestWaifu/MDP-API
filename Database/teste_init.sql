@@ -88,4 +88,10 @@ INSERT INTO personroles (person,role) VALUES (1,1);
 
 # Associados à company principal de teste
 INSERT INTO companyimages (company,type,url) VALUES (1,1,"assets/imgs/companies/1card.png"),(1,2,"assets/imgs/companies/1main.png");
-INSERT INTO companyaffiliations (company,person,start) VALUES (1,1,"2020-01-01"),(1,2,"2020-01-01"),(1,3,"2020-01-01"),(1,4,"2020-01-01"),(1,1,"2020-01-01");
+INSERT INTO companyaffiliations (company,person,start) VALUES (1,1,"2020-01-01"),(1,2,"2020-01-01"),(1,3,"2020-01-01"),(1,4,"2020-01-01"),(1,5,"2020-01-01");
+
+# Global News 
+INSERT INTO news (title,text) VALUES ("Carousel test 1!","Believe if you want!"),("Carousel test 2","But i dont have crativity to describe it"),
+("Carousel test 3","Because i thought three would look good");
+INSERT INTO newsimages(news,type,url) VALUES (4,2,"assets/imgs/news/4.png"),(5,2,"assets/imgs/news/5.png"),(6,2,"assets/imgs/news/6.png");
+INSERT INTO globalnews (news) VALUES (4),(5),(6);
