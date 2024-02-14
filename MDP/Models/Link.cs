@@ -34,7 +34,7 @@ namespace MDP.Models
             Link toReturn = new Link();
             toReturn.ImgUrl = reader.GetString("url");
             toReturn.MainLabel = reader.GetString("name");
-            toReturn.RedirectTo = "/person/" + reader.GetInt32("id");
+            toReturn.RedirectTo = "/person/" + reader.GetInt32("person");
             return toReturn;
         }
 

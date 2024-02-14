@@ -346,6 +346,13 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetLinkableCompanyParticipationsByCompany(int company)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableCompanyParticipationsByCompany);
+            com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
         public static MySqlCommand GetLinkableAffiliationsByCompany(int company)
         {
             MySqlCommand com = new MySqlCommand(Statements.getLinkableAffiliationsByCompany);

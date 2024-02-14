@@ -63,6 +63,7 @@ namespace MDP.Data
         public static string getLinkablePersonParticipationsByWork = "SELECT * FROM linkableworkpersons WHERE work = @work",
             getLinkablePersonParticipationsByPerson = "SELECT * FROM linkablepersonworks WHERE person = @person",
             getLinkableCompanyParticipationsByWork = "SELECT * FROM linkableworkcompanies WHERE work = @work",
+            getLinkableCompanyParticipationsByCompany = "SELECT * FROM linkablecompanyworks WHERE company = @company",
             getLinkableAffiliationsByCompany = "SELECT * FROM linkablecompanyaffiliations WHERE end IS NULL AND company = @company",
             getLinkableAffiliationsByPerson = "SELECT * FROM linkablepersonaffiliations WHERE end IS NULL AND person = @person",
             getLinkableRecentWorkNews = "SELECT * FROM linkableworknews WHERE work = @work ORDER BY id DESC LIMIT @limit",
