@@ -89,7 +89,7 @@ INSERT INTO personroles (person,role) VALUES (1,1);
 
 # Associados à company principal de teste
 INSERT INTO companyimages (company,type,url) VALUES (1,1,"assets/imgs/companies/1card.png"),(1,2,"assets/imgs/companies/1main.png");
-INSERT INTO companyaffiliations (company,person,start) VALUES (1,1,"2020-01-01"),(1,2,"2020-01-01"),(1,3,"2020-01-01"),(1,4,"2020-01-01"),(1,5,"2020-01-01");
+INSERT INTO companyaffiliations (company,person,role,start) VALUES (1,1,1,"2020-01-01"),(1,2,1,"2020-01-01"),(1,3,1,"2020-01-01"),(1,4,1,"2020-01-01"),(1,5,1,"2020-01-01");
 
 # Associados ao user principal de testes
 INSERT INTO userimages (user,type,url) VALUES (1,2,"assets/imgs/users/1main.png"),(2,2,"assets/imgs/users/2main.png");
