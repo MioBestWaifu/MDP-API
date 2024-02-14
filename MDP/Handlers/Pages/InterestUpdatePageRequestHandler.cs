@@ -1,4 +1,5 @@
 ﻿using MDP.Data;
+using MDP.Handlers.Interest;
 using MDP.Models.Pages;
 using MySql.Data.MySqlClient;
 
@@ -14,10 +15,12 @@ namespace MDP.Handlers.Pages
             MySqlDataReader reader = await interestsTask;
             while (reader.Read())
             {
-                if(reader.GetBoolean("selected"))
-                    toReturn.InterestDictionary["Selected"].Add(Models.Interest.FromQuery(reader));
+                var toAdd = Models.Interest.FromQuery(reader);
+                toAdd.SetDemographics(await new InterestRequestHandler(connector).GetDemographics(toAdd.Id));
+                if (reader.GetBoolean("selected"))
+                    toReturn.InterestDictionary["Selected"].Add(toAdd);
                 else
-                    toReturn.InterestDictionary["Unselected"].Add(Models.Interest.FromQuery(reader));
+                    toReturn.InterestDictionary["Unselected"].Add(toAdd);
             }
 
             return toReturn;

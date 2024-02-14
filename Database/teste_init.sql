@@ -8,6 +8,11 @@ INSERT INTO demographics(name) VALUES("Egirls"),("Incels"),("Programmers");
 INSERT INTO imagetypes(name) VALUES("Card"),("Main"),("Other");
 INSERT INTO medias(name) VALUES("Anime"),("Manga"),("Novel");
 INSERT INTO roles (name) VALUES("Voice actor"),("Publisher"),("Studio");
+
+# Interests
+INSERT INTO interests (name,description,url) VALUES ("Cute girls doing cute things","Literally what it says","assets/imgs/interests/1.png"),
+("Gothic","Night, sorrow, depression, pain, and all that is dark in the world","assets/imgs/interests/2.png");
+INSERT INTO interestdemographics (interest,demographic) VALUES (1,2),(1,3),(2,1);
 # Persons
 INSERT INTO persons (shortName, fullName, country, description, birthday, gender,nicknames) 
 VALUES ('Takahashi Rie', 'Takahashi Rie', 1, 'Sweetest voice in Japan. In the world, actually. I fucking love her.', '1994-02-27', 'F',"Rieri,Rie-chan");
@@ -94,6 +99,7 @@ INSERT INTO companyaffiliations (company,person,role,start) VALUES (1,1,1,"2020-
 # Associados ao user principal de testes
 INSERT INTO userimages (user,type,url) VALUES (1,2,"assets/imgs/users/1main.png"),(2,2,"assets/imgs/users/2main.png");
 INSERT INTO favoriteworks (work,user) VALUES (1,1),(5,1);
+INSERT INTO userinterests (interest,user) VALUES (1,1);
 
 # Global News 
 INSERT INTO news (title,text) VALUES ("Carousel test 1!","Believe if you want!"),("Carousel test 2","But i dont have crativity to describe it"),

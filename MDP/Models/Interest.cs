@@ -5,6 +5,7 @@
 
     public class Interest : IQueryable<Interest>
     {
+        public int Id { get; set; }
         public Link Link { get; set; }
         public string Description { get; set; }
         public List<string> TargetDemographics { get; set; } = new List<string>();
@@ -19,7 +20,14 @@
         {
             Interest interest = new Interest();
             interest.Link = new Link();
-
+            try
+            {
+                interest.Id = reader.GetInt32("id");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Column 'Id' not found: {ex.Message}");
+            }
             try
             {
                 interest.Link.MainLabel = reader.GetString("name");
