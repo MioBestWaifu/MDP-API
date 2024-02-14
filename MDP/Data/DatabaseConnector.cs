@@ -32,11 +32,9 @@ namespace MDP.Data
 
         public async Task SetConnection(MySqlCommand command)
         {
-            using (var connection = new MySqlConnection(connectionString))
-            {
-                command.Connection = connection; 
-                await connection.OpenAsync();
-            }
+            var connection = new MySqlConnection(connectionString);
+            await connection.OpenAsync();
+            command.Connection = connection;
         }
 
         public async Task<MySqlDataReader> ExecuteQuery(MySqlCommand command)
