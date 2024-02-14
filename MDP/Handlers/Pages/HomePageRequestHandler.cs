@@ -1,4 +1,5 @@
 ﻿using MDP.Data;
+using MDP.Handlers.Work;
 using MDP.Models;
 using MDP.Models.Artifacts;
 using MDP.Models.Pages;
@@ -18,7 +19,16 @@ namespace MDP.Handlers.Pages
             MySqlDataReader artifactsReader = await artifactsTask;
             while (artifactsReader.Read())
             {
-                toReturn.Artifacts.Add(Artifact.FromQuery(artifactsReader));
+                //Isso tá uma merda, otimizar criando uma view no futuro
+                Artifact artifact = Artifact.FromQuery(artifactsReader);
+                try
+                {
+                    await new WorkRequestHandler(conn).GetAcessoryInformation(artifact);
+                } catch (Exception ex)
+                {
+                    Console.WriteLine($"Artifact {artifact.Id} não conseguiu ser completado");
+                }
+                toReturn.Artifacts.Add(artifact);
             }
             MySqlDataReader newsReader = await newsTask;
             toReturn.NewsAndHighlights = [];
@@ -26,6 +36,8 @@ namespace MDP.Handlers.Pages
             {
                 toReturn.NewsAndHighlights.Add(Link.FromLinkableNews(newsReader));
             }
+            artifactsReader.Close();
+            newsReader.Close();
             return toReturn;
         }
     }

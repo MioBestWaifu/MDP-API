@@ -105,8 +105,15 @@
         /// <param name="reader"></param>
         public void SetAverageRating (MySqlDataReader reader)
         {
-            reader.Read();
-            this.AverageRating = reader.GetDouble("average");
+            try
+            {
+                reader.Read();
+                this.AverageRating = reader.GetDouble("average");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'average' column: {ex.Message}");
+            }   
         }
     }
 }

@@ -30,7 +30,7 @@
             return toReturn;
         }
 
-        private async Task<MySqlDataReader> GetDemographics(int id)
+        public async Task<MySqlDataReader> GetDemographics(int id)
         {
             return await connector.ExecuteQuery(StatementPreparer.GetInterestDemographicsByInterestId(id));
         }

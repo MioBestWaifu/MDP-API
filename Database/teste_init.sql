@@ -8,6 +8,11 @@ INSERT INTO demographics(name) VALUES("Egirls"),("Incels"),("Programmers");
 INSERT INTO imagetypes(name) VALUES("Card"),("Main"),("Other");
 INSERT INTO medias(name) VALUES("Anime"),("Manga"),("Novel");
 INSERT INTO roles (name) VALUES("Voice actor"),("Publisher"),("Studio");
+
+# Interests
+INSERT INTO interests (name,description,url) VALUES ("Cute girls doing cute things","Literally what it says","assets/imgs/interests/1.png"),
+("Gothic","Night, sorrow, depression, pain, and all that is dark in the world","assets/imgs/interests/2.png");
+INSERT INTO interestdemographics (interest,demographic) VALUES (1,2),(1,3),(2,1);
 # Persons
 INSERT INTO persons (shortName, fullName, country, description, birthday, gender,nicknames) 
 VALUES ('Takahashi Rie', 'Takahashi Rie', 1, 'Sweetest voice in Japan. In the world, actually. I fucking love her.', '1994-02-27', 'F',"Rieri,Rie-chan");
@@ -71,6 +76,7 @@ VALUES
 
 # Associados ao Work principal de teste
 INSERT INTO workcategories(work,category) VALUES (1,1);
+INSERT INTO workdemographics(work,demographics) VALUES (1,2),(1,3);
 INSERT INTO workcompanyparticipations(work,company,role) VALUES (1,1,3),(1,2,2),(1,3,2),(1,4,2);
 INSERT INTO workimages (work,type,url) VALUES (1,1,"assets/imgs/works/1card.png"),(1,2,"assets/imgs/works/1main.png");
 INSERT INTO news (title,text) VALUES ("Season 3 Coming!","Believe if you want!"),("Another Rezero news","But i dont have crativity to describe it"),
@@ -79,7 +85,7 @@ INSERT INTO newsimages(news,type,url) VALUES (1,2,"assets/imgs/news/1.png"),(2,2
 INSERT INTO worknews (news, work) VALUES (1,1),(2,1),(3,1);
 INSERT INTO workothernames (work,name)VALUES(1,"");
 INSERT INTO workpersonparticipations (work,person,role)VALUES(1,1,1),(1,2,1),(1,3,1),(1,4,1),(1,5,1),(1,6,1);
-INSERT INTO reviews (user,rating,comment,date) VALUES (1,10,"A great anime","2018-05-19"),(1,7,"A good anime","2020-05-19");
+INSERT INTO reviews (user,rating,comment,date) VALUES (1,10,"A great anime","2018-05-19"),(2,7,"A good anime","2020-05-19");
 INSERT INTO workreviews (review,work) VALUES (1,1),(2,1);
 
 # Associados à person principal de teste
@@ -88,7 +94,12 @@ INSERT INTO personroles (person,role) VALUES (1,1);
 
 # Associados à company principal de teste
 INSERT INTO companyimages (company,type,url) VALUES (1,1,"assets/imgs/companies/1card.png"),(1,2,"assets/imgs/companies/1main.png");
-INSERT INTO companyaffiliations (company,person,start) VALUES (1,1,"2020-01-01"),(1,2,"2020-01-01"),(1,3,"2020-01-01"),(1,4,"2020-01-01"),(1,5,"2020-01-01");
+INSERT INTO companyaffiliations (company,person,role,start) VALUES (1,1,1,"2020-01-01"),(1,2,1,"2020-01-01"),(1,3,1,"2020-01-01"),(1,4,1,"2020-01-01"),(1,5,1,"2020-01-01");
+
+# Associados ao user principal de testes
+INSERT INTO userimages (user,type,url) VALUES (1,2,"assets/imgs/users/1main.png"),(2,2,"assets/imgs/users/2main.png");
+INSERT INTO favoriteworks (work,user) VALUES (1,1),(5,1);
+INSERT INTO userinterests (interest,user) VALUES (1,1);
 
 # Global News 
 INSERT INTO news (title,text) VALUES ("Carousel test 1!","Believe if you want!"),("Carousel test 2","But i dont have crativity to describe it"),

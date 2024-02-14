@@ -32,17 +32,15 @@ namespace MDP.Data
 
         public async Task SetConnection(MySqlCommand command)
         {
-            using (var connection = new MySqlConnection(connectionString))
-            {
-                command.Connection = connection; 
-                await connection.OpenAsync();
-            }
+            var connection = new MySqlConnection(connectionString);
+            await connection.OpenAsync();
+            command.Connection = connection;
         }
 
         public async Task<MySqlDataReader> ExecuteQuery(MySqlCommand command)
         {
             await SetConnection(command);
-            MySqlDataReader reader = await command.ExecuteReaderAsync() as MySqlDataReader ?? throw new Exception("Reader retornou nulo");
+            MySqlDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.CloseConnection) as MySqlDataReader;
             return reader;
         }
 

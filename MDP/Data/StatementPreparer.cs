@@ -346,6 +346,13 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetLinkableCompanyParticipationsByCompany(int company)
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getLinkableCompanyParticipationsByCompany);
+            com.Parameters.AddWithValue("@company", company);
+            return com;
+        }
+
         public static MySqlCommand GetLinkableAffiliationsByCompany(int company)
         {
             MySqlCommand com = new MySqlCommand(Statements.getLinkableAffiliationsByCompany);
@@ -387,7 +394,7 @@ namespace MDP.Data
         {
             MySqlCommand com = new MySqlCommand(Statements.searchWorks);
             com.Parameters.AddWithValue("@name", "%"+name+"%");
-            com.Parameters.AddWithValue("@limit", page * Constants.MAX_SEARCH_WORKS);
+            com.Parameters.AddWithValue("@offset", page * Constants.MAX_SEARCH_WORKS);
             return com;
         }
     }
