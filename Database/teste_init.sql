@@ -80,7 +80,7 @@ INSERT INTO newsimages(news,type,url) VALUES (1,2,"assets/imgs/news/1.png"),(2,2
 INSERT INTO worknews (news, work) VALUES (1,1),(2,1),(3,1);
 INSERT INTO workothernames (work,name)VALUES(1,"");
 INSERT INTO workpersonparticipations (work,person,role)VALUES(1,1,1),(1,2,1),(1,3,1),(1,4,1),(1,5,1),(1,6,1);
-INSERT INTO reviews (user,rating,comment,date) VALUES (1,10,"A great anime","2018-05-19"),(1,7,"A good anime","2020-05-19");
+INSERT INTO reviews (user,rating,comment,date) VALUES (1,10,"A great anime","2018-05-19"),(2,7,"A good anime","2020-05-19");
 INSERT INTO workreviews (review,work) VALUES (1,1),(2,1);
 
 # Associados à person principal de teste
@@ -91,6 +91,8 @@ INSERT INTO personroles (person,role) VALUES (1,1);
 INSERT INTO companyimages (company,type,url) VALUES (1,1,"assets/imgs/companies/1card.png"),(1,2,"assets/imgs/companies/1main.png");
 INSERT INTO companyaffiliations (company,person,start) VALUES (1,1,"2020-01-01"),(1,2,"2020-01-01"),(1,3,"2020-01-01"),(1,4,"2020-01-01"),(1,5,"2020-01-01");
 
+# Associados ao user principal de testes
+INSERT INTO userimages (user,type,url) VALUES (1,2,"assets/imgs/users/1main.png"),(2,2,"assets/imgs/users/2main.png");
 # Global News 
 INSERT INTO news (title,text) VALUES ("Carousel test 1!","Believe if you want!"),("Carousel test 2","But i dont have crativity to describe it"),
 ("Carousel test 3","Because i thought three would look good");

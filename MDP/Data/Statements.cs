@@ -20,7 +20,7 @@ namespace MDP.Data
             getWorkMedia = "SELECT name FROM medias WHERE id = (SELECT media FROM works WHERE works.id = @work)",
             getWorkMainParticipantRole = "SELECT name FROM roles WHERE id = (SELECT mainParticipantRole FROM works WHERE works.id = @work)",
             getAllWorkImages = "SELECT * FROM workimages WHERE work = @work",
-            getRecentWorkReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC LIMIT @limit)",
+            getRecentWorkReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC) LIMIT @limit",
             getAllWorkReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC)",
             getWorkAverageRating = "SELECT CAST((SELECT SUM(rating) FROM reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC))/(SELECT COUNT(rating)" +
             " FROM reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC)) AS FLOAT) AS average",
@@ -30,7 +30,7 @@ namespace MDP.Data
         public static string getPersonById = "SELECT * FROM persons WHERE id = @person",
             getPersonRolesByPersonId = "SELECT name FROM roles WHERE id IN (SELECT role FROM personroles WHERE person = @person)",
             getAllPersonImages = "SELECT * FROM personimages WHERE person = @person",
-            getRecentPersonReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM personreviews WHERE person = @person ORDER BY id DESC LIMIT @limit)",
+            getRecentPersonReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM personreviews WHERE person = @person ORDER BY id DESC) LIMIT @limit",
             getAllPersonReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM personreviews WHERE person = @person ORDER BY id DESC)",
             getPersonAverageRating = "SELECT CAST((SELECT SUM(rating) FROM reviews WHERE id IN (SELECT review FROM personreviews WHERE person = @person ORDER BY id DESC))/(SELECT COUNT(rating)" +
             " FROM reviews WHERE id IN (SELECT review FROM personreviews WHERE person = @person ORDER BY id DESC)) AS FLOAT) AS average",
@@ -39,7 +39,7 @@ namespace MDP.Data
         public static string getCompanyById = "SELECT * FROM companies WHERE id = @company",
             getCompanyRolesByCompanyId = "SELECT name FROM roles WHERE id IN (SELECT role FROM companyroles WHERE company = @company)",
             getAllCompanyImages = "SELECT * FROM companyimages WHERE company = @company",
-            getRecentCompanyReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC LIMIT @limit)",
+            getRecentCompanyReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC) LIMIT @limit",
             getAllCompanyReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC)",
             getCompanyAverageRating = "SELECT CAST((SELECT SUM(rating) FROM reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC))/(SELECT COUNT(rating)" +
             " FROM reviews WHERE id IN (SELECT review FROM companyreviews WHERE company = @company ORDER BY id DESC)) AS FLOAT) AS average",

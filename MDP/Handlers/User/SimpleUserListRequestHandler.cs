@@ -18,7 +18,9 @@ namespace MDP.Handlers.User
             MySqlDataReader usersReader = await usersTask;
             while (usersReader.Read())
             {
-                toReturn.Add(Models.User.FromQuery(usersReader));
+                var toAdd = Models.User.FromQuery(usersReader);
+                toAdd.MainImgUrl = usersReader.GetString("url");
+                toReturn.Add(toAdd);
             }
             return toReturn;
         }
