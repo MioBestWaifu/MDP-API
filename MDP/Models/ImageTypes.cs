@@ -2,7 +2,7 @@
 {
     public enum ImageTypes
     {
-        CardImage,
+        CardImage = 1,
         MainImage,
         OtherImage
     }
