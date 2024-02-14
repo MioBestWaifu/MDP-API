@@ -394,7 +394,7 @@ namespace MDP.Data
         {
             MySqlCommand com = new MySqlCommand(Statements.searchWorks);
             com.Parameters.AddWithValue("@name", "%"+name+"%");
-            com.Parameters.AddWithValue("@limit", page * Constants.MAX_SEARCH_WORKS);
+            com.Parameters.AddWithValue("@offset", page * Constants.MAX_SEARCH_WORKS);
             return com;
         }
     }
