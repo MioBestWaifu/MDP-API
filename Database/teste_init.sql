@@ -81,7 +81,7 @@ INSERT INTO workcompanyparticipations(work,company,role) VALUES (1,1,3),(1,2,2),
 INSERT INTO workimages (work,type,url) VALUES (1,1,"assets/imgs/works/1card.png"),(1,2,"assets/imgs/works/1main.png");
 INSERT INTO news (title,text) VALUES ("Season 3 Coming!","Believe if you want!"),("Another Rezero news","But i dont have crativity to describe it"),
 ("Another one","Because i thought three would look good");
-INSERT INTO newsimages(news,type,url) VALUES (1,2,"assets/imgs/news/1.png"),(2,2,"assets/imgs/news/2.png"),(3,2,"assets/imgs/news/3.png");
+INSERT INTO newsimages(news,type,url) VALUES (1,2,"assets/imgs/news/1main.png"),(2,2,"assets/imgs/news/2.png"),(3,2,"assets/imgs/news/3.png");
 INSERT INTO worknews (news, work) VALUES (1,1),(2,1),(3,1);
 INSERT INTO workothernames (work,name)VALUES(1,"");
 INSERT INTO workpersonparticipations (work,person,role)VALUES(1,1,1),(1,2,1),(1,3,1),(1,4,1),(1,5,1),(1,6,1);
@@ -104,5 +104,5 @@ INSERT INTO userinterests (interest,user) VALUES (1,1);
 # Global News 
 INSERT INTO news (title,text) VALUES ("Carousel test 1!","Believe if you want!"),("Carousel test 2","But i dont have crativity to describe it"),
 ("Carousel test 3","Because i thought three would look good");
-INSERT INTO newsimages(news,type,url) VALUES (4,2,"assets/imgs/news/4.png"),(5,2,"assets/imgs/news/5.png"),(6,2,"assets/imgs/news/6.png");
+INSERT INTO newsimages(news,type,url) VALUES (4,2,"assets/imgs/news/4main.png"),(5,2,"assets/imgs/news/5main.png"),(6,2,"assets/imgs/news/6main.png");
 INSERT INTO globalnews (news) VALUES (4),(5),(6);
