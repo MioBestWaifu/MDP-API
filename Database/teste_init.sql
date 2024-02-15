@@ -97,7 +97,7 @@ INSERT INTO companyimages (company,type,url) VALUES (1,1,"assets/imgs/companies/
 INSERT INTO companyaffiliations (company,person,role,start) VALUES (1,1,1,"2020-01-01"),(1,2,1,"2020-01-01"),(1,3,1,"2020-01-01"),(1,4,1,"2020-01-01"),(1,5,1,"2020-01-01");
 
 # Associados ao user principal de testes
-INSERT INTO userimages (user,type,url) VALUES (1,2,"assets/imgs/users/1main.png"),(2,2,"assets/imgs/users/2main.png");
+INSERT INTO userimages (user,type,url) VALUES (1,2,"assets/imgs/users/1main.png"),(2,2,"assets/imgs/defaultmain.png");
 INSERT INTO favoriteworks (work,user) VALUES (1,1),(5,1);
 INSERT INTO userinterests (interest,user) VALUES (1,1);
 
