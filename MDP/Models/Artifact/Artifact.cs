@@ -102,7 +102,6 @@
                         Console.WriteLine($"demographic name column not found for artifact {Id}");
                     }
                 }
-                reader.Close();
             }
             catch (Exception ex)
             {
@@ -130,7 +129,6 @@
                         Console.WriteLine($"category name column not found for artifact {Id}");
                     }
                 }
-                reader.Close();
             }
             catch (Exception ex)
             {
@@ -149,7 +147,6 @@
             {
                 reader.Read();
                 this.AgeRating = reader.GetString("name");
-                reader.Close();
             }
             catch (Exception ex)
             {
@@ -167,7 +164,6 @@
             {
                 reader.Read();
                 this.Media = reader.GetString("name");
-                reader.Close();
             }
             catch (Exception ex)
             {
@@ -185,7 +181,6 @@
             {
                 reader.Read();
                 this.MainParticipantRole = reader.GetString("name");
-                reader.Close();
             } catch (Exception ex)
             {
                 Console.WriteLine(ex);
@@ -223,7 +218,6 @@
                         Console.WriteLine(ex);
                     }
                 }
-                reader.Close();
             }            
             catch (Exception ex)
             {
@@ -241,7 +235,6 @@
             {
                 reader.Read();
                 this.AverageRating = reader.GetDouble("average");
-                reader.Close();
             }
             catch (Exception ex)
             {
@@ -265,7 +258,6 @@
                         Console.WriteLine(ex);
                     }
                 }
-                reader.Close();
             }
             catch (Exception ex)
             {
