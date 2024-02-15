@@ -36,8 +36,8 @@ namespace MDP.Handlers.Pages
             {
                 toReturn.NewsAndHighlights.Add(Link.FromLinkableNews(newsReader));
             }
-            artifactsReader.Close();
-            newsReader.Close();
+            connector.CloseConnection(artifactsReader);
+            connector.CloseConnection(newsReader);
             return toReturn;
         }
     }

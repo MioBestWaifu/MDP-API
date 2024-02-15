@@ -20,15 +20,18 @@ namespace MDP.Handlers.User
             MySqlDataReader userReader = await userTask;
             userReader.Read();
             Models.User toReturn = Models.User.FromQuery(userReader);
+            connector.CloseConnection(userReader);
 
             Task? imageUrlsAfterTask = imageUrlsTask.ContinueWith((task) =>
             {
                 toReturn.SetImageUrls(task.Result);
+                connector.CloseConnection(task.Result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
 
             Task? countryAfterTask = countryTask.ContinueWith((task) =>
             {
                 toReturn.SetCountry(task.Result);
+                connector.CloseConnection(task.Result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
 
             Task.WaitAll(imageUrlsAfterTask, countryAfterTask);

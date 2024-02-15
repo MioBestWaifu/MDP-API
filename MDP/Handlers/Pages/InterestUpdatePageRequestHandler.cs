@@ -29,7 +29,7 @@ namespace MDP.Handlers.Pages
                     Console.WriteLine($"Interest {reader.GetInt32("id")} não conseguiu ser completado");
                 }
             }
-
+            connector.CloseConnection(reader);
             return toReturn;
         }
     }

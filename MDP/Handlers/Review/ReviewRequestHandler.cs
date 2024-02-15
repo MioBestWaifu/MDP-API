@@ -30,7 +30,7 @@
             {
                 Console.WriteLine("user column not found"); 
             }
-            
+            connector.CloseConnection(reviewReader);
             return toReturn;
         }
 

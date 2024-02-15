@@ -33,6 +33,7 @@ namespace MDP.Handlers.User
                 }
                 toReturn.Add(toAdd);
             }
+            connector.CloseConnection(usersReader);
             return toReturn;
         }
     }

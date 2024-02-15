@@ -19,10 +19,12 @@
             MySqlDataReader interestReader = await interestTask;
             interestReader.Read();
             Interest toReturn = Interest.FromQuery(interestReader);
+            connector.CloseConnection(interestReader);
 
             Task? demographicsAfterTask = demographicsTask.ContinueWith((task) =>
             {
                 toReturn.SetDemographics(task.Result);
+                connector.CloseConnection(task.Result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
 
             Task.WaitAll(demographicsAfterTask);

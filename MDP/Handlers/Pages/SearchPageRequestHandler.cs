@@ -16,6 +16,7 @@ namespace MDP.Handlers.Pages
             {
                 toReturn.Artifacts.Add(Artifact.FromQuery(reader));
             }
+            connector.CloseConnection(reader);
             return toReturn;
         }
     }

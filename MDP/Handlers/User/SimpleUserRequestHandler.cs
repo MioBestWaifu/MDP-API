@@ -28,7 +28,7 @@ namespace MDP.Handlers.User
             {
                 Console.WriteLine("url column not found");
             }
-
+            connector.CloseConnection(userReader);
             return toReturn;
         }
 

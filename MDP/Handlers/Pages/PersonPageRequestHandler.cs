@@ -24,6 +24,7 @@ namespace MDP.Handlers.Pages
                 {
                     toReturn.ArtifactParticipations.Add(Link.FromLinkableWork(result));
                 }
+                conn.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             var affiliationsAfterTask = affiliationsTask.ContinueWith((task) =>
             {
@@ -32,6 +33,7 @@ namespace MDP.Handlers.Pages
                 {
                     toReturn.CompanyAffiliations.Add(Link.FromLinkableCompany(result));
                 }
+                conn.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
 
             Task.WaitAll(participationsAfterTask, affiliationsAfterTask);

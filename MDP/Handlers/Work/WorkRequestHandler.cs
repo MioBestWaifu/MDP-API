@@ -1,6 +1,8 @@
 ﻿using MDP.Data;
 using MDP.Models.Artifacts;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
+using System.Reflection.PortableExecutable;
 
 namespace MDP.Handlers.Work
 {
@@ -25,33 +27,48 @@ namespace MDP.Handlers.Work
             MySqlDataReader artifactReader = await artifactTask;
             artifactReader.Read();
             Artifact toReturn = Artifact.FromQuery(artifactReader);
+            conn.CloseConnection(artifactReader);
 
             Task? categoriesAfterTask =  categoriesTask.ContinueWith((task) => {
-                toReturn.SetCategories(task.Result);
+                var result = task.Result;
+                toReturn.SetCategories(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? targetDemographicsAfterTask = targetDemographicsTask.ContinueWith((task) =>
             {
-                toReturn.SetDemographics(task.Result);
+                var result = task.Result;
+                toReturn.SetDemographics(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? otherNamesAfterTask = otherNamesTask.ContinueWith((task) =>
             {
-                toReturn.SetOtherNames(task.Result);
+                var result = task.Result;
+                toReturn.SetOtherNames(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? imagesAfterTask = imagesTask.ContinueWith((task) =>
             {
-                toReturn.SetImageUrls(task.Result);
+                var result = task.Result;
+                toReturn.SetImageUrls(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? averageRatingAfterTask = averageRatingTask.ContinueWith((task) =>
             {
-                toReturn.SetAverageRating(task.Result);
+                var result = task.Result;
+                toReturn.SetAverageRating(result);
+                connector.CloseConnection(result); ;
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? mediaAfterTask = mediaTask.ContinueWith((task) =>
             {
-                toReturn.SetMedia(task.Result);
+                var result = task.Result;
+                toReturn.SetMedia(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? mainParticipantRoleAfterTask = mainParticipantRoleTask.ContinueWith((task) =>
             {
-                toReturn.SetMainParticipantRole(task.Result);
+                var result = task.Result;
+                toReturn.SetMainParticipantRole(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
 
             Task.WaitAll(categoriesAfterTask, targetDemographicsAfterTask, otherNamesAfterTask, imagesAfterTask, 
@@ -64,7 +81,9 @@ namespace MDP.Handlers.Work
         {
             try
             {
-                artifact.SetCategories(await GetCategories(artifact.Id));
+                var reader = await GetCategories(artifact.Id);
+                artifact.SetCategories(reader);
+                connector.CloseConnection(reader);
             }
             catch (Exception)
             {
@@ -72,7 +91,9 @@ namespace MDP.Handlers.Work
             }
             try
             {
-                artifact.SetDemographics(await GetTargetDemographics(artifact.Id));
+                var reader = await GetTargetDemographics(artifact.Id);
+                artifact.SetDemographics(reader);
+                connector.CloseConnection(reader);
             }
             catch (Exception)
             {
@@ -80,7 +101,9 @@ namespace MDP.Handlers.Work
             }
             try
             {
-                artifact.SetOtherNames(await GetOtherNames(artifact.Id));
+                var reader = await GetOtherNames(artifact.Id);
+                artifact.SetOtherNames(reader);
+                connector.CloseConnection(reader);
             }
             catch (Exception)
             {
@@ -88,7 +111,9 @@ namespace MDP.Handlers.Work
             }
             try
             {
-                artifact.SetImageUrls(await GetImages(artifact.Id));
+                var reader = await GetImages(artifact.Id);
+                artifact.SetImageUrls(reader);
+                connector.CloseConnection(reader);
             }
             catch (Exception)
             {
@@ -96,7 +121,9 @@ namespace MDP.Handlers.Work
             }
             try
             {
-                artifact.SetAverageRating(await GetAverageRating(artifact.Id));
+                var reader = await GetAverageRating(artifact.Id);
+                artifact.SetAverageRating(reader);
+                connector.CloseConnection(reader);
             }
             catch (Exception)
             {
@@ -104,7 +131,9 @@ namespace MDP.Handlers.Work
             }
             try
             {
-                artifact.SetMedia(await GetMedia(artifact.Id));
+                var reader = await GetMedia(artifact.Id);
+                artifact.SetMedia(reader);
+                connector.CloseConnection(reader);
             }
             catch (Exception)
             {
@@ -112,7 +141,9 @@ namespace MDP.Handlers.Work
             }
             try
             {
-                artifact.SetMainParticipantRole(await GetMainParticipantRole(artifact.Id));
+                var reader = await GetMainParticipantRole(artifact.Id);
+                artifact.SetMainParticipantRole(reader);
+                connector.CloseConnection(reader);
             }
             catch (Exception)
             {
