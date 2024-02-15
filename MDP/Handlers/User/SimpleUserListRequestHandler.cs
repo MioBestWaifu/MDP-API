@@ -13,6 +13,10 @@ namespace MDP.Handlers.User
 
         public async Task<List<Models.User>> HandleRequest(List<int> ids)
         {
+            if (ids.Count == 0)
+            {
+                return [];
+            }
             Task<MySqlDataReader> usersTask = connector.ExecuteQuery(StatementPreparer.GetListOfSimpleUsers(ids));
             List<Models.User> toReturn = [];
             MySqlDataReader usersReader = await usersTask;
