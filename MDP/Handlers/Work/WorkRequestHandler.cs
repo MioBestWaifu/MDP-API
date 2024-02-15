@@ -62,13 +62,62 @@ namespace MDP.Handlers.Work
 
         public async Task GetAcessoryInformation(Artifact artifact)
         {
-            artifact.SetCategories(await GetCategories(artifact.Id));
-            artifact.SetDemographics(await GetTargetDemographics(artifact.Id));
-            artifact.SetOtherNames(await GetOtherNames(artifact.Id));
-            artifact.SetImageUrls(await GetImages(artifact.Id));
-            artifact.SetAverageRating(await GetAverageRating(artifact.Id));
-            artifact.SetMedia(await GetMedia(artifact.Id));
-            artifact.SetMainParticipantRole(await GetMainParticipantRole(artifact.Id));
+            try
+            {
+                artifact.SetCategories(await GetCategories(artifact.Id));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Categories for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                artifact.SetDemographics(await GetTargetDemographics(artifact.Id));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Demographics for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                artifact.SetOtherNames(await GetOtherNames(artifact.Id));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Other names for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                artifact.SetImageUrls(await GetImages(artifact.Id));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Images for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                artifact.SetAverageRating(await GetAverageRating(artifact.Id));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Average rating for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                artifact.SetMedia(await GetMedia(artifact.Id));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Media for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                artifact.SetMainParticipantRole(await GetMainParticipantRole(artifact.Id));
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Main participant role for artifact {artifact.Id} could not be set");
+            }
         }
 
         private async Task<MySqlDataReader> GetCategories(int id)

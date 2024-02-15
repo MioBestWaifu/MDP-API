@@ -15,12 +15,19 @@ namespace MDP.Handlers.Pages
             MySqlDataReader reader = await interestsTask;
             while (reader.Read())
             {
-                var toAdd = Models.Interest.FromQuery(reader);
-                toAdd.SetDemographics(await new InterestRequestHandler(connector).GetDemographics(toAdd.Id));
-                if (reader.GetBoolean("selected"))
-                    toReturn.InterestDictionary["Selected"].Add(toAdd);
-                else
-                    toReturn.InterestDictionary["Unselected"].Add(toAdd);
+                try
+                {
+                    var toAdd = Models.Interest.FromQuery(reader);
+                    toAdd.SetDemographics(await new InterestRequestHandler(connector).GetDemographics(toAdd.Id));
+                    if (reader.GetBoolean("selected"))
+                        toReturn.InterestDictionary["Selected"].Add(toAdd);
+                    else
+                        toReturn.InterestDictionary["Unselected"].Add(toAdd);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Interest {reader.GetInt32("id")} não conseguiu ser completado");
+                }
             }
 
             return toReturn;

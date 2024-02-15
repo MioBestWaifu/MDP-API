@@ -19,7 +19,14 @@ namespace MDP.Handlers.User
             while (usersReader.Read())
             {
                 var toAdd = Models.User.FromQuery(usersReader);
-                toAdd.MainImgUrl = usersReader.GetString("url");
+                try
+                {
+                    toAdd.MainImgUrl = usersReader.GetString("url");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("url column not found");
+                }
                 toReturn.Add(toAdd);
             }
             return toReturn;

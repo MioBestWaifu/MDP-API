@@ -20,7 +20,14 @@ namespace MDP.Handlers.User
             MySqlDataReader userReader = await userTask;
             userReader.Read();
             Models.User toReturn = Models.User.FromQuery(userReader);
-            toReturn.MainImgUrl = userReader.GetString("url");
+            try
+            {
+                toReturn.MainImgUrl = userReader.GetString("url");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("url column not found");
+            }
 
             return toReturn;
         }

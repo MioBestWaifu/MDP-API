@@ -62,21 +62,35 @@
 
         public void SetImageUrls(MySqlDataReader reader)
         {
-            this.OtherImgUrls = new List<string>();
-            while (reader.Read())
+            try
             {
-                switch (reader.GetInt32("type"))
+                this.OtherImgUrls = new List<string>();
+                while (reader.Read())
                 {
-                    case (int)ImageTypes.CardImage:
-                        this.CardImgUrl = reader.GetString("url");
-                        break;
-                    case (int)ImageTypes.MainImage:
-                        this.MainImgUrl = reader.GetString("url");
-                        break;
-                    case (int)ImageTypes.OtherImage:
-                        this.OtherImgUrls.Add(reader.GetString("url"));
-                        break;
+                    try
+                    {
+                        switch (reader.GetInt32("type"))
+                        {
+                            case (int)ImageTypes.CardImage:
+                                this.CardImgUrl = reader.GetString("url");
+                                break;
+                            case (int)ImageTypes.MainImage:
+                                this.MainImgUrl = reader.GetString("url");
+                                break;
+                            case (int)ImageTypes.OtherImage:
+                                this.OtherImgUrls.Add(reader.GetString("url"));
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
                 }
+            }           
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving image urls: {ex.Message}");
             }
         }
 
@@ -86,8 +100,15 @@
         /// <param name="reader"></param>
         public void SetCountry(MySqlDataReader reader)
         {
-            reader.Read();
-            this.Country = reader.GetString("name");
+            try
+            {
+                reader.Read();
+                this.Country = reader.GetString("name");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'name' column: {ex.Message}");
+            }
         }
 
         public void SetRoles(MySqlDataReader reader)
@@ -95,7 +116,14 @@
             this.Roles = new List<string>();
             while (reader.Read())
             {
-                this.Roles.Add(reader.GetString("name"));
+                try
+                {
+                    Roles.Add(reader.GetString("name"));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
             }
         }
 

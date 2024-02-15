@@ -90,17 +90,24 @@
             this.OtherImgUrls = new List<string>();
             while (reader.Read())
             {
-                switch (reader.GetInt32("type"))
+                try
                 {
-                    case (int)ImageTypes.CardImage:
-                        this.CardImgUrl = reader.GetString("url");
-                        break;
-                    case (int)ImageTypes.MainImage:
-                        this.MainImgUrl = reader.GetString("url");
-                        break;
-                    case (int)ImageTypes.OtherImage:
-                        this.OtherImgUrls.Add(reader.GetString("url"));
-                        break;
+                    switch (reader.GetInt32("type"))
+                    {
+                        case (int)ImageTypes.CardImage:
+                            this.CardImgUrl = reader.GetString("url");
+                            break;
+                        case (int)ImageTypes.MainImage:
+                            this.MainImgUrl = reader.GetString("url");
+                            break;
+                        case (int)ImageTypes.OtherImage:
+                            this.OtherImgUrls.Add(reader.GetString("url"));
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
                 }
             }
         }
@@ -111,8 +118,15 @@
         /// <param name="reader"></param>
         public void SetCountry(MySqlDataReader reader)
         {
-            reader.Read();
-            this.Country = reader.GetString("name");
+            try
+            {
+                reader.Read();
+                this.Country = reader.GetString("name");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error retrieving 'name' column: {ex.Message}");
+            }
         }
 
         public void RemoveSensitiveInformation()
