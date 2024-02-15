@@ -23,9 +23,14 @@
             MySqlDataReader reviewReader = await reviewTask;
             reviewReader.Read();
             Review toReturn = Review.FromQuery(reviewReader);
-            Task<User> userTask = new SimpleUserRequestHandler(connector).HandleRequest(reviewReader.GetInt32("user"));
-            toReturn.SetUser(await userTask);
-
+            try { 
+                Task<User> userTask = new SimpleUserRequestHandler(connector).HandleRequest(reviewReader.GetInt32("user"));
+                toReturn.SetUser(await userTask);
+            } catch (Exception ex)
+            {
+                Console.WriteLine("user column not found"); 
+            }
+            connector.CloseConnection(reviewReader);
             return toReturn;
         }
 

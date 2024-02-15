@@ -1,6 +1,8 @@
 ﻿using MDP.Data;
 using MDP.Models.Artifacts;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
+using System.Reflection.PortableExecutable;
 
 namespace MDP.Handlers.Work
 {
@@ -25,33 +27,48 @@ namespace MDP.Handlers.Work
             MySqlDataReader artifactReader = await artifactTask;
             artifactReader.Read();
             Artifact toReturn = Artifact.FromQuery(artifactReader);
+            conn.CloseConnection(artifactReader);
 
             Task? categoriesAfterTask =  categoriesTask.ContinueWith((task) => {
-                toReturn.SetCategories(task.Result);
+                var result = task.Result;
+                toReturn.SetCategories(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? targetDemographicsAfterTask = targetDemographicsTask.ContinueWith((task) =>
             {
-                toReturn.SetDemographics(task.Result);
+                var result = task.Result;
+                toReturn.SetDemographics(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? otherNamesAfterTask = otherNamesTask.ContinueWith((task) =>
             {
-                toReturn.SetOtherNames(task.Result);
+                var result = task.Result;
+                toReturn.SetOtherNames(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? imagesAfterTask = imagesTask.ContinueWith((task) =>
             {
-                toReturn.SetImageUrls(task.Result);
+                var result = task.Result;
+                toReturn.SetImageUrls(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? averageRatingAfterTask = averageRatingTask.ContinueWith((task) =>
             {
-                toReturn.SetAverageRating(task.Result);
+                var result = task.Result;
+                toReturn.SetAverageRating(result);
+                connector.CloseConnection(result); ;
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? mediaAfterTask = mediaTask.ContinueWith((task) =>
             {
-                toReturn.SetMedia(task.Result);
+                var result = task.Result;
+                toReturn.SetMedia(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? mainParticipantRoleAfterTask = mainParticipantRoleTask.ContinueWith((task) =>
             {
-                toReturn.SetMainParticipantRole(task.Result);
+                var result = task.Result;
+                toReturn.SetMainParticipantRole(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
 
             Task.WaitAll(categoriesAfterTask, targetDemographicsAfterTask, otherNamesAfterTask, imagesAfterTask, 
@@ -62,13 +79,76 @@ namespace MDP.Handlers.Work
 
         public async Task GetAcessoryInformation(Artifact artifact)
         {
-            artifact.SetCategories(await GetCategories(artifact.Id));
-            artifact.SetDemographics(await GetTargetDemographics(artifact.Id));
-            artifact.SetOtherNames(await GetOtherNames(artifact.Id));
-            artifact.SetImageUrls(await GetImages(artifact.Id));
-            artifact.SetAverageRating(await GetAverageRating(artifact.Id));
-            artifact.SetMedia(await GetMedia(artifact.Id));
-            artifact.SetMainParticipantRole(await GetMainParticipantRole(artifact.Id));
+            try
+            {
+                var reader = await GetCategories(artifact.Id);
+                artifact.SetCategories(reader);
+                connector.CloseConnection(reader);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Categories for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                var reader = await GetTargetDemographics(artifact.Id);
+                artifact.SetDemographics(reader);
+                connector.CloseConnection(reader);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Demographics for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                var reader = await GetOtherNames(artifact.Id);
+                artifact.SetOtherNames(reader);
+                connector.CloseConnection(reader);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Other names for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                var reader = await GetImages(artifact.Id);
+                artifact.SetImageUrls(reader);
+                connector.CloseConnection(reader);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Images for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                var reader = await GetAverageRating(artifact.Id);
+                artifact.SetAverageRating(reader);
+                connector.CloseConnection(reader);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Average rating for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                var reader = await GetMedia(artifact.Id);
+                artifact.SetMedia(reader);
+                connector.CloseConnection(reader);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Media for artifact {artifact.Id} could not be set");
+            }
+            try
+            {
+                var reader = await GetMainParticipantRole(artifact.Id);
+                artifact.SetMainParticipantRole(reader);
+                connector.CloseConnection(reader);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"Main participant role for artifact {artifact.Id} could not be set");
+            }
         }
 
         private async Task<MySqlDataReader> GetCategories(int id)

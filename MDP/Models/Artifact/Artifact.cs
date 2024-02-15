@@ -88,12 +88,25 @@
         /// <param name="reader"></param>
         public void SetDemographics(MySqlDataReader reader)
         {
-            this.TargetDemographics = new List<string>();
-            while (reader.Read())
+            try
             {
-                this.TargetDemographics.Add(reader.GetString("name"));
+                this.TargetDemographics = new List<string>();
+                while (reader.Read())
+                {
+                    try
+                    {
+                        this.TargetDemographics.Add(reader.GetString("name"));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"demographic name column not found for artifact {Id}");
+                    }
+                }
             }
-            reader.Close();
+            catch (Exception ex)
+            {
+                Console.WriteLine("Reader could not be closed");
+            }
         }
 
         /// <summary>
@@ -102,12 +115,26 @@
         /// <param name="reader"></param>
         public void SetCategories(MySqlDataReader reader)
         {
-            this.Categories = new List<string>();
-            while (reader.Read())
+            try
             {
-                this.Categories.Add(reader.GetString("name"));
+                this.Categories = new List<string>();
+                while (reader.Read())
+                {
+                    try
+                    {
+                        this.Categories.Add(reader.GetString("name"));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"category name column not found for artifact {Id}");
+                    }
+                }
             }
-            reader.Close();
+            catch (Exception ex)
+            {
+                Console.WriteLine("Reader could not be closed");
+                Console.WriteLine(ex);
+            }
         }
 
         /// <summary>
@@ -116,9 +143,15 @@
         /// <param name="reader"></param>
         public void SetAgeRating(MySqlDataReader reader)
         {
-            reader.Read();
-            this.AgeRating = reader.GetString("name");
-            reader.Close();
+            try
+            {
+                reader.Read();
+                this.AgeRating = reader.GetString("name");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         /// <summary>
@@ -127,8 +160,15 @@
         /// <param name="reader"></param>
         public void SetMedia(MySqlDataReader reader)
         {
-            reader.Read();
-            this.Media = reader.GetString("name");
+            try
+            {
+                reader.Read();
+                this.Media = reader.GetString("name");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         /// <summary>
@@ -137,9 +177,14 @@
         /// <param name="reader"></param>
         public void SetMainParticipantRole(MySqlDataReader reader)
         {
-            reader.Read();
-            this.MainParticipantRole = reader.GetString("name");
-            reader.Close();
+            try
+            {
+                reader.Read();
+                this.MainParticipantRole = reader.GetString("name");
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         /// <summary>
@@ -148,23 +193,36 @@
         /// <param name="reader"></param>
         public void SetImageUrls(MySqlDataReader reader)
         {
-            this.OtherImgUrls = new List<string>();
-            while (reader.Read())
+            try
             {
-                switch(reader.GetInt32("type"))
+                this.OtherImgUrls = new List<string>();
+                while (reader.Read())
                 {
-                    case (int)ImageTypes.CardImage:
-                        this.CardImgUrl = reader.GetString("url");
-                        break;
-                    case (int)ImageTypes.MainImage:
-                        this.MainImgUrl = reader.GetString("url");
-                        break;
-                    case (int)ImageTypes.OtherImage:
-                        this.OtherImgUrls.Add(reader.GetString("url"));
-                        break;
+                    try
+                    {
+                        switch (reader.GetInt32("type"))
+                        {
+                            case (int)ImageTypes.CardImage:
+                                this.CardImgUrl = reader.GetString("url");
+                                break;
+                            case (int)ImageTypes.MainImage:
+                                this.MainImgUrl = reader.GetString("url");
+                                break;
+                            case (int)ImageTypes.OtherImage:
+                                this.OtherImgUrls.Add(reader.GetString("url"));
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
                 }
+            }            
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
             }
-            reader.Close();
         }
 
         /// <summary>
@@ -173,19 +231,38 @@
         /// <param name="reader"></param>
         public void SetAverageRating(MySqlDataReader reader)
         {
-            reader.Read();
-            this.AverageRating = reader.GetDouble("average");
-            reader.Close();
+            try
+            {
+                reader.Read();
+                this.AverageRating = reader.GetDouble("average");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
         public void SetOtherNames(MySqlDataReader reader)
         {
-            this.OtherNames = new List<string>();
-            while (reader.Read())
+            try
             {
-                this.OtherNames.Add(reader.GetString("name"));
+                this.OtherNames = new List<string>();
+                while (reader.Read())
+                {
+                    try
+                    {
+                        this.OtherNames.Add(reader.GetString("name"));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                }
             }
-            reader.Close();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

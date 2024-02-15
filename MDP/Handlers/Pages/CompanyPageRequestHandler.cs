@@ -28,6 +28,7 @@ namespace MDP.Handlers.Pages
             {
                 toReturn.Add(Link.FromLinkableAffiliation(reader));
             }
+            connector.CloseConnection(reader);
             return toReturn;
         }
 
@@ -40,6 +41,7 @@ namespace MDP.Handlers.Pages
             {
                 toReturn.Add(Link.FromLinkableWork(reader));
             }
+            connector.CloseConnection(reader);
             return toReturn;
         }
     }

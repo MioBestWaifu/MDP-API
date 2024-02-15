@@ -6,6 +6,7 @@ namespace MDP.Data
     public class DatabaseConnector
     {
         private string connectionString;
+        private Dictionary<MySqlDataReader, MySqlConnection> openConnections = [];
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)
         {
@@ -30,18 +31,33 @@ namespace MDP.Data
             logger.LogInformation("\n" + connectionString + "\n");
         }
 
-        public async Task SetConnection(MySqlCommand command)
+        public async Task<MySqlConnection> GetConnection()
         {
             var connection = new MySqlConnection(connectionString);
             await connection.OpenAsync();
-            command.Connection = connection;
+            return connection;
         }
 
         public async Task<MySqlDataReader> ExecuteQuery(MySqlCommand command)
         {
-            await SetConnection(command);
-            MySqlDataReader reader = await command.ExecuteReaderAsync(CommandBehavior.CloseConnection) as MySqlDataReader;
+            var conn = await GetConnection();
+            command.Connection = conn;
+            MySqlDataReader reader = await command.ExecuteReaderAsync() as MySqlDataReader;
+            openConnections.Add(reader, conn);
             return reader;
+        }
+
+        public void CloseConnection(MySqlDataReader reader)
+        {
+            if (openConnections.ContainsKey(reader))
+            {
+                var conn = openConnections[reader];
+                conn.Close();
+                conn.Dispose();
+                reader.Close();
+                reader.Dispose();
+                openConnections.Remove(reader);
+            }
         }
 
     }

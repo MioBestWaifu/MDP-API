@@ -13,15 +13,27 @@ namespace MDP.Handlers.User
 
         public async Task<List<Models.User>> HandleRequest(List<int> ids)
         {
+            if (ids.Count == 0)
+            {
+                return [];
+            }
             Task<MySqlDataReader> usersTask = connector.ExecuteQuery(StatementPreparer.GetListOfSimpleUsers(ids));
             List<Models.User> toReturn = [];
             MySqlDataReader usersReader = await usersTask;
             while (usersReader.Read())
             {
                 var toAdd = Models.User.FromQuery(usersReader);
-                toAdd.MainImgUrl = usersReader.GetString("url");
+                try
+                {
+                    toAdd.MainImgUrl = usersReader.GetString("url");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("url column not found");
+                }
                 toReturn.Add(toAdd);
             }
+            connector.CloseConnection(usersReader);
             return toReturn;
         }
     }

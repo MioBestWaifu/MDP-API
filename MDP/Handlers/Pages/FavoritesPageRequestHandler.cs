@@ -31,6 +31,7 @@ namespace MDP.Handlers.Pages
                 }
                 toReturn.Add(toAdd);
             }
+            connector.CloseConnection(reader);
             return toReturn;
         }
     }

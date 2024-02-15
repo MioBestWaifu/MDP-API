@@ -23,22 +23,27 @@ namespace MDP.Handlers.Company
             MySqlDataReader companyReader = await companyTask;
             companyReader.Read();
             Models.Company toReturn = Models.Company.FromQuery(companyReader);
+            connector.CloseConnection(companyReader);
 
             Task? rolesAfterTask = rolesTask.ContinueWith((task) =>
             {
                 toReturn.SetRoles(task.Result);
+                connector.CloseConnection(task.Result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? imagesAfterTask = imagesTask.ContinueWith((task) =>
             {
                 toReturn.SetImageUrls(task.Result);
+                connector.CloseConnection(task.Result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? averageRatingAfterTask = averageRatingTask.ContinueWith((task) =>
             {
                 toReturn.SetAverageRating(task.Result);
+                connector.CloseConnection(task.Result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? countryAfterTask = countryTask.ContinueWith((task) =>
             {
                 toReturn.SetCountry(task.Result);
+                connector.CloseConnection(task.Result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
 
             Task.WaitAll(rolesAfterTask, imagesAfterTask, averageRatingAfterTask, countryAfterTask);

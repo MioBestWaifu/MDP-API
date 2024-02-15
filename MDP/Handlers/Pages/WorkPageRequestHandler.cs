@@ -24,12 +24,12 @@ namespace MDP.Handlers.Pages
             Task<List<Link>> personsTask = GetParticipantPersons(id);
             Task<List<Link>> companiesTask = GetParticipantCompanies(id);
             Task<List<Link>> newsTask = GetRecentNews(id);
-            Task<List<Models.Review>> reviewsTask = new RecentWorkReviewsRequestHandler(conn).HandleRequest(id);
+            //Task<List<Models.Review>> reviewsTask = new RecentWorkReviewsRequestHandler(conn).HandleRequest(id);
 
             Artifact artifact = await workTask;
             WorkPageModel toReturn = new WorkPageModel();
             toReturn.Participants = [.. await companiesTask,.. await personsTask];
-            toReturn.Reviews = await reviewsTask;
+            //toReturn.Reviews = await reviewsTask;
             toReturn.NewsAndHighlights = await newsTask;
             toReturn.Work = artifact;
             return toReturn;
@@ -44,6 +44,7 @@ namespace MDP.Handlers.Pages
             {
                 toReturn.Add(Link.FromLinkableNews(reader));
             }
+            connector.CloseConnection(reader);
             return toReturn;
         }
 
@@ -56,6 +57,7 @@ namespace MDP.Handlers.Pages
             {
                 toReturn.Add(Link.FromLinkablePerson(reader));
             }
+            connector.CloseConnection(reader);
             return toReturn;
         }
 
@@ -68,6 +70,7 @@ namespace MDP.Handlers.Pages
             {
                 toReturn.Add(Link.FromLinkableCompany(reader));
             }
+            connector.CloseConnection(reader);
             return toReturn;
         }
     }

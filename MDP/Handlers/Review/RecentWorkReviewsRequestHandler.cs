@@ -15,9 +15,17 @@ namespace MDP.Handlers.Review
             MySqlDataReader reviewsReader = await reviewsTask;
             while (reviewsReader.Read())
             {
-                userIds.Add(reviewsReader.GetInt32("user"));
+                try
+                {
+                    userIds.Add(reviewsReader.GetInt32("user"));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("user column not found");
+                }
                 toReturn.Add(Models.Review.FromQuery(reviewsReader));
             }
+            connector.CloseConnection(reviewsReader);
             List<Models.User> users = await new SimpleUserListRequestHandler(connector).HandleRequest(userIds);
             for (int i = 0; i < toReturn.Count; i++)
             {

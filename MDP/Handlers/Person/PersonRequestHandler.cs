@@ -2,6 +2,7 @@
 using MDP.Data;
 using MySql.Data.MySqlClient;
 using System.Threading.Tasks;
+using MySqlX.XDevAPI.Common;
 namespace MDP.Handlers.Person
 {
     /// <summary>
@@ -20,18 +21,24 @@ namespace MDP.Handlers.Person
             MySqlDataReader personReader = await personTask;
             personReader.Read();
             Models.Person toReturn = Models.Person.FromQuery(personReader);
-
+            conn.CloseConnection(personReader);
             Task? rolesAfterTask = rolesTask.ContinueWith((task) =>
             {
-                toReturn.SetRoles(task.Result);
+                var result = task.Result;
+                toReturn.SetRoles(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? imagesAfterTask = imagesTask.ContinueWith((task) =>
             {
-                toReturn.SetImageUrls(task.Result);
+                var result = task.Result;
+                toReturn.SetImageUrls(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
             Task? countryAfterTask = countryTask.ContinueWith((task) =>
             {
-                toReturn.SetCountry(task.Result);
+                var result = task.Result;
+                toReturn.SetCountry(result);
+                connector.CloseConnection(result);
             }, TaskContinuationOptions.OnlyOnRanToCompletion);
 
             Task.WaitAll(rolesAfterTask, imagesAfterTask, countryAfterTask);

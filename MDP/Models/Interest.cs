@@ -76,7 +76,14 @@
             this.TargetDemographics = new List<string>();
             while (reader.Read())
             {
-                this.TargetDemographics.Add(reader.GetString("name"));
+                try
+                {
+                    this.TargetDemographics.Add(reader.GetString("name"));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error retrieving 'name' column: {ex.Message}");
+                }
             }
         }
     }
