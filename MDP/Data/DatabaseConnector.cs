@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Collections.Concurrent;
 using System.Data;
 
 namespace MDP.Data
@@ -6,7 +7,7 @@ namespace MDP.Data
     public class DatabaseConnector
     {
         private string connectionString;
-        private Dictionary<MySqlDataReader, MySqlConnection> openConnections = [];
+        private ConcurrentDictionary<MySqlDataReader, MySqlConnection> openConnections = [];
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)
         {
@@ -43,20 +44,18 @@ namespace MDP.Data
             var conn = await GetConnection();
             command.Connection = conn;
             MySqlDataReader reader = await command.ExecuteReaderAsync() as MySqlDataReader;
-            openConnections.Add(reader, conn);
+            openConnections.TryAdd(reader, conn);
             return reader;
         }
 
         public void CloseConnection(MySqlDataReader reader)
         {
-            if (openConnections.ContainsKey(reader))
+            if (openConnections.TryRemove(reader, out var conn))
             {
-                var conn = openConnections[reader];
                 conn.Close();
                 conn.Dispose();
                 reader.Close();
                 reader.Dispose();
-                openConnections.Remove(reader);
             }
         }
 
