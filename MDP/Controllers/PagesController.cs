@@ -21,6 +21,7 @@ namespace MDP.Controllers
         }
 
         [HttpGet("company")]
+        [ResponseCache(Duration = 60)]
         public CompanyPageModel GetCompanyPage(int id)
         {
             return new CompanyPageRequestHandler(conn).HandleRequest(id).Result;
@@ -51,6 +52,7 @@ namespace MDP.Controllers
         }
 
         [HttpGet("person")]
+        [ResponseCache(Duration = 60)]
         public PersonPageModel GetPersonPage(int id)
         {
             return new PersonPageRequestHandler(conn).HandleRequest(id).Result;
@@ -63,12 +65,14 @@ namespace MDP.Controllers
         }
 
         [HttpGet("user")]
+        [ResponseCache(Duration = 60)]
         public UserPageModel GetUserPage(int id)
         {
             return new UserPageRequestHandler(conn).HandleRequest(id).Result;
         }
 
         [HttpGet("work")]
+        [ResponseCache(Duration = 60)]
         public WorkPageModel GetWorkPage(int id)
         {
             return new WorkPageRequestHandler(conn).HandleRequest(id).Result;
