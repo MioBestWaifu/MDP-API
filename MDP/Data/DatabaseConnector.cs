@@ -4,6 +4,10 @@ using System.Data;
 
 namespace MDP.Data
 {
+    /// <summary>
+    /// Classe que cria e gerencia conexões com o banco de dados. Atualmente usada como um Singleton e feito para
+    /// ser usada como Singleton;
+    /// </summary>
     public class DatabaseConnector
     {
         private string connectionString;
@@ -39,6 +43,12 @@ namespace MDP.Data
             return connection;
         }
 
+        /// <summary>
+        /// Executa um SELECT e retorna seu MySqlDataReader. Quando terminar de usar o reader, chame CloseConnection(reader).
+        /// Isso é obrigatório, so contrário as conexões vão acumular e rapidamente exceder o máximo do servidor.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         public async Task<MySqlDataReader> ExecuteQuery(MySqlCommand command)
         {
             var conn = await GetConnection();
@@ -47,7 +57,11 @@ namespace MDP.Data
             openConnections.TryAdd(reader, conn);
             return reader;
         }
-
+        /// <summary>
+        /// Isso é necessário porque por algum motivo fechar um MySqlDataReader não realmente fecha a conexão indendemente
+        /// das configurações utilizadas. Assim, esse método DEVE ser usado após terminar de trabalhar com um MySqlDataReader.
+        /// </summary>
+        /// <param name="reader"></param>
         public void CloseConnection(MySqlDataReader reader)
         {
             if (openConnections.TryRemove(reader, out var conn))
