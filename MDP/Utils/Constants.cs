@@ -1,5 +1,8 @@
 ﻿namespace MDP.Utils
 {
+    /// <summary>
+    /// Aqui ficam todas as constantes do sistema. 
+    /// </summary>
     public static class Constants
     {
         public static int MAX_RECENT_REVIEWS = 20;
