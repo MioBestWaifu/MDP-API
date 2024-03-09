@@ -4,6 +4,11 @@ using Mysqlx.Crud;
 
 namespace MDP.Data
 {
+    /// <summary>
+    /// Classe acessada para criar os <see cref="MySqlCommand"/> que serão usandos via <see cref="DatabaseConnector"/>.
+    /// As queries estão em <see cref="Statements"/>.
+    /// Todo e qualquer <see cref="MySqlCommand"/> deve ser criado aqui, e sua respectiva query criada em <see cref="Statements"/>.
+    /// </summary>
     public class StatementPreparer
     {
         public static MySqlCommand GetCountry(int id)

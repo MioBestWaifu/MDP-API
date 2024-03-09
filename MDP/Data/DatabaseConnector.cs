@@ -44,8 +44,8 @@ namespace MDP.Data
         }
 
         /// <summary>
-        /// Executa um SELECT e retorna seu MySqlDataReader. Quando terminar de usar o reader, chame CloseConnection(reader).
-        /// Isso é obrigatório, so contrário as conexões vão acumular e rapidamente exceder o máximo do servidor.
+        /// Executa um SELECT e retorna seu MySqlDataReader. Quando terminar de usar o reader, chame <see cref="CloseConnection(MySqlDataReader)"/>.
+        /// Isso é obrigatório, do contrário as conexões vão acumular e rapidamente exceder o máximo do servidor.
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>

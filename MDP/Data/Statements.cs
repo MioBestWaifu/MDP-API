@@ -3,6 +3,10 @@ using MDP.Utils;
 
 namespace MDP.Data
 {
+    /// <summary>
+    /// Essa classe contem as strings para criar comandos SQL. Ela só deve ser usada no <see cref="StatementPreparer"/>
+    /// Talvez seja melhor esses textos estarem em um arquivo separado. Talvez isso seja feito eventualmente.
+    /// </summary>
     public class Statements
     {
         public static string getCountry = "SELECT name, code FROM countries WHERE id = @id",
