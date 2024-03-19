@@ -10,11 +10,11 @@ namespace MDP.Data
     public class Statements
     {
         public static string getCountry = "SELECT name, code FROM countries WHERE id = @id",
-            getDemographics = "SELECT name FROM demographics WHERE id = @id",
-            getCategory = "SELECT name FROM categories WHERE id = @id",
-            getAgeRating = "SELECT name FROM agerating WHERE id = @id",
+            getDemographics = "SELECT id, name FROM demographics WHERE id = @id",
+            getCategory = "SELECT id, name FROM categories WHERE id = @id",
+            getAgeRating = "SELECT id, name FROM agerating WHERE id = @id",
             getImageType = "SELECT name FROM imagetypes WHERE id = @id",
-            getMedia = "SELECT name FROM medias WHERE id = @id",
+            getMedia = "SELECT id, name FROM medias WHERE id = @id",
             getRole = "SELECT name FROM roles WHERE id = @id",
             getAllDemographics = "SELECT id, name FROM demographics",
             getAllCategories = "SELECT id, name FROM categories",
@@ -22,10 +22,10 @@ namespace MDP.Data
             getAllMedia = "SELECT id, name FROM media";
 
         public static string getWorkById = "SELECT * FROM works WHERE id = @work", 
-            getWorkCategoriesByWorkId = "SELECT name FROM categories WHERE id IN (SELECT category FROM workcategories WHERE work = @work)",
+            getWorkCategoriesByWorkId = "SELECT id, name FROM categories WHERE id IN (SELECT category FROM workcategories WHERE work = @work)",
             getWorkOtherNames = "SELECT name FROM workothernames WHERE work = @work",
-            getWorkDemographics = "SELECT name FROM demographics WHERE id IN (SELECT demographics FROM workdemographics WHERE work = @work)",
-            getWorkMedia = "SELECT name FROM medias WHERE id = (SELECT media FROM works WHERE works.id = @work)",
+            getWorkDemographics = "SELECT id, name FROM demographics WHERE id IN (SELECT demographics FROM workdemographics WHERE work = @work)",
+            getWorkMedia = "SELECT id, name FROM medias WHERE id = (SELECT media FROM works WHERE works.id = @work)",
             getWorkMainParticipantRole = "SELECT name FROM roles WHERE id = (SELECT mainParticipantRole FROM works WHERE works.id = @work)",
             getAllWorkImages = "SELECT * FROM workimages WHERE work = @work",
             getRecentWorkReviews = "SELECT * from reviews WHERE id IN (SELECT review FROM workreviews WHERE work = @work ORDER BY id DESC) LIMIT @limit",
