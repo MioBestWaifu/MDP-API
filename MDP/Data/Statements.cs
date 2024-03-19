@@ -15,7 +15,11 @@ namespace MDP.Data
             getAgeRating = "SELECT name FROM agerating WHERE id = @id",
             getImageType = "SELECT name FROM imagetypes WHERE id = @id",
             getMedia = "SELECT name FROM medias WHERE id = @id",
-            getRole = "SELECT name FROM roles WHERE id = @id";
+            getRole = "SELECT name FROM roles WHERE id = @id",
+            getAllDemographics = "SELECT id, name FROM demographics",
+            getAllCategories = "SELECT id, name FROM categories",
+            getAllAgeRatings = "SELECT id, name FROM agerating",
+            getAllMedia = "SELECT id, name FROM media";
 
         public static string getWorkById = "SELECT * FROM works WHERE id = @work", 
             getWorkCategoriesByWorkId = "SELECT name FROM categories WHERE id IN (SELECT category FROM workcategories WHERE work = @work)",
