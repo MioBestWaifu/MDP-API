@@ -1,5 +1,6 @@
 ﻿namespace MDP.Models.Artifacts
 {
+    using MDP.Models.Accessory;
     using MySql.Data.MySqlClient;
     using System;
     using System.Collections.Generic;
@@ -11,10 +12,10 @@
         public string FullName { get; set; }
         public List<string> OtherNames { get; set; }
         public string Description { get; set; }
-        public string Media { get; set; }
-        public List<string> Categories { get; set; }
-        public List<string> TargetDemographics { get; set; }
-        public string AgeRating { get; set; }
+        public Accessory Media { get; set; }
+        public List<Accessory> Categories { get; set; }
+        public List<Accessory> TargetDemographics { get; set; }
+        public Accessory AgeRating { get; set; }
         public string CardImgUrl { get; set; }
         public string MainImgUrl { get; set; }
         public List<string> OtherImgUrls { get; set; }
@@ -90,12 +91,12 @@
         {
             try
             {
-                this.TargetDemographics = new List<string>();
+                this.TargetDemographics = [];
                 while (reader.Read())
                 {
                     try
                     {
-                        this.TargetDemographics.Add(reader.GetString("name"));
+                        TargetDemographics.Add(Accessory.FromQuery(reader));   
                     }
                     catch (Exception ex)
                     {
@@ -117,12 +118,12 @@
         {
             try
             {
-                this.Categories = new List<string>();
+                this.Categories = [];
                 while (reader.Read())
                 {
                     try
                     {
-                        this.Categories.Add(reader.GetString("name"));
+                        this.Categories.Add(Accessory.FromQuery(reader));
                     }
                     catch (Exception ex)
                     {
@@ -146,7 +147,7 @@
             try
             {
                 reader.Read();
-                this.AgeRating = reader.GetString("name");
+                this.AgeRating = Accessory.FromQuery(reader);
             }
             catch (Exception ex)
             {
@@ -163,7 +164,7 @@
             try
             {
                 reader.Read();
-                this.Media = reader.GetString("name");
+                this.Media = Accessory.FromQuery(reader);
             }
             catch (Exception ex)
             {
