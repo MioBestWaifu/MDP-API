@@ -19,7 +19,7 @@ namespace MDP.Data
             getAllDemographics = "SELECT id, name FROM demographics",
             getAllCategories = "SELECT id, name FROM categories",
             getAllAgeRatings = "SELECT id, name FROM agerating",
-            getAllMedia = "SELECT id, name FROM media";
+            getAllMedia = "SELECT id, name FROM medias";
 
         public static string getWorkById = "SELECT * FROM works WHERE id = @work", 
             getWorkCategoriesByWorkId = "SELECT id, name FROM categories WHERE id IN (SELECT category FROM workcategories WHERE work = @work)",
