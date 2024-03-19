@@ -61,6 +61,30 @@ namespace MDP.Data
             return com;
         }
 
+        public static MySqlCommand GetAllDemographics ()
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getAllDemographics);
+            return com;
+        }
+
+        public static MySqlCommand GetAllCategories ()
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getAllCategories);
+            return com;
+        }
+
+        public static MySqlCommand GetAllAgeRatings ()
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getAllAgeRatings);
+            return com;
+        }
+
+        public static MySqlCommand GetAllMedia ()
+        {
+            MySqlCommand com = new MySqlCommand(Statements.getAllMedia);
+            return com;
+        }
+
         public static MySqlCommand GetWorkById (int work)
         {
             MySqlCommand com = new MySqlCommand(Statements.getWorkById);
