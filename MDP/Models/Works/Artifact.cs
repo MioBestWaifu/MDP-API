@@ -1,4 +1,4 @@
-﻿namespace MDP.Models.Artifacts
+﻿namespace MDP.Models.Works
 {
     using MDP.Models.Accessory;
     using MDP.Models.Companies;
@@ -7,7 +7,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public class Artifact 
+    public class Artifact
     {
         public int Id { get; set; }
         [Required]

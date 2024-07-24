@@ -1,14 +1,14 @@
 ﻿using MDP.Models.Artifacts;
 using System.ComponentModel.DataAnnotations;
 
-namespace MDP.Models.News
+namespace MDP.Models.Information
 {
-    public class WorkNews
+    public class PersonNews
     {
         public int Id { get; set; }
         [Required]
         public News News { get; set; }
         [Required]
-        public int ArtifactId { get; set; }
+        public int PersonId { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MDP.Models.News
+namespace MDP.Models.Information
 {
     public class News
     {

@@ -1,7 +1,7 @@
 ﻿namespace MDP.Models.Pages
 {
-    using MDP.Models.Artifacts;
-    using MDP.Models.News;
+    using MDP.Models.Information;
+    using MDP.Models.Works;
     using System.Collections.Generic;
 
     public class WorkPageModel : BasePageModel

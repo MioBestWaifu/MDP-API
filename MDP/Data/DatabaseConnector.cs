@@ -1,8 +1,8 @@
 ﻿using MDP.Handlers.User;
 using MDP.Models;
-using MDP.Models.Artifacts;
 using MDP.Models.Companies;
-using MDP.Models.News;
+using MDP.Models.Information;
+using MDP.Models.Works;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using System.Collections.Concurrent;
@@ -26,6 +26,7 @@ namespace MDP.Data
         public DbSet<User> Users { get; set; }
         public DbSet<UserFavoriteWork> UserFavoriteWorks { get; set; }
         public DbSet<WorkNews> WorkNews { get; set; }
+        public DbSet<GlobalNews> GlobalNews { get; set; }
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)
         {
@@ -50,6 +51,7 @@ namespace MDP.Data
             }
             else
             {
+                //Remember to implement this
             }
         }
 

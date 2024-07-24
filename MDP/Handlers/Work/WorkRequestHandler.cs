@@ -1,5 +1,5 @@
 ﻿using MDP.Data;
-using MDP.Models.Artifacts;
+using MDP.Models.Works;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
 using System.Reflection.PortableExecutable;

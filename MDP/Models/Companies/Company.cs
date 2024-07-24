@@ -1,6 +1,6 @@
 ﻿namespace MDP.Models.Companies
 {
-    using MDP.Models.Artifacts;
+    using MDP.Models.Works;
     using MySql.Data.MySqlClient;
     using System;
     using System.Collections.Generic;

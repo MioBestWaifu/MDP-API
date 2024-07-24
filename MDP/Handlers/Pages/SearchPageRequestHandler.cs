@@ -1,6 +1,6 @@
 ﻿using MDP.Data;
-using MDP.Models.Artifacts;
 using MDP.Models.Pages;
+using MDP.Models.Works;
 using MySql.Data.MySqlClient;
 
 namespace MDP.Handlers.Pages
