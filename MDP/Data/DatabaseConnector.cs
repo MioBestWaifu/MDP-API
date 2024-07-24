@@ -36,7 +36,7 @@ namespace MDP.Data
         {
             if (environment.IsDevelopment())
             {
-                string filePath = Path.Combine(environment.ContentRootPath, "connection.txt");
+                string filePath = Path.Combine(environment.ContentRootPath, "connection.json");
                 try
                 {
                     JsonSerializerOptions options = new JsonSerializerOptions
@@ -44,7 +44,7 @@ namespace MDP.Data
                         PropertyNameCaseInsensitive = true,
                        
                     };
-                    configs = JsonSerializer.Deserialize<DatabaseConfigs>(File.ReadAllText(filePath));
+                    configs = JsonSerializer.Deserialize<DatabaseConfigs>(File.ReadAllText(filePath),options);
                 }
                 catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
                 {
