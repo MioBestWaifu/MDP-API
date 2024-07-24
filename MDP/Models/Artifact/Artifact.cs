@@ -9,7 +9,7 @@
     {
         public int Id { get; set; }
         public Name ShortName { get; set; }
-        public Name Name { get; set; }
+        public Name FullName { get; set; }
         public List<Name>? OtherNames { get; set; }
         public string Description { get; set; }
         public Accessory Media { get; set; }
