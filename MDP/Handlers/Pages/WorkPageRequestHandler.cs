@@ -1,5 +1,4 @@
-﻿
-using MDP.Data;
+﻿using MDP.Data;
 using MDP.Handlers.Work;
 using MDP.Models.Pages;
 using MDP.Models;

@@ -1,10 +1,7 @@
-﻿namespace MDP.Models.Persons
+﻿using MDP.Models.Companies;
+
+namespace MDP.Models.Persons
 {
-    using MDP.Models.Companies;
-    using MDP.Models.Works;
-    using MySql.Data.MySqlClient;
-    using System;
-    using System.Collections.Generic;
 
     public class Person
     {

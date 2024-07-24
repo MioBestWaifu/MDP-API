@@ -1,9 +1,8 @@
-﻿namespace MDP.Models.Pages
+﻿using MDP.Models.Information;
+using MDP.Models.Works;
+using System.Collections.Generic;
+namespace MDP.Models.Pages
 {
-    using MDP.Models.Information;
-    using MDP.Models.Works;
-    using System.Collections.Generic;
-
     public class WorkPageModel : BasePageModel
     {
         public Artifact Work { get; set; }

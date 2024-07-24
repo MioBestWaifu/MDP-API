@@ -1,11 +1,10 @@
-﻿namespace MDP.Models.Companies
+﻿using MDP.Models.Works;
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+namespace MDP.Models.Companies
 {
-    using MDP.Models.Works;
-    using MySql.Data.MySqlClient;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
     public class Company
     {
         public int Id { get; set; }

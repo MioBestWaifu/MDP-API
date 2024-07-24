@@ -1,7 +1,8 @@
-﻿namespace MDP.Models
+﻿using MySql.Data.MySqlClient;
+using System.Collections.Generic;
+
+namespace MDP.Models
 {
-    using MySql.Data.MySqlClient;
-    using System.Collections.Generic;
 
     public class Interest 
     {

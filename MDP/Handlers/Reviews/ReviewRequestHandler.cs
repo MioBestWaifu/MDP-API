@@ -1,11 +1,12 @@
-﻿namespace MDP.Handlers.Reviews
+﻿using MDP.Models;
+using MDP.Data;
+using MySql.Data.MySqlClient;
+using System.Threading.Tasks;
+using MDP.Handlers.Users;
+using MDP.Models.Users;
+namespace MDP.Handlers.Reviews
 {
-    using MDP.Models;
-    using MDP.Data;
-    using MySql.Data.MySqlClient;
-    using System.Threading.Tasks;
-    using MDP.Handlers.Users;
-    using MDP.Models.Users;
+
 
     /// <summary>
     /// Busca, cria e retorna uma única review baseada no Id dela.

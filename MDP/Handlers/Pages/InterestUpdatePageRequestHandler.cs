@@ -1,5 +1,5 @@
 ﻿using MDP.Data;
-using MDP.Handlers.Interest;
+using MDP.Handlers.Interests;
 using MDP.Models.Pages;
 using MySql.Data.MySqlClient;
 

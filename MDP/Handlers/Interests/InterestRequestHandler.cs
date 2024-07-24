@@ -1,9 +1,10 @@
-﻿namespace MDP.Handlers.Interest
+﻿using MDP.Models;
+using MDP.Data;
+using MySql.Data.MySqlClient;
+using System.Threading.Tasks;
+namespace MDP.Handlers.Interests
 {
-    using MDP.Models;
-    using MDP.Data;
-    using MySql.Data.MySqlClient;
-    using System.Threading.Tasks;
+
 
     /// <summary>
     /// Busca, cria e retorna um único interest baseado no Id dele.

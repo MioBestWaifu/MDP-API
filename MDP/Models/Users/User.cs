@@ -1,9 +1,9 @@
-﻿namespace MDP.Models.Users
-{
-    using MySql.Data.MySqlClient;
-    using System;
-    using System.Collections.Generic;
+﻿using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
 
+namespace MDP.Models.Users
+{
     public class User
     {
         public int Id { get; set; }

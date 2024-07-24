@@ -1,13 +1,13 @@
-﻿namespace MDP.Models.Works
-{
-    using MDP.Models.Accessory;
-    using MDP.Models.Companies;
-    using MDP.Models.Persons;
-    using MySql.Data.MySqlClient;
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
+﻿using MDP.Models.Accessory;
+using MDP.Models.Companies;
+using MDP.Models.Persons;
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
+namespace MDP.Models.Works
+{
     public class Artifact
     {
         public int Id { get; set; }
