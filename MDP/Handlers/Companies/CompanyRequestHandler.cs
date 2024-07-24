@@ -1,18 +1,17 @@
-﻿using MDP.Models;
-using MDP.Data;
+﻿using MDP.Data;
 using MySql.Data.MySqlClient;
 using System.Threading.Tasks;
 
-namespace MDP.Handlers.Company
+namespace MDP.Handlers.Companies
 {
 
     /// <summary>
     /// Busca, cria e retorna uma única empresa baseada no Id dela.
     /// </summary>
-    public class CompanyRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Models.Company>
+    public class CompanyRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Models.Companies.Company>
     {
         //Inicia 5 connections 
-        public async Task<Models.Company> HandleRequest(int id)
+        public async Task<Models.Companies.Company> HandleRequest(int id)
         {
             Task<MySqlDataReader> companyTask = connector.ExecuteQuery(StatementPreparer.GetCompanyById(id));
             Task<MySqlDataReader> rolesTask = GetRoles(id);
@@ -22,7 +21,7 @@ namespace MDP.Handlers.Company
 
             MySqlDataReader companyReader = await companyTask;
             companyReader.Read();
-            Models.Company toReturn = Models.Company.FromQuery(companyReader);
+            Models.Companies.Company toReturn = Models.Companies.Company.FromQuery(companyReader);
             connector.CloseConnection(companyReader);
 
             Task? rolesAfterTask = rolesTask.ContinueWith((task) =>
