@@ -3,7 +3,7 @@
     using MySql.Data.MySqlClient;
     using System.Collections.Generic;
 
-    public class Interest : IQueryable<Interest>
+    public class Interest 
     {
         public int Id { get; set; }
         public Link Link { get; set; }
