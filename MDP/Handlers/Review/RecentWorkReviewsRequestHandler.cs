@@ -26,7 +26,7 @@ namespace MDP.Handlers.Review
                 toReturn.Add(Models.Review.FromQuery(reviewsReader));
             }
             connector.CloseConnection(reviewsReader);
-            List<Models.User> users = await new SimpleUserListRequestHandler(connector).HandleRequest(userIds);
+            List<Models.Users.User> users = await new SimpleUserListRequestHandler(connector).HandleRequest(userIds);
             for (int i = 0; i < toReturn.Count; i++)
             {
                 toReturn[i].SetUser(users[i]);

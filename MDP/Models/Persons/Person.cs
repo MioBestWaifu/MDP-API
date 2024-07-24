@@ -1,5 +1,7 @@
-﻿namespace MDP.Models
+﻿namespace MDP.Models.Persons
 {
+    using MDP.Models.Companies;
+    using MDP.Models.Works;
     using MySql.Data.MySqlClient;
     using System;
     using System.Collections.Generic;
@@ -15,6 +17,8 @@
         public List<Image>? OtherImageUrls { get; set; }
         public Country? Country { get; set; }
         public List<Role> Roles { get; set; }
+        public List<PersonParticipation>? WorkParticipations { get; set; }
+        public List<CompanyPerson>? CompanyAffiliations { get; set; }
         public string Description { get; set; }
         public DateTime? Birthday { get; set; }
         public double AverageRating { get; set; }

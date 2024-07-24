@@ -1,4 +1,4 @@
-﻿namespace MDP.Models
+﻿namespace MDP.Models.Users
 {
     using MySql.Data.MySqlClient;
     using System;
@@ -20,8 +20,8 @@
 
         public void RemoveSensitiveInformation()
         {
-            this.Email = null;
-            this.Password = null;
+            Email = null;
+            Password = null;
         }
     }
 }

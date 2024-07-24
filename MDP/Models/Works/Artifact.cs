@@ -2,6 +2,7 @@
 {
     using MDP.Models.Accessory;
     using MDP.Models.Companies;
+    using MDP.Models.Persons;
     using MySql.Data.MySqlClient;
     using System;
     using System.Collections.Generic;
@@ -28,8 +29,8 @@
         [Required]
         public Role MainParticipantRole { get; set; }
         public Person? MainParticipant { get; set; }
-        public List<Person>? ParticipantPersons { get; set; }
-        public List<Company>? ParticipantCompanies { get; set; }
+        public List<PersonParticipation>? ParticipantPersons { get; set; }
+        public List<CompanyParticipation>? ParticipantCompanies { get; set; }
         public double AverageRating { get; set; }
         public DateTime? ReleaseDate { get; set; }
 

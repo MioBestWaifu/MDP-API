@@ -5,6 +5,7 @@
     using MySql.Data.MySqlClient;
     using System.Threading.Tasks;
     using MDP.Handlers.User;
+    using MDP.Models.Users;
 
     /// <summary>
     /// Busca, cria e retorna uma única review baseada no Id dela.

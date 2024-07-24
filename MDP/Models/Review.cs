@@ -1,5 +1,6 @@
 ﻿namespace MDP.Models
 {
+    using MDP.Models.Users;
     using MySql.Data.MySqlClient;
     using System;
 

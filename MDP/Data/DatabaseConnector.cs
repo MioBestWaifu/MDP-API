@@ -1,7 +1,7 @@
-﻿using MDP.Handlers.User;
-using MDP.Models;
-using MDP.Models.Companies;
+﻿using MDP.Models.Companies;
 using MDP.Models.Information;
+using MDP.Models.Persons;
+using MDP.Models.Users;
 using MDP.Models.Works;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
@@ -12,10 +12,6 @@ using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace MDP.Data
 {
-    /// <summary>
-    /// Classe que cria e gerencia conexões com o banco de dados. Atualmente usada como um Singleton e feito para
-    /// ser usada como Singleton;
-    /// </summary>
     public class DatabaseConnector : DbContext
     {
         private DatabaseConfigs configs;

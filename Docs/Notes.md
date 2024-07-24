@@ -1,0 +1,1 @@
+- In the transiotion to EF, a bunch of possible circular references in properties were created in the models. Handle that in the JSON side of things.

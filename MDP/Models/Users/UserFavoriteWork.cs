@@ -1,6 +1,6 @@
 ﻿using MDP.Models.Works;
 
-namespace MDP.Handlers.User
+namespace MDP.Models.Users
 {
     public class UserFavoriteWork
     {

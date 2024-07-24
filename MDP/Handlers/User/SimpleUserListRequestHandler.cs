@@ -1,28 +1,26 @@
-﻿
-using MDP.Models;
-using MDP.Data;
+﻿using MDP.Data;
 using MySql.Data.MySqlClient;
 namespace MDP.Handlers.User
 {
-    public class SimpleUserListRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<List<Models.User>>
+    public class SimpleUserListRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<List<Models.Users.User>>
     {
-        public Task<List<Models.User>> HandleRequest(int id)
+        public Task<List<Models.Users.User>> HandleRequest(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<Models.User>> HandleRequest(List<int> ids)
+        public async Task<List<Models.Users.User>> HandleRequest(List<int> ids)
         {
             if (ids.Count == 0)
             {
                 return [];
             }
             Task<MySqlDataReader> usersTask = connector.ExecuteQuery(StatementPreparer.GetListOfSimpleUsers(ids));
-            List<Models.User> toReturn = [];
+            List<Models.Users.User> toReturn = [];
             MySqlDataReader usersReader = await usersTask;
             while (usersReader.Read())
             {
-                var toAdd = Models.User.FromQuery(usersReader);
+                var toAdd = Models.Users.User.FromQuery(usersReader);
                 try
                 {
                     toAdd.MainImgUrl = usersReader.GetString("url");

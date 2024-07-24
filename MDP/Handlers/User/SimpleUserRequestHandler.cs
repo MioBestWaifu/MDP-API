@@ -1,12 +1,11 @@
 ﻿
 using MDP.Data;
-using MDP.Models;
 using MySql.Data.MySqlClient;
 using System.Threading.Tasks;
 namespace MDP.Handlers.User
 {
 
-    public class SimpleUserRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Models.User>
+    public class SimpleUserRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Models.Users.User>
     {
         /// <summary>
         /// Busca, cria e retorna um único usuário apenas com nome, id e url de mainImage, baseado no Id dele.
@@ -14,12 +13,12 @@ namespace MDP.Handlers.User
         /// <param name="id"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public async Task<Models.User> HandleRequest(int id)
+        public async Task<Models.Users.User> HandleRequest(int id)
         {
             Task<MySqlDataReader> userTask = connector.ExecuteQuery(StatementPreparer.GetSimpleUserById(id));
             MySqlDataReader userReader = await userTask;
             userReader.Read();
-            Models.User toReturn = Models.User.FromQuery(userReader);
+            Models.Users.User toReturn = Models.Users.User.FromQuery(userReader);
             try
             {
                 toReturn.MainImgUrl = userReader.GetString("url");

@@ -1,6 +1,8 @@
 ﻿namespace MDP.Models
 {
-    public enum Role
+    public class Role
     {
+        int Id { get; set; }
+        string Name { get; set; }
     }
 }

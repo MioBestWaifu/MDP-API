@@ -1,4 +1,6 @@
-﻿namespace MDP.Models.Companies
+﻿using MDP.Models.Persons;
+
+namespace MDP.Models.Companies
 {
     public class CompanyPerson
     {
