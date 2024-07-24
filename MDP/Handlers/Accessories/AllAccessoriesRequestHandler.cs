@@ -10,11 +10,11 @@ namespace MDP.Handlers.Accessories
         {
             switch (id)
             {
-                case (int)AccessoryTypes.Category:
+                case (int)AccessoryType.Category:
                     return await GetCategories();
-                case (int)AccessoryTypes.Media:
+                case (int)AccessoryType.Media:
                     return await GetMedias();
-                case (int)AccessoryTypes.Demographic:
+                case (int)AccessoryType.Demographic:
                     return await GetDemographics();
                 default:
                     throw new NotImplementedException();
@@ -28,7 +28,7 @@ namespace MDP.Handlers.Accessories
             while (reader.Read())
             {
                 Accessory accessory = Accessory.FromQuery(reader);
-                accessory.Type = (int)AccessoryTypes.Category;
+                accessory.Type = (int)AccessoryType.Category;
                 toReturn.Add(accessory);
             }
             return toReturn;
@@ -41,7 +41,7 @@ namespace MDP.Handlers.Accessories
             while (reader.Read())
             {
                 Accessory accessory = Accessory.FromQuery(reader);
-                accessory.Type = (int)AccessoryTypes.Media;
+                accessory.Type = (int)AccessoryType.Media;
                 toReturn.Add(accessory);
             }
             return toReturn;
@@ -54,7 +54,7 @@ namespace MDP.Handlers.Accessories
             while (reader.Read())
             {
                 Accessory accessory = Accessory.FromQuery(reader);
-                accessory.Type = (int)AccessoryTypes.Demographic;
+                accessory.Type = (int)AccessoryType.Demographic;
                 toReturn.Add(accessory);
             }
             return toReturn;

@@ -1,6 +1,6 @@
 ﻿namespace MDP.Models.Accessory
 {
-    public enum AccessoryTypes
+    public enum AccessoryType
     {
         Category = 1,
         Media = 2,

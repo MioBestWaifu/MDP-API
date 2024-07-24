@@ -18,19 +18,19 @@ namespace MDP.Controllers
         [HttpGet("categories")]
         public List<Accessory> GetCategories()
         {
-            return new AllAccessoriesRequestHandler(conn).HandleRequest((int)AccessoryTypes.Category).Result;
+            return new AllAccessoriesRequestHandler(conn).HandleRequest((int)AccessoryType.Category).Result;
         }
 
         [HttpGet("medias")]
         public List<Accessory> GetMedias()
         {
-            return new AllAccessoriesRequestHandler(conn).HandleRequest((int)AccessoryTypes.Media).Result;
+            return new AllAccessoriesRequestHandler(conn).HandleRequest((int)AccessoryType.Media).Result;
         }
 
         [HttpGet("demographics")]
         public List<Accessory> GetDemographics()
         {
-            return new AllAccessoriesRequestHandler(conn).HandleRequest((int)AccessoryTypes.Demographic).Result;
+            return new AllAccessoriesRequestHandler(conn).HandleRequest((int)AccessoryType.Demographic).Result;
         }
     }
 }

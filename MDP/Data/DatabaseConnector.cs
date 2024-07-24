@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MDP.Models;
+using MDP.Models.Artifacts;
+using MDP.Models.News;
+using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using System.Collections.Concurrent;
 using System.Data;
@@ -14,7 +17,11 @@ namespace MDP.Data
     public class DatabaseConnector : DbContext
     {
         private DatabaseConfigs configs;
-        private ConcurrentDictionary<MySqlDataReader, MySqlConnection> openConnections = [];
+        public DbSet<Artifact> Artifacts { get; set; }
+        public DbSet<Person> People { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<WorkNews> WorkNews { get; set; }
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)
         {

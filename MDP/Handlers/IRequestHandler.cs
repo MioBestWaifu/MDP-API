@@ -2,6 +2,6 @@
 {
     public interface IRequestHandler <K>
     {
-        public abstract Task<K> HandleRequest(int id);
+        public abstract Task<K?> HandleRequest(int id);
     }
 }
