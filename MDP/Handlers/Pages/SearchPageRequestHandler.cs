@@ -1,6 +1,7 @@
 ﻿using MDP.Data;
 using MDP.Models.Pages;
 using MDP.Models.Works;
+using MDP.Utils;
 using MySql.Data.MySqlClient;
 
 namespace MDP.Handlers.Pages
@@ -9,14 +10,14 @@ namespace MDP.Handlers.Pages
     {
         public async Task<SearchPageModel> HandleSearch(string query, int page = 0)
         {
-            Task<MySqlDataReader> artifactsTask = connector.ExecuteQuery(StatementPreparer.SearchWorks(query, page));
+            List<Artifact> artifacts = connector.Artifacts
+        .Where(a => a.ShortName.Literal.Contains(query) && a.FullName.Literal.Contains(query))
+        .Skip(page * Constants.MAX_SEARCH_WORKS)
+        .Take(Constants.MAX_SEARCH_WORKS).ToList();
+
             SearchPageModel toReturn = new SearchPageModel();
-            MySqlDataReader reader = await artifactsTask;
-            while (reader.Read())
-            {
-                toReturn.Artifacts.Add(Artifact.FromQuery(reader));
-            }
-            connector.CloseConnection(reader);
+            toReturn.Artifacts = artifacts;
+
             return toReturn;
         }
     }
