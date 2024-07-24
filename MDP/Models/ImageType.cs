@@ -1,6 +1,6 @@
 ﻿namespace MDP.Models
 {
-    public enum ImageTypes
+    public enum ImageType
     {
         CardImage = 1,
         MainImage,

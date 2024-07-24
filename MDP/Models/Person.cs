@@ -103,13 +103,13 @@
                 {
                     switch (reader.GetInt32("type"))
                     {
-                        case (int)ImageTypes.CardImage:
+                        case (int)ImageType.CardImage:
                             this.CardImgUrl = reader.GetString("url");
                             break;
-                        case (int)ImageTypes.MainImage:
+                        case (int)ImageType.MainImage:
                             this.MainImgUrl = reader.GetString("url");
                             break;
-                        case (int)ImageTypes.OtherImage:
+                        case (int)ImageType.OtherImage:
                             this.OtherImgUrls.Add(reader.GetString("url"));
                             break;
                     }
