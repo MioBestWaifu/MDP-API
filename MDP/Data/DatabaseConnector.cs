@@ -1,6 +1,9 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using System.Collections.Concurrent;
 using System.Data;
+using System.Text.Json;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace MDP.Data
 {
@@ -8,9 +11,9 @@ namespace MDP.Data
     /// Classe que cria e gerencia conexões com o banco de dados. Atualmente usada como um Singleton e feito para
     /// ser usada como Singleton;
     /// </summary>
-    public class DatabaseConnector
+    public class DatabaseConnector : DbContext
     {
-        private string connectionString;
+        private DatabaseConfigs configs;
         private ConcurrentDictionary<MySqlDataReader, MySqlConnection> openConnections = [];
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)
@@ -20,57 +23,34 @@ namespace MDP.Data
                 string filePath = Path.Combine(environment.ContentRootPath, "connection.txt");
                 try
                 {
-                    connectionString = File.ReadAllText(filePath);
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                       
+                    };
+                    configs = JsonSerializer.Deserialize<DatabaseConfigs>(File.ReadAllText(filePath));
                 }
                 catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
                 {
-                    logger.LogInformation("\nconnection.txt, que deveria estar no root da aplicação (/MDP), não foi encontrado\nO seguinte caminho foi tentado: " +
+                    logger.LogInformation("\nconnection.json, que deveria estar no root da aplicação (/MDP), não foi encontrado\nO seguinte caminho foi tentado: " +
                         filePath);
                     throw;
                 }
             }
             else
             {
-                connectionString = "Server=prod;Database=prod;User Id=prod;Password=prod;";
             }
-            logger.LogInformation("\n" + connectionString + "\n");
         }
 
-        public async Task<MySqlConnection> GetConnection()
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connection = new MySqlConnection(connectionString);
-            await connection.OpenAsync();
-            return connection;
-        }
-
-        /// <summary>
-        /// Executa um SELECT e retorna seu MySqlDataReader. Quando terminar de usar o reader, chame <see cref="CloseConnection(MySqlDataReader)"/>.
-        /// Isso é obrigatório, do contrário as conexões vão acumular e rapidamente exceder o máximo do servidor.
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        public async Task<MySqlDataReader> ExecuteQuery(MySqlCommand command)
-        {
-            var conn = await GetConnection();
-            command.Connection = conn;
-            MySqlDataReader reader = await command.ExecuteReaderAsync() as MySqlDataReader;
-            openConnections.TryAdd(reader, conn);
-            return reader;
-        }
-        /// <summary>
-        /// Isso é necessário porque por algum motivo fechar um MySqlDataReader não realmente fecha a conexão indendemente
-        /// das configurações utilizadas. Assim, esse método DEVE ser usado após terminar de trabalhar com um MySqlDataReader.
-        /// </summary>
-        /// <param name="reader"></param>
-        public void CloseConnection(MySqlDataReader reader)
-        {
-            if (openConnections.TryRemove(reader, out var conn))
+            if (!optionsBuilder.IsConfigured)
             {
-                conn.Close();
-                conn.Dispose();
-                reader.Close();
-                reader.Dispose();
+                int[] version = configs.SplitVersion();
+                optionsBuilder.UseMySql(configs.GetConnectionString(),
+                   new MySqlServerVersion(new Version(version[0], version[1], version[2])));
             }
+
         }
 
     }
