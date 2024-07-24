@@ -1,4 +1,5 @@
-﻿using MDP.Models;
+﻿using MDP.Handlers.User;
+using MDP.Models;
 using MDP.Models.Artifacts;
 using MDP.Models.Companies;
 using MDP.Models.News;
@@ -23,6 +24,7 @@ namespace MDP.Data
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyPerson> CompanyPeople { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserFavoriteWork> UserFavoriteWorks { get; set; }
         public DbSet<WorkNews> WorkNews { get; set; }
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)

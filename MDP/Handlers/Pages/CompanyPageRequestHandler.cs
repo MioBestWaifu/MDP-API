@@ -9,8 +9,9 @@ namespace MDP.Handlers.Pages
 {
     public class CompanyPageRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<CompanyPageModel>
     {
-        public async Task<CompanyPageModel> HandleRequest(int id)
+        public async Task<CompanyPageModel?> HandleRequest(int id)
         {
+            //What if null?
             Company company = await new CompanyRequestHandler(conn).HandleRequest(id);
             CompanyPageModel toReturn = new CompanyPageModel();
             toReturn.Company = company;

@@ -10,29 +10,9 @@ namespace MDP.Handlers.Pages
         public async Task<FavoritesPageModel> HandleRequest(int id)
         {
             FavoritesPageModel toReturn = new FavoritesPageModel();
-            toReturn.AllFavorites = await GetFavorites(id);
+            toReturn.AllFavorites = connector.UserFavoriteWorks.Where(x=> x.UserId == id).Select(x => x.Artifact).ToList();
             return toReturn;
         }
 
-        private async Task<List<Artifact>> GetFavorites(int id)
-        {
-            Task<MySqlDataReader> favoritesTask = connector.ExecuteQuery(StatementPreparer.GetUserFavoriteWorks(id));
-            MySqlDataReader reader = await favoritesTask;
-            List<Artifact> toReturn = new List<Artifact>();
-            while (reader.Read())
-            {
-                Artifact toAdd = Artifact.FromQuery(reader);
-                try
-                {
-                    toAdd.CardImgUrl = reader.GetString("url");
-                } catch (Exception ex)
-                {
-                    Console.WriteLine("url column not found");
-                }
-                toReturn.Add(toAdd);
-            }
-            connector.CloseConnection(reader);
-            return toReturn;
-        }
     }
 }
