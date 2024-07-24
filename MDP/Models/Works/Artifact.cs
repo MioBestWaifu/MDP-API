@@ -18,11 +18,11 @@
         public List<Name>? OtherNames { get; set; }
         public string? Description { get; set; }
         [Required]
-        public Accessory Media { get; set; }
+        public Media Media { get; set; }
         [Required]
-        public List<Accessory> Categories { get; set; }
-        public List<Accessory>? TargetDemographics { get; set; }
-        public Accessory AgeRating { get; set; }
+        public List<Category> Categories { get; set; }
+        public List<Demographic>? TargetDemographics { get; set; }
+        public AgeRating AgeRating { get; set; }
         public Image CardImage { get; set; }
         public Image MainImage { get; set; }
         public List<Image>? OtherImages { get; set; }

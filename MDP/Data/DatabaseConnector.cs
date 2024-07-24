@@ -1,4 +1,5 @@
-﻿using MDP.Models.Companies;
+﻿using MDP.Models.Accessory;
+using MDP.Models.Companies;
 using MDP.Models.Information;
 using MDP.Models.Persons;
 using MDP.Models.Users;
@@ -23,6 +24,10 @@ namespace MDP.Data
         public DbSet<UserFavoriteWork> UserFavoriteWorks { get; set; }
         public DbSet<WorkNews> WorkNews { get; set; }
         public DbSet<GlobalNews> GlobalNews { get; set; }
+        public DbSet<Media> Medias { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Demographic> Demographics { get; set; }
+        public DbSet<AgeRating> AgeRatings { get; set; }
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)
         {
