@@ -1,6 +1,6 @@
 ﻿using MDP.Data;
 using MySql.Data.MySqlClient;
-namespace MDP.Handlers.User
+namespace MDP.Handlers.Users
 {
     public class SimpleUserListRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<List<Models.Users.User>>
     {

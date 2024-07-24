@@ -1,8 +1,7 @@
-﻿
-using MDP.Data;
+﻿using MDP.Data;
 using MySql.Data.MySqlClient;
 using System.Threading.Tasks;
-namespace MDP.Handlers.User
+namespace MDP.Handlers.Users
 {
 
     public class SimpleUserRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Models.Users.User>

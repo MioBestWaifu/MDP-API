@@ -15,8 +15,10 @@ namespace MDP.Handlers.Pages
         .Skip(page * Constants.MAX_SEARCH_WORKS)
         .Take(Constants.MAX_SEARCH_WORKS).ToList();
 
-            SearchPageModel toReturn = new SearchPageModel();
-            toReturn.Artifacts = artifacts;
+            SearchPageModel toReturn = new SearchPageModel
+            {
+                Artifacts = artifacts
+            };
 
             return toReturn;
         }

@@ -1,5 +1,5 @@
 ﻿using MDP.Data;
-using MDP.Handlers.User;
+using MDP.Handlers.Users;
 using MDP.Models.Pages;
 
 namespace MDP.Handlers.Pages
@@ -8,8 +8,11 @@ namespace MDP.Handlers.Pages
     {
         public async Task<UserPageModel> HandleRequest(int id)
         {
-            UserPageModel toReturn = new UserPageModel();
-            toReturn.User = await new UserRequestHandler(conn).HandleRequest(id);
+            UserPageModel toReturn = new UserPageModel
+            {
+                //What if null?
+                User = await new UserRequestHandler(conn).HandleRequest(id)
+            };
             return toReturn;
         }
     }

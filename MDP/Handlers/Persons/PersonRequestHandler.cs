@@ -10,9 +10,9 @@ namespace MDP.Handlers.Persons
     /// </summary>
     public class PersonRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Person>
     {
-        public async Task<Person> HandleRequest(int id)
+        public async Task<Person?> HandleRequest(int id)
         {
-            return connector.People.Where(p => p.Id == id).First();
+            return connector.People.Where(p => p.Id == id).FirstOrDefault();
         }
 
     }
