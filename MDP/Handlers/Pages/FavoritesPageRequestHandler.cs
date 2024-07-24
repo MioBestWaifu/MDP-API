@@ -1,5 +1,5 @@
 ﻿using MDP.Data;
-using MDP.Models.Artifacts;
+using MDP.Models.Works;
 using MDP.Models.Pages;
 using MySql.Data.MySqlClient;
 

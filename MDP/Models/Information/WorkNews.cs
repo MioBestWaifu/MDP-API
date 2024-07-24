@@ -1,4 +1,4 @@
-﻿using MDP.Models.Artifacts;
+﻿using MDP.Models.Works;
 using System.ComponentModel.DataAnnotations;
 
 namespace MDP.Models.Information

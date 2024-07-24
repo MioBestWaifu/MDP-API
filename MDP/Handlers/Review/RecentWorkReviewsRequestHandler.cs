@@ -1,7 +1,7 @@
 ﻿using MDP.Data;
 using MDP.Utils;
 using MySql.Data.MySqlClient;
-using MDP.Handlers.User;
+using MDP.Handlers.Users;
 
 namespace MDP.Handlers.Review
 {
