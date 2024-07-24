@@ -1,4 +1,5 @@
-﻿using MDP.Models.Accessory;
+﻿using MDP.Models;
+using MDP.Models.Accessory;
 using MDP.Models.Companies;
 using MDP.Models.Information;
 using MDP.Models.Persons;
@@ -28,6 +29,8 @@ namespace MDP.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Demographic> Demographics { get; set; }
         public DbSet<AgeRating> AgeRatings { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<ArtifactReview> ArtifactReviews { get; set; }
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)
         {
