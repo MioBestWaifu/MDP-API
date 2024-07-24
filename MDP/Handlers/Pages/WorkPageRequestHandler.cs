@@ -3,7 +3,7 @@ using MDP.Data;
 using MDP.Handlers.Work;
 using MDP.Models.Pages;
 using MDP.Models;
-using MDP.Handlers.Review;
+using MDP.Handlers.Reviews;
 using MDP.Utils;
 using MySql.Data.MySqlClient;
 using MDP.Models.Works;
