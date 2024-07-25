@@ -12,7 +12,10 @@ namespace MDP.Handlers.Pages
             {
                 //What if null?
                 User = await new UserRequestHandler(conn).HandleRequest(id)
+                //Interactions not yet reworked. Add here later
             };
+            //This info should not even be queried
+            toReturn.User.RemoveSensitiveInformation();
             return toReturn;
         }
     }
