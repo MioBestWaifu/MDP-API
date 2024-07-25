@@ -8,7 +8,7 @@ using System.Reflection.PortableExecutable;
 namespace MDP.Handlers.Work
 {
     /// <summary>
-    /// This returns a full Artifact. If you need a partial one, query elsewhere,
+    /// This returns a full Artifact. If you need a partial one, query elsewhere.
     /// </summary>
     /// <param name="conn"></param>
     public class WorkRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<Artifact>

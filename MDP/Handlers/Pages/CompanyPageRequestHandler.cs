@@ -4,6 +4,7 @@ using MDP.Models;
 using MDP.Models.Pages;
 using MDP.Models.Companies;
 using MDP.Handlers.Companies;
+using Microsoft.EntityFrameworkCore;
 
 namespace MDP.Handlers.Pages
 {
@@ -18,13 +19,28 @@ namespace MDP.Handlers.Pages
                 return null;
             }
 
-            CompanyPageModel toReturn = new()
-            {
-                Company = company,
-                Affiliates = connector.CompanyPeople.Where(x => x.Company.Id == company.Id && x.End == null)
-                    .Join(connector.People, cp => cp.Person.Id, p => p.Id,(cp, p) => p).ToList()
-            };
+            List<CompanyParticipation> participations = connector.CompanyParticipations
+                .Include(x => x.Artifact)
+                    .ThenInclude(x=>x.ShortName)
+                .Include(x => x.Artifact)
+                    .ThenInclude(x=> x.CardImage)
+                .Include(x => x.Roles)
+                .Where(x => x.Company.Id == id)
+                .ToList();
 
+            List<CompanyPerson> currentAffiliates = connector.CompanyPeople
+                .Include(x => x.Person)
+                    .ThenInclude(x=>x.ShortName)
+                .Include(x => x.Person)
+                    .ThenInclude(x=>x.CardImage)
+                .Where(x => x.Company.Id == id && x.End == null)
+                .ToList();
+            
+            CompanyPageModel toReturn = new CompanyPageModel() {
+                Company = company,
+                Participations = participations,
+                Affiliates = currentAffiliates
+            };
             return toReturn;
         }
     }

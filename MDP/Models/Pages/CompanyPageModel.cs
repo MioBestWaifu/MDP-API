@@ -7,6 +7,7 @@ namespace MDP.Models.Pages
     public class CompanyPageModel : BasePageModel
     {
         public Company Company { get; set; }
-        public List<Person> Affiliates { get; set; } = new List<Person>();
+        public List<CompanyParticipation> Participations { get; set; } = new List<CompanyParticipation>();
+        public List<CompanyPerson> Affiliates { get; set; } = new List<CompanyPerson>();
     }
 }
