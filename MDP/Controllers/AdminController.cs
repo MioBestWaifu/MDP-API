@@ -233,7 +233,7 @@ namespace MDP.Controllers
                 } },new WorkNews(){ ArtifactId = 1,
                 News = new News(){
                     Title = "Another one!",
-                    Content = "This time with a larger text, very much larger, full of words, to test the dispositions of actual news into the UI. Did you know that the samurai never fought with swords? Yep, for their early existence between 800s-1500s, the samurai fought with spears and bows, often on horseback. In later periods, notably in the late Sengoku Jidai (1467-1615) and the entirety of the Tokugawa Shogunate (1603-1868) warfare in Japan was actually quite similar to 17th century Europe, they killed each other with muskets and cannons. The myth of the sword-fighting samurai derives from later revision. The samurai, like their western knight counterpart, did have swords, but they were cerimonial, a symbol of authority, not to be used in an actual combat. Just like in the west, this fact was glossed over, because swords are fucking cool.",
+                    Content = "This time with a larger text, very much larger, full of words, to test the dispositions of actual news into the UI. Did you know that the samurai never fought with swords? Yep, for the time between 800s-1500s, the samurai fought with spears and bows, often on horseback. In later periods, notably in the late Sengoku Jidai (1467-1615) and the entirety of the Tokugawa Shogunate (1603-1868) warfare in Japan was actually quite similar to 17th century Europe, they killed each other with muskets and cannons. The myth of the sword-fighting samurai derives from later revision. The samurai, like their western knight counterpart, did have swords, but they were cerimonial, a symbol of authority, not to be used in an actual combat. Just like in the west, this fact was glossed over, because swords are fucking cool.",
                     Date = new DateTime(2023, 1, 1),
                     Images = new List<Image>(){
                         new Image(){
@@ -245,6 +245,46 @@ namespace MDP.Controllers
                 ];
 
             connector.WorkNews.AddRange(workNews);
+            connector.SaveChanges();
+
+            List<GlobalNews> globalNews = [
+                new GlobalNews{
+                    News = new News(){
+                        Title ="Carousel test 1!",
+                        Content = "Does he know?",
+                        Images = [
+                            new Image {
+                                Url = "assets/imgs/news/4main.png",
+                                Type = ImageType.MainImage
+                            }
+                            ]
+                    }
+                },new GlobalNews{
+                    News = new News(){
+                        Title ="Carousel test 2!",
+                        Content = "He Doesnt know.",
+                        Images = [
+                            new Image {
+                                Url = "assets/imgs/news/5main.png",
+                                Type = ImageType.MainImage
+                            }
+                            ]
+                    }
+                },new GlobalNews{
+                    News = new News(){
+                        Title ="Carousel test 3!",
+                        Content = "HE KNOWS!",
+                        Images = [
+                            new Image {
+                                Url = "assets/imgs/news/6main.png",
+                                Type = ImageType.MainImage
+                            }
+                            ]
+                    }
+                }
+                ];
+            
+            connector.GlobalNews.AddRange(globalNews);
             connector.SaveChanges();
 
             return true;

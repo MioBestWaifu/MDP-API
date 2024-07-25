@@ -28,6 +28,7 @@ namespace MDP.Handlers.Pages
 
             toReturn.NewsAndHighlights = connector.GlobalNews
                 .OrderByDescending(x=>x.News.Date)
+                .Include(x=>x.News.Images)
                 .Take(Constants.MAX_RECENT_NEWS)
                 .Select(x=> x.News)
                 .ToList();
