@@ -2,6 +2,7 @@
 using MDP.Models;
 using MDP.Models.Accessory;
 using MDP.Models.Companies;
+using MDP.Models.Information;
 using MDP.Models.Persons;
 using MDP.Models.Users;
 using MDP.Models.Works;
@@ -204,6 +205,46 @@ namespace MDP.Controllers
             connector.PersonParticipations.Add(personParticipation);
             connector.CompanyParticipations.Add(companyParticipation);
             connector.CompanyPeople.Add(companyPerson);
+            connector.SaveChanges();
+
+            List<WorkNews> workNews = [
+                new WorkNews(){ ArtifactId = 1,
+                News = new News(){
+                    Title = "Season 3 Coming!",
+                    Content = "Re:zero season 3 is coming soon! Get ready for more suffering!",
+                    Date = new DateTime(2023, 1, 1),
+                    Images = new List<Image>(){
+                        new Image(){
+                            Url = "assets/imgs/news/1main.png",
+                            Type = ImageType.MainImage
+                        },
+                    }
+                } },new WorkNews(){ ArtifactId = 1,
+                News = new News(){
+                    Title = "Another Rezero news",
+                    Content = "But i dont have crativity to describe it!",
+                    Date = new DateTime(2023, 1, 1),
+                    Images = new List<Image>(){
+                        new Image(){
+                            Url = "assets/imgs/news/2main.png",
+                            Type = ImageType.MainImage
+                        },
+                    }
+                } },new WorkNews(){ ArtifactId = 1,
+                News = new News(){
+                    Title = "Another one!",
+                    Content = "This time with a larger text, very much larger, full of words, to test the dispositions of actual news into the UI. Did you know that the samurai never fought with swords? Yep, for their early existence between 800s-1500s, the samurai fought with spears and bows, often on horseback. In later periods, notably in the late Sengoku Jidai (1467-1615) and the entirety of the Tokugawa Shogunate (1603-1868) warfare in Japan was actually quite similar to 17th century Europe, they killed each other with muskets and cannons. The myth of the sword-fighting samurai derives from later revision. The samurai, like their western knight counterpart, did have swords, but they were cerimonial, a symbol of authority, not to be used in an actual combat. Just like in the west, this fact was glossed over, because swords are fucking cool.",
+                    Date = new DateTime(2023, 1, 1),
+                    Images = new List<Image>(){
+                        new Image(){
+                            Url = "assets/imgs/news/3main.png",
+                            Type = ImageType.MainImage
+                        },
+                    }
+                } },
+                ];
+
+            connector.WorkNews.AddRange(workNews);
             connector.SaveChanges();
 
             return true;
