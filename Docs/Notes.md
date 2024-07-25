@@ -1,1 +1,3 @@
-- In the transiotion to EF, a bunch of possible circular references in properties were created in the models. Handle that in the JSON side of things.
+- Many to Many relationships should be modeled into a separate Entity whithout navigation properties.
+- One to One relationships should only have a navigation property in one side.
+- The above is duo to avoiding JSON loops.

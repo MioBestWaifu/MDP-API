@@ -10,7 +10,7 @@ namespace MDP.Handlers.Reviews
     {
         public async Task<List<Review>> HandleRequest(int id)
         {
-            return connector.ArtifactReviews.Where(x => x.Artifact.Id == id).OrderByDescending(x => x.Review.Date).Take(Constants.MAX_RECENT_REVIEWS).Select(x=>x.Review).ToList();
+            throw new NotImplementedException();
         }
     }
 }

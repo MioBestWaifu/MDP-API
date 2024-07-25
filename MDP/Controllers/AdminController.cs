@@ -182,23 +182,23 @@ namespace MDP.Controllers
 
             PersonParticipation personParticipation = new()
             {
-                Person = person,
-                Work = artifact,
+                PersonId = 1,
+                ArtifactId = 1,
                 Roles = [roles[0]],
                 AdditionalInformation = "Emilia"
             };
 
             CompanyParticipation companyParticipation = new()
             {
-                Company = company,
-                Work = artifact,
+                CompanyId = 1,
+                ArtifactId = 1,
                 Roles = [roles[1]]
             };
 
             CompanyPerson companyPerson = new()
             {
-                Company = company,
-                Person = person,
+                CompanyId = 1,
+                PersonId = 1,
                 Start = new DateTime(2013, 4, 4)
             };
 

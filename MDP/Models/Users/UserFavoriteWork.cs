@@ -6,6 +6,6 @@ namespace MDP.Models.Users
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public Artifact Artifact { get; set; }
+        public int ArtifactId { get; set; }
     }
 }

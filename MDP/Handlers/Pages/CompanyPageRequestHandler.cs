@@ -11,11 +11,20 @@ namespace MDP.Handlers.Pages
     {
         public async Task<CompanyPageModel?> HandleRequest(int id)
         {
-            //What if null?
+            // What if null?
             Company company = await new CompanyRequestHandler(conn).HandleRequest(id);
-            CompanyPageModel toReturn = new CompanyPageModel();
-            toReturn.Company = company;
-            toReturn.Affiliates = connector.CompanyPeople.Where(x => x.Company.Id == company.Id && x.End == null).Select(x=> x.Person).ToList();
+            if (company == null)
+            {
+                return null;
+            }
+
+            CompanyPageModel toReturn = new()
+            {
+                Company = company,
+                Affiliates = connector.CompanyPeople.Where(x => x.CompanyId == company.Id && x.End == null)
+                    .Join(connector.People, cp => cp.PersonId, p => p.Id,(cp, p) => p).ToList()
+            };
+
             return toReturn;
         }
     }

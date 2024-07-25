@@ -33,7 +33,6 @@ namespace MDP.Data
         public DbSet<AgeRating> AgeRatings { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<ArtifactReview> ArtifactReviews { get; set; }
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)
         {

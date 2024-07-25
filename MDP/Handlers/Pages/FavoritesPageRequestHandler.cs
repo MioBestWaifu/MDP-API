@@ -10,7 +10,8 @@ namespace MDP.Handlers.Pages
         public async Task<FavoritesPageModel> HandleRequest(int id)
         {
             FavoritesPageModel toReturn = new FavoritesPageModel();
-            toReturn.AllFavorites = connector.UserFavoriteWorks.Where(x=> x.UserId == id).Select(x => x.Artifact).ToList();
+            toReturn.AllFavorites = connector.UserFavoriteWorks.Where(x=> x.UserId == id)
+                .Join(connector.Artifacts, uw => uw.ArtifactId, a => a.Id, (uw, a) => a).ToList();
             return toReturn;
         }
 
