@@ -111,7 +111,7 @@ namespace MDP.Controllers
             {
                 ShortName = new Name
                 {
-                    Literal = "Whie Fox"
+                    Literal = "White Fox"
                 },
                 FullName = new Name
                 {
@@ -182,23 +182,23 @@ namespace MDP.Controllers
 
             PersonParticipation personParticipation = new()
             {
-                PersonId = 1,
-                ArtifactId = 1,
+                Person = person,
+                Artifact = artifact,
                 Roles = [roles[0]],
                 AdditionalInformation = "Emilia"
             };
 
             CompanyParticipation companyParticipation = new()
             {
-                CompanyId = 1,
-                ArtifactId = 1,
+                Company = company,
+                Artifact = artifact,
                 Roles = [roles[1]]
             };
 
             CompanyPerson companyPerson = new()
             {
-                CompanyId = 1,
-                PersonId = 1,
+                Company = company,
+                Person = person,
                 Start = new DateTime(2013, 4, 4)
             };
 

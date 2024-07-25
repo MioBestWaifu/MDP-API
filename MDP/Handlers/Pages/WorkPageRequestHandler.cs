@@ -6,6 +6,7 @@ using MDP.Handlers.Reviews;
 using MDP.Utils;
 using MySql.Data.MySqlClient;
 using MDP.Models.Works;
+using Microsoft.EntityFrameworkCore;
 
 namespace MDP.Handlers.Pages
 {
@@ -22,10 +23,40 @@ namespace MDP.Handlers.Pages
             //Where reviews?;
 
             Artifact artifact = await new WorkRequestHandler(connector).HandleRequest(id);
+            if(artifact == null)
+            {
+                return null;
+            }
             //If artifact is null it should do something. Raise exception? Return error code?
             WorkPageModel toReturn = new WorkPageModel();
-            toReturn.NewsAndHighlights = connector.WorkNews.Where(x => x.ArtifactId == artifact.Id).OrderByDescending(x => x.News.Date).Take(Constants.MAX_RECENT_NEWS).Select(x=> x.News).ToList();
             toReturn.Work = artifact;
+
+            toReturn.NewsAndHighlights = connector.WorkNews
+                .Where(x => x.ArtifactId == artifact.Id)
+                .OrderByDescending(x => x.News.Date)
+                .Take(Constants.MAX_RECENT_NEWS)
+                .Include(wn => wn.News.Images)
+                .Select(x=> x.News)
+                .ToList();
+
+
+            toReturn.ParticipantCompanies = connector.CompanyParticipations
+                .Include(x => x.Company)
+                    .ThenInclude(c=> c.ShortName)
+                .Include(x => x.Company)
+                    .ThenInclude(c => c.CardImage)
+                .Include(x => x.Roles)
+                .Where(x => x.Artifact.Id == artifact.Id)
+                .ToList();
+
+            toReturn.ParticipantPersons = connector.PersonParticipations
+                .Include(x => x.Person)
+                    .ThenInclude(p => p.ShortName)
+                .Include(x=> x.Person)
+                    .ThenInclude(p => p.CardImage)
+                .Include(x=> x.Roles)
+                .Where(x => x.Artifact.Id == artifact.Id)
+                .ToList();
             return toReturn;
         }
     }

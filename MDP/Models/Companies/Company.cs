@@ -25,6 +25,5 @@ namespace MDP.Models.Companies
         public List<Role> Roles { get; set; }
         public DateTime FoundingDate { get; set; }
         public double AverageRating { get; set; }
-        public List<CompanyParticipation> ParticipatedWorks { get; set; }
     }
 }

@@ -21,8 +21,8 @@ namespace MDP.Handlers.Pages
             CompanyPageModel toReturn = new()
             {
                 Company = company,
-                Affiliates = connector.CompanyPeople.Where(x => x.CompanyId == company.Id && x.End == null)
-                    .Join(connector.People, cp => cp.PersonId, p => p.Id,(cp, p) => p).ToList()
+                Affiliates = connector.CompanyPeople.Where(x => x.Company.Id == company.Id && x.End == null)
+                    .Join(connector.People, cp => cp.Person.Id, p => p.Id,(cp, p) => p).ToList()
             };
 
             return toReturn;

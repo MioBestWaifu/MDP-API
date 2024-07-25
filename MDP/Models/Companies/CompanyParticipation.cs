@@ -6,8 +6,8 @@ namespace MDP.Models.Companies
     public class CompanyParticipation
     {
         public int Id { get; set; }
-        public int CompanyId { get; set; }
-        public int ArtifactId { get; set; }
+        public Company Company { get; set; }
+        public Artifact Artifact { get; set; }
         public List<Role> Roles { get; set; }
         public string? AdditionalInformation { get; set; }
     }
