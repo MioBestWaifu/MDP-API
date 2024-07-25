@@ -15,7 +15,7 @@ namespace MDP.Handlers.Pages
             Company company = await new CompanyRequestHandler(conn).HandleRequest(id);
             CompanyPageModel toReturn = new CompanyPageModel();
             toReturn.Company = company;
-            toReturn.Affiliates = connector.CompanyPeople.Where(x => x.Company.Id == company.Id && x.To == null).Select(x=> x.Person).ToList();
+            toReturn.Affiliates = connector.CompanyPeople.Where(x => x.Company.Id == company.Id && x.End == null).Select(x=> x.Person).ToList();
             return toReturn;
         }
     }

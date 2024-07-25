@@ -10,9 +10,9 @@ namespace MDP.Models.Users
         public string? Email { get; set; }
         public string? Password { get; set; }
         public Name Nickname { get; set; }
-        public Image CardImageUrl { get; set; }
-        public Image MainImageUrl { get; set; }
-        public List<Image>? OtherImageUrls { get; set; }
+        public Image? CardImage { get; set; }
+        public Image? MainImage { get; set; }
+        public List<Image>? OtherImages { get; set; }
         public Country? Country { get; set; }
         public string Description { get; set; }
         public DateTime Birthday { get; set; }

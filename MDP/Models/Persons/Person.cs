@@ -9,9 +9,9 @@ namespace MDP.Models.Persons
         public Name ShortName { get; set; }
         public Name FullName { get; set; }
         public List<Name>? Nicknames { get; set; }
-        public Image CardImageUrl { get; set; }
-        public Image MainImageUrl { get; set; }
-        public List<Image>? OtherImageUrls { get; set; }
+        public Image CardImage { get; set; }
+        public Image MainImage { get; set; }
+        public List<Image>? OtherImages { get; set; }
         public Country? Country { get; set; }
         public List<Role> Roles { get; set; }
         public List<PersonParticipation>? WorkParticipations { get; set; }

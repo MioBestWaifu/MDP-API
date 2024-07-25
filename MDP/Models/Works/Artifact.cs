@@ -26,9 +26,7 @@ namespace MDP.Models.Works
         public Image CardImage { get; set; }
         public Image MainImage { get; set; }
         public List<Image>? OtherImages { get; set; }
-        [Required]
-        public Role MainParticipantRole { get; set; }
-        public Person? MainParticipant { get; set; }
+        //Remove Main Participant. To determine the main thing, there will be a hierarchy of participants.
         public List<PersonParticipation>? ParticipantPersons { get; set; }
         public List<CompanyParticipation>? ParticipantCompanies { get; set; }
         public double AverageRating { get; set; }

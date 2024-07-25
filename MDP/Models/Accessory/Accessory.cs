@@ -6,6 +6,6 @@ namespace MDP.Models.Accessory
     public abstract class Accessory 
     {
         public int Id { get; set; }
-        public Name Name { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -8,6 +8,6 @@ namespace MDP.Models.Persons
         public Person Person { get; set; }
         public Artifact Work { get; set; }
         public List<Role> Roles { get; set; }
-        public string AdditionalInformation { get; set; }
+        public string? AdditionalInformation { get; set; }
     }
 }

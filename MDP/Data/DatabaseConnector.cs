@@ -19,8 +19,10 @@ namespace MDP.Data
         private DatabaseConfigs configs;
         public DbSet<Artifact> Artifacts { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<PersonParticipation> PersonParticipations { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<CompanyPerson> CompanyPeople { get; set; }
+        public DbSet<CompanyParticipation> CompanyParticipations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UserFavoriteWork> UserFavoriteWorks { get; set; }
         public DbSet<WorkNews> WorkNews { get; set; }
@@ -29,6 +31,7 @@ namespace MDP.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Demographic> Demographics { get; set; }
         public DbSet<AgeRating> AgeRatings { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ArtifactReview> ArtifactReviews { get; set; }
 
