@@ -1,4 +1,4 @@
-﻿using MDP.Models.Artifacts;
+﻿using MDP.Models.Works;
 
 namespace MDP.Models.Pages
 {

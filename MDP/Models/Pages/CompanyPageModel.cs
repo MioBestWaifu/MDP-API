@@ -1,11 +1,13 @@
-﻿namespace MDP.Models.Pages
-{
-    using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using MDP.Models.Companies;
+using MDP.Models.Persons;
 
+namespace MDP.Models.Pages
+{
     public class CompanyPageModel : BasePageModel
     {
         public Company Company { get; set; }
-        public List<Link> ArtifactParticipations { get; set; } = new List<Link>();
-        public List<Link> Affiliates { get; set; } = new List<Link>();
+        public List<CompanyParticipation> Participations { get; set; } = new List<CompanyParticipation>();
+        public List<CompanyPerson> Affiliates { get; set; } = new List<CompanyPerson>();
     }
 }

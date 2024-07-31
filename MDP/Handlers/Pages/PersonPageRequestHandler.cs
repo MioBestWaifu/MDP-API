@@ -1,8 +1,9 @@
 ﻿using MDP.Data;
-using MDP.Handlers.Person;
+using MDP.Handlers.Persons;
 using MDP.Models.Pages;
 using MDP.Models;
 using MySql.Data.MySqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace MDP.Handlers.Pages
 {
@@ -10,33 +11,27 @@ namespace MDP.Handlers.Pages
     {
         public async Task<PersonPageModel> HandleRequest(int id)
         {
-            Task<Models.Person> personTask = new PersonRequestHandler(conn).HandleRequest(id);
-            Task<MySqlDataReader> participationsTask = connector.ExecuteQuery(StatementPreparer.GetLinkablePersonParticipationsByPerson(id));
-            Task<MySqlDataReader> affiliationsTask = connector.ExecuteQuery(StatementPreparer.GetLinkableAffiliationsByPerson(id));
-
-            Models.Person person = await personTask;
             PersonPageModel toReturn = new PersonPageModel();
-            toReturn.Person = person;
-            var participationsAfterTask = participationsTask.ContinueWith((task) =>
-            {
-                var result = task.Result;
-                while (result.Read())
-                {
-                    toReturn.ArtifactParticipations.Add(Link.FromLinkableWork(result));
-                }
-                conn.CloseConnection(result);
-            }, TaskContinuationOptions.OnlyOnRanToCompletion);
-            var affiliationsAfterTask = affiliationsTask.ContinueWith((task) =>
-            {
-                var result = task.Result;
-                while (result.Read())
-                {
-                    toReturn.CompanyAffiliations.Add(Link.FromLinkableCompany(result));
-                }
-                conn.CloseConnection(result);
-            }, TaskContinuationOptions.OnlyOnRanToCompletion);
 
-            Task.WaitAll(participationsAfterTask, affiliationsAfterTask);
+            toReturn.Person = await new PersonRequestHandler(conn).HandleRequest(id);
+
+            toReturn.Participations = connector.PersonParticipations
+                .Include(x => x.Artifact)
+                    .ThenInclude(a=> a.ShortName)
+                .Include(x => x.Artifact)
+                    .ThenInclude(a=> a.CardImage)
+                .Include(x => x.Roles)
+                .Where(x => x.Person.Id == id)
+                .ToList();
+
+            toReturn.Affiliations = connector.CompanyPeople
+                .Include(x => x.Company)
+                    .ThenInclude(c => c.ShortName)
+                .Include(x => x.Company)
+                    .ThenInclude(c => c.CardImage)
+                .Where(x => x.Person.Id == id)
+                .ToList();
+
             return toReturn;
         }
     }

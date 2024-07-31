@@ -1,15 +1,15 @@
-﻿namespace MDP.Models.Pages
+﻿using MDP.Models.Companies;
+using MDP.Models.Information;
+using MDP.Models.Persons;
+using MDP.Models.Works;
+using System.Collections.Generic;
+namespace MDP.Models.Pages
 {
-    using MDP.Models.Artifacts;
-    using System.Collections.Generic;
-
     public class WorkPageModel : BasePageModel
     {
         public Artifact Work { get; set; }
-        public List<Review> Reviews { get; set; } = new List<Review>();
-        public List<Link> Participants { get; set; } = new List<Link>();
-        public List<Link> RelatedWorks { get; set; } = new List<Link>();
-        public List<Link> NewsAndHighlights { get; set; } = new List<Link>();
-        public List<Link> Fractions { get; set; } = new List<Link>();
+        public List<News> NewsAndHighlights { get; set; } = new List<News>();
+        public List<PersonParticipation> ParticipantPersons { get; set; } = new List<PersonParticipation>();
+        public List<CompanyParticipation> ParticipantCompanies { get; set; } = new List<CompanyParticipation>();
     }
 }

@@ -1,76 +1,75 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MDP.Models;
+using MDP.Models.Accessory;
+using MDP.Models.Companies;
+using MDP.Models.Information;
+using MDP.Models.Persons;
+using MDP.Models.Users;
+using MDP.Models.Works;
+using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using System.Collections.Concurrent;
 using System.Data;
+using System.Text.Json;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace MDP.Data
 {
-    /// <summary>
-    /// Classe que cria e gerencia conexões com o banco de dados. Atualmente usada como um Singleton e feito para
-    /// ser usada como Singleton;
-    /// </summary>
-    public class DatabaseConnector
+    public class DatabaseConnector : DbContext
     {
-        private string connectionString;
-        private ConcurrentDictionary<MySqlDataReader, MySqlConnection> openConnections = [];
+        private DatabaseConfigs configs;
+        public DbSet<Artifact> Artifacts { get; set; }
+        public DbSet<Person> People { get; set; }
+        public DbSet<PersonParticipation> PersonParticipations { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<CompanyPerson> CompanyPeople { get; set; }
+        public DbSet<CompanyParticipation> CompanyParticipations { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserFavoriteWork> UserFavoriteWorks { get; set; }
+        public DbSet<WorkNews> WorkNews { get; set; }
+        public DbSet<GlobalNews> GlobalNews { get; set; }
+        public DbSet<Media> Medias { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Demographic> Demographics { get; set; }
+        public DbSet<AgeRating> AgeRatings { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)
         {
             if (environment.IsDevelopment())
             {
-                string filePath = Path.Combine(environment.ContentRootPath, "connection.txt");
+                string filePath = Path.Combine(environment.ContentRootPath, "connection.json");
                 try
                 {
-                    connectionString = File.ReadAllText(filePath);
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                       
+                    };
+                    configs = JsonSerializer.Deserialize<DatabaseConfigs>(File.ReadAllText(filePath),options);
                 }
                 catch (Exception ex) when (ex is FileNotFoundException || ex is DirectoryNotFoundException)
                 {
-                    logger.LogInformation("\nconnection.txt, que deveria estar no root da aplicação (/MDP), não foi encontrado\nO seguinte caminho foi tentado: " +
+                    logger.LogInformation("\nconnection.json, que deveria estar no root da aplicação (/MDP), não foi encontrado\nO seguinte caminho foi tentado: " +
                         filePath);
                     throw;
                 }
             }
             else
             {
-                connectionString = "Server=prod;Database=prod;User Id=prod;Password=prod;";
+                //Remember to implement this
             }
-            logger.LogInformation("\n" + connectionString + "\n");
         }
 
-        public async Task<MySqlConnection> GetConnection()
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connection = new MySqlConnection(connectionString);
-            await connection.OpenAsync();
-            return connection;
-        }
-
-        /// <summary>
-        /// Executa um SELECT e retorna seu MySqlDataReader. Quando terminar de usar o reader, chame <see cref="CloseConnection(MySqlDataReader)"/>.
-        /// Isso é obrigatório, do contrário as conexões vão acumular e rapidamente exceder o máximo do servidor.
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        public async Task<MySqlDataReader> ExecuteQuery(MySqlCommand command)
-        {
-            var conn = await GetConnection();
-            command.Connection = conn;
-            MySqlDataReader reader = await command.ExecuteReaderAsync() as MySqlDataReader;
-            openConnections.TryAdd(reader, conn);
-            return reader;
-        }
-        /// <summary>
-        /// Isso é necessário porque por algum motivo fechar um MySqlDataReader não realmente fecha a conexão indendemente
-        /// das configurações utilizadas. Assim, esse método DEVE ser usado após terminar de trabalhar com um MySqlDataReader.
-        /// </summary>
-        /// <param name="reader"></param>
-        public void CloseConnection(MySqlDataReader reader)
-        {
-            if (openConnections.TryRemove(reader, out var conn))
+            if (!optionsBuilder.IsConfigured)
             {
-                conn.Close();
-                conn.Dispose();
-                reader.Close();
-                reader.Dispose();
+                int[] version = configs.SplitVersion();
+                optionsBuilder.UseMySql(configs.GetConnectionString(),
+                   new MySqlServerVersion(new Version(version[0], version[1], version[2])));
             }
+
         }
 
     }

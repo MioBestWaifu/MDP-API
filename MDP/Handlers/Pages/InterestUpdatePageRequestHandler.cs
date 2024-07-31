@@ -1,5 +1,5 @@
 ﻿using MDP.Data;
-using MDP.Handlers.Interest;
+using MDP.Handlers.Interests;
 using MDP.Models.Pages;
 using MySql.Data.MySqlClient;
 
@@ -9,27 +9,9 @@ namespace MDP.Handlers.Pages
     {
         public async Task<InterestUpdatePageModel> HandleRequest(int id)
         {
-            Task<MySqlDataReader> interestsTask = connector.ExecuteQuery(StatementPreparer.GetAllInterestBasedOnUser(id));
+            //Will rethink Interests later, so keeping this empty
             InterestUpdatePageModel toReturn = new InterestUpdatePageModel();
 
-            MySqlDataReader reader = await interestsTask;
-            while (reader.Read())
-            {
-                try
-                {
-                    var toAdd = Models.Interest.FromQuery(reader);
-                    toAdd.SetDemographics(await new InterestRequestHandler(connector).GetDemographics(toAdd.Id));
-                    if (reader.GetBoolean("selected"))
-                        toReturn.InterestDictionary["Selected"].Add(toAdd);
-                    else
-                        toReturn.InterestDictionary["Unselected"].Add(toAdd);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Interest {reader.GetInt32("id")} não conseguiu ser completado");
-                }
-            }
-            connector.CloseConnection(reader);
             return toReturn;
         }
     }

@@ -1,7 +1,7 @@
-﻿namespace MDP.Models.Pages
+﻿using MDP.Models.Works;
+using System.Collections.Generic;
+namespace MDP.Models.Pages
 {
-    using MDP.Models.Artifacts;
-    using System.Collections.Generic;
 
     public class FavoritesPageModel : BasePageModel
     {

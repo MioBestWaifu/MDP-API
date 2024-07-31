@@ -2,46 +2,45 @@
 using MySql.Data.MySqlClient;
 using MDP.Models;
 using MDP.Models.Pages;
-using MDP.Handlers.Company;
+using MDP.Models.Companies;
+using MDP.Handlers.Companies;
+using Microsoft.EntityFrameworkCore;
 
 namespace MDP.Handlers.Pages
 {
     public class CompanyPageRequestHandler(DatabaseConnector conn) : Handler(conn), IRequestHandler<CompanyPageModel>
     {
-        public async Task<CompanyPageModel> HandleRequest(int id)
+        public async Task<CompanyPageModel?> HandleRequest(int id)
         {
-            Task<List<Link>> affiliatesTask = GetCurrentAffiliates(id);
-            Task<List<Link>> workParticipationsTask = GetWorkParticipations(id);
-            Models.Company company = await new CompanyRequestHandler(conn).HandleRequest(id);
-            CompanyPageModel toReturn = new CompanyPageModel();
-            toReturn.Company = company;
-            toReturn.Affiliates = await affiliatesTask;
-            toReturn.ArtifactParticipations = await workParticipationsTask;
-            return toReturn;
-        }
-        public async Task<List<Link>> GetCurrentAffiliates(int id)
-        {
-            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkableAffiliationsByCompany(id));
-            MySqlDataReader reader = await linksTask;
-            List<Link> toReturn = new List<Link>();
-            while (reader.Read())
+            // What if null?
+            Company company = await new CompanyRequestHandler(conn).HandleRequest(id);
+            if (company == null)
             {
-                toReturn.Add(Link.FromLinkableAffiliation(reader));
+                return null;
             }
-            connector.CloseConnection(reader);
-            return toReturn;
-        }
 
-        public async Task<List<Link>> GetWorkParticipations(int id)
-        {
-            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkableCompanyParticipationsByCompany(id));
-            MySqlDataReader reader = await linksTask;
-            List<Link> toReturn = new List<Link>();
-            while (reader.Read())
-            {
-                toReturn.Add(Link.FromLinkableWork(reader));
-            }
-            connector.CloseConnection(reader);
+            List<CompanyParticipation> participations = connector.CompanyParticipations
+                .Include(x => x.Artifact)
+                    .ThenInclude(x=>x.ShortName)
+                .Include(x => x.Artifact)
+                    .ThenInclude(x=> x.CardImage)
+                .Include(x => x.Roles)
+                .Where(x => x.Company.Id == id)
+                .ToList();
+
+            List<CompanyPerson> currentAffiliates = connector.CompanyPeople
+                .Include(x => x.Person)
+                    .ThenInclude(x=>x.ShortName)
+                .Include(x => x.Person)
+                    .ThenInclude(x=>x.CardImage)
+                .Where(x => x.Company.Id == id && x.End == null)
+                .ToList();
+            
+            CompanyPageModel toReturn = new CompanyPageModel() {
+                Company = company,
+                Participations = participations,
+                Affiliates = currentAffiliates
+            };
             return toReturn;
         }
     }

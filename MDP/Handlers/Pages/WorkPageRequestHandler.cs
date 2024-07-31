@@ -1,12 +1,12 @@
-﻿
-using MDP.Data;
+﻿using MDP.Data;
 using MDP.Handlers.Work;
-using MDP.Models.Artifacts;
 using MDP.Models.Pages;
 using MDP.Models;
-using MDP.Handlers.Review;
+using MDP.Handlers.Reviews;
 using MDP.Utils;
 using MySql.Data.MySqlClient;
+using MDP.Models.Works;
+using Microsoft.EntityFrameworkCore;
 
 namespace MDP.Handlers.Pages
 {
@@ -20,57 +20,43 @@ namespace MDP.Handlers.Pages
         /// <returns></returns>
         public async Task<WorkPageModel> HandleRequest(int id)
         {
-            Task<Artifact> workTask = new WorkRequestHandler(conn).HandleRequest(id);
-            Task<List<Link>> personsTask = GetParticipantPersons(id);
-            Task<List<Link>> companiesTask = GetParticipantCompanies(id);
-            Task<List<Link>> newsTask = GetRecentNews(id);
-            //Task<List<Models.Review>> reviewsTask = new RecentWorkReviewsRequestHandler(conn).HandleRequest(id);
+            //Where reviews?;
 
-            Artifact artifact = await workTask;
+            Artifact artifact = await new WorkRequestHandler(connector).HandleRequest(id);
+            if(artifact == null)
+            {
+                return null;
+            }
+            //If artifact is null it should do something. Raise exception? Return error code?
             WorkPageModel toReturn = new WorkPageModel();
-            toReturn.Participants = [.. await companiesTask,.. await personsTask];
-            //toReturn.Reviews = await reviewsTask;
-            toReturn.NewsAndHighlights = await newsTask;
             toReturn.Work = artifact;
-            return toReturn;
-        }
 
-        private async Task<List<Link>> GetRecentNews(int id)
-        {
-            Task<MySqlDataReader> newsTask = connector.ExecuteQuery(StatementPreparer.GetLinkableRecentWorkNews(id, Constants.MAX_RECENT_NEWS));
-            MySqlDataReader reader = await newsTask;
-            List<Link> toReturn = new List<Link>();
-            while (reader.Read())
-            {
-                toReturn.Add(Link.FromLinkableNews(reader));
-            }
-            connector.CloseConnection(reader);
-            return toReturn;
-        }
+            toReturn.NewsAndHighlights = connector.WorkNews
+                .Where(x => x.ArtifactId == artifact.Id)
+                .OrderByDescending(x => x.News.Date)
+                .Take(Constants.MAX_RECENT_NEWS)
+                .Include(wn => wn.News.Images)
+                .Select(x=> x.News)
+                .ToList();
 
-        public async Task<List<Link>> GetParticipantPersons(int id)
-        {
-            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkablePersonParticipationsByWork(id));
-            MySqlDataReader reader = await linksTask;
-            List<Link> toReturn = new List<Link>();
-            while (reader.Read())
-            {
-                toReturn.Add(Link.FromLinkablePerson(reader));
-            }
-            connector.CloseConnection(reader);
-            return toReturn;
-        }
 
-        public async Task<List<Link>> GetParticipantCompanies(int id)
-        {
-            Task<MySqlDataReader> linksTask = connector.ExecuteQuery(StatementPreparer.GetLinkableCompanyParticipationsByWork(id));
-            MySqlDataReader reader = await linksTask;
-            List<Link> toReturn = new List<Link>();
-            while (reader.Read())
-            {
-                toReturn.Add(Link.FromLinkableCompany(reader));
-            }
-            connector.CloseConnection(reader);
+            toReturn.ParticipantCompanies = connector.CompanyParticipations
+                .Include(x => x.Company)
+                    .ThenInclude(c=> c.ShortName)
+                .Include(x => x.Company)
+                    .ThenInclude(c => c.CardImage)
+                .Include(x => x.Roles)
+                .Where(x => x.Artifact.Id == artifact.Id)
+                .ToList();
+
+            toReturn.ParticipantPersons = connector.PersonParticipations
+                .Include(x => x.Person)
+                    .ThenInclude(p => p.ShortName)
+                .Include(x=> x.Person)
+                    .ThenInclude(p => p.CardImage)
+                .Include(x=> x.Roles)
+                .Where(x => x.Artifact.Id == artifact.Id)
+                .ToList();
             return toReturn;
         }
     }

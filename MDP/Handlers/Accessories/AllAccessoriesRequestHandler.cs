@@ -10,54 +10,17 @@ namespace MDP.Handlers.Accessories
         {
             switch (id)
             {
-                case (int)AccessoryTypes.Category:
-                    return await GetCategories();
-                case (int)AccessoryTypes.Media:
-                    return await GetMedias();
-                case (int)AccessoryTypes.Demographic:
-                    return await GetDemographics();
+                case (int)AccessoryType.Category:
+                     return connector.Categories.Select(x=> x as Accessory).ToList();
+                case (int)AccessoryType.Media:
+                    return connector.Medias.Select(x => x as Accessory).ToList();
+                case (int)AccessoryType.Demographic:
+                    return connector.Demographics.Select(x => x as Accessory).ToList();
+                case (int)AccessoryType.AgeRating:
+                    return connector.AgeRatings.Select(x => x as Accessory).ToList();
                 default:
-                    throw new NotImplementedException();
+                    throw new ArgumentException();
             }
-        }
-
-        private async Task<List<Accessory>> GetCategories()
-        {
-            MySqlDataReader reader = await conn.ExecuteQuery(StatementPreparer.GetAllCategories());
-            List<Accessory> toReturn = new List<Accessory>();
-            while (reader.Read())
-            {
-                Accessory accessory = Accessory.FromQuery(reader);
-                accessory.Type = (int)AccessoryTypes.Category;
-                toReturn.Add(accessory);
-            }
-            return toReturn;
-        }
-
-        private async Task<List<Accessory>> GetMedias()
-        {
-            MySqlDataReader reader = await conn.ExecuteQuery(StatementPreparer.GetAllMedia());
-            List<Accessory> toReturn = new List<Accessory>();
-            while (reader.Read())
-            {
-                Accessory accessory = Accessory.FromQuery(reader);
-                accessory.Type = (int)AccessoryTypes.Media;
-                toReturn.Add(accessory);
-            }
-            return toReturn;
-        }
-
-        private async Task<List<Accessory>> GetDemographics()
-        {
-            MySqlDataReader reader = await conn.ExecuteQuery(StatementPreparer.GetAllDemographics());
-            List<Accessory> toReturn = new List<Accessory>();
-            while (reader.Read())
-            {
-                Accessory accessory = Accessory.FromQuery(reader);
-                accessory.Type = (int)AccessoryTypes.Demographic;
-                toReturn.Add(accessory);
-            }
-            return toReturn;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace MDP.Models.Pages
+﻿using MDP.Models.Users;
+
+namespace MDP.Models.Pages
 {
     public class UserPageModel
     {
