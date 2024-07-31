@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using MDP.Models.Accessory;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 
 namespace MDP.Models
@@ -8,7 +9,7 @@ namespace MDP.Models
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        public List<string> TargetDemographics { get; set; } = new List<string>();
+        public List<Demographic> TargetDemographics { get; set; } = new List<Demographic>();
         public bool Selected { get; set; } = false;
 
     }
