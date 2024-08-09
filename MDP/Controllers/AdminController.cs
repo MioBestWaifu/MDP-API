@@ -90,7 +90,7 @@ namespace MDP.Controllers
             {
                 Email = "user@example.com",
                 Password = "password",
-                Nickname = new Name
+                ShortName = new Name
                 {
                     Literal = "Onani"
                 },

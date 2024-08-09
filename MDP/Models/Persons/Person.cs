@@ -3,7 +3,7 @@
 namespace MDP.Models.Persons
 {
 
-    public class Person
+    public class Person : IEntity
     {
         public int Id { get; set; }
         public Name ShortName { get; set; }

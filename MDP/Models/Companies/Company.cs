@@ -5,12 +5,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 namespace MDP.Models.Companies
 {
-    public class Company
+    public class Company : IEntity
     {
         public int Id { get; set; }
-        [Required]
         public Name ShortName { get; set; }
-        [Required]
         public Name FullName { get; set; }
         public string Description { get; set; }
         public Image CardImage { get; set; }
@@ -20,7 +18,6 @@ namespace MDP.Models.Companies
         //however, the Company model can be used for things other than actual enterprises, like musical groups.
         //But this seems like a stupid way to define those other things, so keeping this required because, someday,
         //Company will only be used for actual companies.
-        [Required]
         public Country Country { get; set; }
         public List<Role> Roles { get; set; }
         public DateTime FoundingDate { get; set; }
