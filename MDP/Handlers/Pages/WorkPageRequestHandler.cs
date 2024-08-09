@@ -41,18 +41,18 @@ namespace MDP.Handlers.Pages
 
 
             toReturn.ParticipantCompanies = connector.CompanyParticipations
-                .Include(x => x.Company)
+                .Include(x => x.Participant)
                     .ThenInclude(c=> c.ShortName)
-                .Include(x => x.Company)
+                .Include(x => x.Participant)
                     .ThenInclude(c => c.CardImage)
                 .Include(x => x.Roles)
                 .Where(x => x.Artifact.Id == artifact.Id)
                 .ToList();
 
             toReturn.ParticipantPersons = connector.PersonParticipations
-                .Include(x => x.Person)
+                .Include(x => x.Participant)
                     .ThenInclude(p => p.ShortName)
-                .Include(x=> x.Person)
+                .Include(x=> x.Participant)
                     .ThenInclude(p => p.CardImage)
                 .Include(x=> x.Roles)
                 .Where(x => x.Artifact.Id == artifact.Id)

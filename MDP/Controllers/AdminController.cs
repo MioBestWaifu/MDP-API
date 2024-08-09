@@ -182,7 +182,7 @@ namespace MDP.Controllers
 
             PersonParticipation personParticipation = new()
             {
-                Person = person,
+                Participant = person,
                 Artifact = artifact,
                 Roles = [roles[0]],
                 AdditionalInformation = "Emilia"
@@ -190,7 +190,7 @@ namespace MDP.Controllers
 
             CompanyParticipation companyParticipation = new()
             {
-                Company = company,
+                Participant = company,
                 Artifact = artifact,
                 Roles = [roles[1]]
             };
