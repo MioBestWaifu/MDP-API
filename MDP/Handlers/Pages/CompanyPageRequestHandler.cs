@@ -24,8 +24,10 @@ namespace MDP.Handlers.Pages
                     .ThenInclude(x=>x.ShortName)
                 .Include(x => x.Artifact)
                     .ThenInclude(x=> x.CardImage)
+                .Include(x => x.Artifact)
+                    .ThenInclude(x => x.Media)
                 .Include(x => x.Roles)
-                .Where(x => x.Company.Id == id)
+                .Where(x => x.Participant.Id == id)
                 .ToList();
 
             List<CompanyPerson> currentAffiliates = connector.CompanyPeople

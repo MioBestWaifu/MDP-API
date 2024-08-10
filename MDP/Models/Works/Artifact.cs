@@ -8,12 +8,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MDP.Models.Works
 {
-    public class Artifact
+    public class Artifact : IEntity
     {
         public int Id { get; set; }
-        [Required]
         public Name ShortName { get; set; }
-        [Required]
         public Name FullName { get; set; }
         public List<Name>? OtherNames { get; set; }
         public string? Description { get; set; }

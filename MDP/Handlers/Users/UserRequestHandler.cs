@@ -14,7 +14,7 @@ namespace MDP.Handlers.Users
         public async Task<User?> HandleRequest(int id)
         {
             return connector.Users
-                .Include(u => u.Nickname)
+                .Include(u => u.ShortName)
                 .Include(u => u.CardImage)
                 .Include(u => u.MainImage)
                 .Include(u => u.OtherImages)
