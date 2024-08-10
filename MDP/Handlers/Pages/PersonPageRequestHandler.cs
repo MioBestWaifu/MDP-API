@@ -20,6 +20,8 @@ namespace MDP.Handlers.Pages
                     .ThenInclude(a=> a.ShortName)
                 .Include(x => x.Artifact)
                     .ThenInclude(a=> a.CardImage)
+                .Include(x => x.Artifact)
+                    .ThenInclude(x => x.Media)
                 .Include(x => x.Roles)
                 .Where(x => x.Participant.Id == id)
                 .ToList();
