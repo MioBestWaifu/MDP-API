@@ -20,7 +20,7 @@ namespace MDP.Models.Users
         public Gender Gender { get; set; }
         //Required by the interface, but should never be used.
         [NotMapped]
-        public Name FullName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public Name FullName { get; set; }
 
         public void RemoveSensitiveInformation()
         {

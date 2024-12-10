@@ -1,4 +1,5 @@
-﻿using MDP.Models.Persons;
+﻿using MDP.Models.Accessory;
+using MDP.Models.Persons;
 using MDP.Models.Works;
 using System.ComponentModel.DataAnnotations.Schema;
 

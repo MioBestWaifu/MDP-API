@@ -5,6 +5,7 @@
         Category = 1,
         Media = 2,
         Demographic = 3,
-        AgeRating = 4
+        AgeRating = 4,
+        Role = 5
     }
 }

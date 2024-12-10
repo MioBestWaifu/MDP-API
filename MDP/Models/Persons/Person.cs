@@ -1,4 +1,5 @@
-﻿using MDP.Models.Companies;
+﻿using MDP.Models.Accessory;
+using MDP.Models.Companies;
 
 namespace MDP.Models.Persons
 {

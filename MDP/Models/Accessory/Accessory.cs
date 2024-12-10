@@ -3,9 +3,10 @@ using System.Reflection.PortableExecutable;
 
 namespace MDP.Models.Accessory
 {
-    public abstract class Accessory 
+    public class Accessory 
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        //Could have used AccessoryType as the discriminator on this thing. 
     }
 }

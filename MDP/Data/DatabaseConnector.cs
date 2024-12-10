@@ -17,6 +17,7 @@ namespace MDP.Data
     public class DatabaseConnector : DbContext
     {
         private DatabaseConfigs configs;
+        public DbSet<Accessory> Accessories { get; set; }
         public DbSet<Artifact> Artifacts { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<PersonParticipation> PersonParticipations { get; set; }

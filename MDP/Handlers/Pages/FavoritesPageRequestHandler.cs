@@ -1,7 +1,5 @@
 ﻿using MDP.Data;
-using MDP.Models.Works;
 using MDP.Models.Pages;
-using MySql.Data.MySqlClient;
 
 namespace MDP.Handlers.Pages
 {
@@ -10,8 +8,8 @@ namespace MDP.Handlers.Pages
         public async Task<FavoritesPageModel> HandleRequest(int id)
         {
             FavoritesPageModel toReturn = new FavoritesPageModel();
-            toReturn.AllFavorites = connector.UserFavoriteWorks.Where(x=> x.UserId == id)
-                .Join(connector.Artifacts, uw => uw.ArtifactId, a => a.Id, (uw, a) => a).ToList();
+            toReturn.AllFavorites = connector.UserFavoriteWorks.Where(x=> x.User.Id == id)
+                .Join(connector.Artifacts, uw => uw.Artifact.Id, a => a.Id, (uw, a) => a).ToList();
             return toReturn;
         }
 
