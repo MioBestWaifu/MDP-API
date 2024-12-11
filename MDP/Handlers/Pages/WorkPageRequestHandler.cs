@@ -1,10 +1,7 @@
 ﻿using MDP.Data;
 using MDP.Handlers.Work;
 using MDP.Models.Pages;
-using MDP.Models;
-using MDP.Handlers.Reviews;
 using MDP.Utils;
-using MySql.Data.MySqlClient;
 using MDP.Models.Works;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +19,7 @@ namespace MDP.Handlers.Pages
         {
             //Where reviews?;
 
-            Artifact artifact = await new WorkRequestHandler(connector).HandleRequest(id);
+            Artifact artifact = await new WorkRequestHandler(connector).Get(id);
             if(artifact == null)
             {
                 return null;

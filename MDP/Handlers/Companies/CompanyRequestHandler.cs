@@ -1,6 +1,4 @@
 ﻿using MDP.Data;
-using MySql.Data.MySqlClient;
-using System.Threading.Tasks;
 using MDP.Models.Companies;
 using Microsoft.EntityFrameworkCore;
 

@@ -21,8 +21,8 @@ namespace MDP.Models.Works
         public List<Category> Categories { get; set; }
         public List<Demographic>? TargetDemographics { get; set; }
         public AgeRating AgeRating { get; set; }
-        public Image CardImage { get; set; }
-        public Image MainImage { get; set; }
+        public Image? CardImage { get; set; }
+        public Image? MainImage { get; set; }
         public List<Image>? OtherImages { get; set; }
         public double AverageRating { get; set; }
         public DateTime? ReleaseDate { get; set; }
