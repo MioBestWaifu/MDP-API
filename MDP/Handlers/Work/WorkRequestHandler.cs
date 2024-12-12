@@ -39,6 +39,7 @@ namespace MDP.Handlers.Work
             return toCreate;
         }
 
+        //This needs to delete the otherImages too
         public async Task<bool> Delete(int id)
         {
             var nameIds = await connector.Artifacts.Include(x => x.ShortName)
@@ -78,16 +79,22 @@ namespace MDP.Handlers.Work
                 //Images go in their own thing, not here
                 existingEntity.ShortName.Literal = updated.ShortName.Literal;
                 existingEntity.FullName.Literal = updated.FullName.Literal;
-                //Remove the names that are not in the updated list...
-                if (existingEntity.OtherNames == null)
-                    existingEntity.OtherNames = new List<Name>();
+                
+                
                 if (updated.OtherNames != null)
                 {
+                    if (existingEntity.OtherNames == null)
+                        existingEntity.OtherNames = new List<Name>();
+                    //Remove the names that are not in the updated list...
                     existingEntity.OtherNames.RemoveAll(x => !updated.OtherNames.Any(y => y.Id == x.Id));
                     //...Then update the remaining
                     foreach (var name in updated.OtherNames)
                     {
                         var exName = existingEntity.OtherNames.Find(x => x.Id == name.Id);
+                        if (exName is null)
+                        {
+                            exName = new Name();
+                        }
                         exName.Literal = name.Literal;
                     }
                 }

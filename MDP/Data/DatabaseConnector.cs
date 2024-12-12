@@ -35,6 +35,7 @@ namespace MDP.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Name> Names { get; set; }
+        public DbSet<Country> Countries { get; set; }
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)
         {
