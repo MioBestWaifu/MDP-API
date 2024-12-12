@@ -13,7 +13,7 @@ namespace MDP.Handlers.Pages
         {
             PersonPageModel toReturn = new PersonPageModel();
 
-            toReturn.Person = await new PersonRequestHandler(conn).HandleRequest(id);
+            toReturn.Person = await new PersonRequestHandler(conn).Get(id);
 
             toReturn.Participations = connector.PersonParticipations
                 .Include(x => x.Artifact)

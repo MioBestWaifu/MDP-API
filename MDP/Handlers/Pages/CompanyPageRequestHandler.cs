@@ -13,7 +13,7 @@ namespace MDP.Handlers.Pages
         public async Task<CompanyPageModel?> HandleRequest(int id)
         {
             // What if null?
-            Company company = await new CompanyRequestHandler(conn).HandleRequest(id);
+            Company company = await new CompanyRequestHandler(conn).Get(id);
             if (company == null)
             {
                 return null;

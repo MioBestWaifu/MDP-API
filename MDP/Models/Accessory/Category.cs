@@ -1,4 +1,5 @@
 ﻿using MDP.Models.Works;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.Text.Json.Serialization;
 
 namespace MDP.Models.Accessory
@@ -7,6 +8,7 @@ namespace MDP.Models.Accessory
     {
         //To create a Many-to-Many, otherwise useless.
         [JsonIgnore]
+        [ValidateNever]
         public List<Artifact> Artifacts { get; set; }
     }
 }
