@@ -3,7 +3,10 @@
     public class Image
     {
         public int Id { get; set; }
-        public string Url { get; set; }
+        /// <summary>
+        /// May be an URL or a Base64
+        /// </summary>
+        public string Content { get; set; }
         public ImageType Type { get; set; }
     }
 }

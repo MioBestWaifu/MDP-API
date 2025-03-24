@@ -96,7 +96,7 @@ namespace MDP.Controllers
                 },
                 MainImage = new Image
                 {
-                    Url = "assets/imgs/users/1main.png",
+                    Content = "assets/imgs/users/1main.png",
                     Type = ImageType.MainImage
                 },
                 Country = country,
@@ -124,12 +124,12 @@ namespace MDP.Controllers
                     ],
                 MainImage = new Image
                 {
-                    Url = "assets/imgs/companies/1main.png",
+                    Content = "assets/imgs/companies/1main.png",
                     Type = ImageType.MainImage
                 },
                 CardImage = new Image
                 {
-                    Url = "assets/imgs/companies/1card.png",
+                    Content = "assets/imgs/companies/1card.png",
                     Type = ImageType.CardImage
                 },
                 FoundingDate = new DateTime(2007,4,1)
@@ -144,12 +144,12 @@ namespace MDP.Controllers
                 Nicknames = [new Name { Literal = "Rieri" }],
                 CardImage = new Image
                 {
-                    Url = "assets/imgs/persons/1card.png",
+                    Content = "assets/imgs/persons/1card.png",
                     Type = ImageType.CardImage
                 },
                 MainImage = new Image
                 {
-                    Url = "assets/imgs/persons/1main.png",
+                    Content = "assets/imgs/persons/1main.png",
                     Type = ImageType.MainImage
                 },
                 Country = country,
@@ -172,8 +172,8 @@ namespace MDP.Controllers
                 Categories = [categories[0], categories[1]],
                 TargetDemographics = [demographics[2]],
                 AgeRating = ageRatings[1],
-                CardImage = new() { Url = "assets/imgs/works/1card.png", Type = ImageType.CardImage },
-                MainImage = new() { Url = "assets/imgs/works/1main.png", Type = ImageType.MainImage },
+                CardImage = new() { Content = "assets/imgs/works/1card.png", Type = ImageType.CardImage },
+                MainImage = new() { Content = "assets/imgs/works/1main.png", Type = ImageType.MainImage },
                 AverageRating = 4.5,
                 ReleaseDate = new DateTime(2016, 4, 4)
             };
@@ -215,7 +215,7 @@ namespace MDP.Controllers
                     Date = new DateTime(2023, 1, 1),
                     Images = new List<Image>(){
                         new Image(){
-                            Url = "assets/imgs/news/1main.png",
+                            Content = "assets/imgs/news/1main.png",
                             Type = ImageType.MainImage
                         },
                     }
@@ -226,7 +226,7 @@ namespace MDP.Controllers
                     Date = new DateTime(2023, 1, 1),
                     Images = new List<Image>(){
                         new Image(){
-                            Url = "assets/imgs/news/2main.png",
+                            Content = "assets/imgs/news/2main.png",
                             Type = ImageType.MainImage
                         },
                     }
@@ -237,7 +237,7 @@ namespace MDP.Controllers
                     Date = new DateTime(2023, 1, 1),
                     Images = new List<Image>(){
                         new Image(){
-                            Url = "assets/imgs/news/3main.png",
+                            Content = "assets/imgs/news/3main.png",
                             Type = ImageType.MainImage
                         },
                     }
@@ -254,7 +254,7 @@ namespace MDP.Controllers
                         Content = "Does he know?",
                         Images = [
                             new Image {
-                                Url = "assets/imgs/news/4main.png",
+                                Content = "assets/imgs/news/4main.png",
                                 Type = ImageType.MainImage
                             }
                             ]
@@ -265,7 +265,7 @@ namespace MDP.Controllers
                         Content = "He Doesnt know.",
                         Images = [
                             new Image {
-                                Url = "assets/imgs/news/5main.png",
+                                Content = "assets/imgs/news/5main.png",
                                 Type = ImageType.MainImage
                             }
                             ]
@@ -276,7 +276,7 @@ namespace MDP.Controllers
                         Content = "HE KNOWS!",
                         Images = [
                             new Image {
-                                Url = "assets/imgs/news/6main.png",
+                                Content = "assets/imgs/news/6main.png",
                                 Type = ImageType.MainImage
                             }
                             ]
