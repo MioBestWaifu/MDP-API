@@ -62,6 +62,20 @@ namespace MDP.Handlers.Companies
             //Do averagerating
         }
 
+        public async Task<int> GetCount()
+        {
+            return await connector.Companies.CountAsync();
+        }
+
+        public async Task<List<Company>> GetPaginatedRange(int page, int amount)
+        {
+            return await connector.Companies
+            .OrderBy(a => a.Id)
+            .Skip((page - 1) * amount)
+            .Take(amount)
+            .ToListAsync();
+        }
+
         public async Task<Company> Update(Company updated)
         {
             Company toUpdate = await Get(updated.Id);

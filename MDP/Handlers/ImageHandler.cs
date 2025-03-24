@@ -21,6 +21,16 @@ namespace MDP.Handlers
             throw new NotImplementedException();
         }
 
+        public Task<int> GetCount()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Image>> GetPaginatedRange(int page, int amount)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<Image> Update(Image updated)
         {
             throw new NotImplementedException();

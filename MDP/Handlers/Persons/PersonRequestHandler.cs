@@ -116,5 +116,19 @@ namespace MDP.Handlers.Persons
 
             return true;
         }
+
+        public async Task<List<Person>> GetPaginatedRange(int page, int amount)
+        {
+            return await connector.People
+                .OrderBy(a => a.Id)
+                .Skip((page - 1) * amount)
+                .Take(amount)
+                .ToListAsync();
+        }
+
+        public async Task<int> GetCount()
+        {
+            return await connector.People.CountAsync();
+        }
     }
 }

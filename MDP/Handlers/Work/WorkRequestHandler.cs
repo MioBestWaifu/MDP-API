@@ -1,11 +1,7 @@
 ﻿using MDP.Data;
 using MDP.Models;
 using MDP.Models.Works;
-using Microsoft.AspNetCore.Razor.Hosting;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
-using System.Reflection.PortableExecutable;
 
 namespace MDP.Handlers.Work
 {
@@ -68,6 +64,20 @@ namespace MDP.Handlers.Work
                 .FirstOrDefaultAsync(a => a.Id == id);
 
             return artifact;
+        }
+
+        public async Task<int> GetCount()
+        {
+            return await connector.Artifacts.CountAsync();
+        }
+
+        public async Task<List<Artifact>> GetPaginatedRange(int page, int amount)
+        {
+            return await connector.Artifacts
+                .OrderBy(a => a.Id) 
+                .Skip((page - 1) * amount)
+                .Take(amount)
+                .ToListAsync();
         }
 
         public async Task<Artifact> Update(Artifact updated)
