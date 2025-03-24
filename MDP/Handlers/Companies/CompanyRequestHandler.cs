@@ -20,11 +20,11 @@ namespace MDP.Handlers.Companies
             toCreate.FullName = new Name() { Literal = original.FullName };
             toCreate.Description = original.Description;
             toCreate.FoundingDate = original.FoundingDate;
-            toCreate.Country = await connector.Countries.FindAsync(original.Country);
+            toCreate.Country = await connector.Countries.FindAsync(original.Country.Id);
             toCreate.Roles = new List<Role>();
-            foreach (int roleId in original.Roles)
+            foreach (Role role in original.Roles)
             {
-                toCreate.Roles.Add(await connector.Roles.FindAsync(roleId));
+                toCreate.Roles.Add(await connector.Roles.FindAsync(role.Id));
             }
 
             await connector.Companies.AddAsync(toCreate);

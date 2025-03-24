@@ -19,8 +19,8 @@ namespace MDP.Handlers.Work
         {
             var names = original.OtherNames?.Select(x => new Name { Literal = x }).ToList();
             var media = connector.Medias.First(x => x.Id == original.Media);
-            var categories = connector.Categories.Where(x => original.Categories.Contains(x.Id)).ToList();
-            var demographics = connector.Demographics.Where(x => original.TargetDemographics.Contains(x.Id)).ToList();
+            var categories = original.Categories.Where(x => connector.Categories.Any(y => y.Id == x.Id)).ToList();
+            var demographics = original.TargetDemographics?.Where(x => connector.Demographics.Any(y => y.Id == x.Id)).ToList();
             var ageRating = connector.AgeRatings.First(x => x.Id == original.AgeRating);
             Artifact toCreate = new Artifact
             {

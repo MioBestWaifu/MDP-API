@@ -31,9 +31,9 @@ namespace MDP.Handlers.Persons
             toCreate.Gender = original.Gender;
             toCreate.Country = await connector.Countries.FindAsync(original.Country);
             toCreate.Roles = new List<Role>();
-            foreach (int roleId in original.Roles)
+            foreach (Role role in original.Roles)
             {
-                toCreate.Roles.Add(await connector.Roles.FindAsync(roleId));
+                toCreate.Roles.Add(await connector.Roles.FindAsync(role.Id));
             }
 
             await connector.People.AddAsync(toCreate);
