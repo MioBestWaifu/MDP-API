@@ -1,3 +1,4 @@
+using MDP;
 using MDP.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,9 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("http://localhost:4200",
-                                              "https://localhost:4200");
+                                              "https://localhost:4200")
+                          .AllowAnyMethod()
+                                .AllowAnyHeader();
                       });
 });
 
@@ -38,6 +41,8 @@ app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();
 
 app.UseResponseCaching();
+
+app.UseMiddleware<LoggingMiddleware>();
 
 app.MapControllers();
 

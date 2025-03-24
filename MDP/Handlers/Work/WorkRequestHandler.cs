@@ -14,10 +14,17 @@ namespace MDP.Handlers.Work
         public async Task<Artifact> Create(ArtifactInsert original)
         {
             var names = original.OtherNames?.Select(x => new Name { Literal = x }).ToList();
-            var media = connector.Medias.First(x => x.Id == original.Media);
-            var categories = original.Categories.Where(x => connector.Categories.Any(y => y.Id == x.Id)).ToList();
-            var demographics = original.TargetDemographics?.Where(x => connector.Demographics.Any(y => y.Id == x.Id)).ToList();
-            var ageRating = connector.AgeRatings.First(x => x.Id == original.AgeRating);
+            var media = connector.Medias.First(x => x.Id == original.Media.Id);
+            var categoryIds = original.Categories.Select(c => c.Id).ToList();
+            var categories = connector.Categories
+                .Where(c => categoryIds.Contains(c.Id))
+                .ToList();
+            var demographicIds = original.TargetDemographics.Select(d => d.Id).ToList();
+            var demographics = connector.Demographics
+                .Where(d => demographicIds.Contains(d.Id))
+                .ToList();
+
+            var ageRating = connector.AgeRatings.First(x => x.Id == original.AgeRating.Id);
             Artifact toCreate = new Artifact
             {
                 ShortName = new Name { Literal = original.Name },

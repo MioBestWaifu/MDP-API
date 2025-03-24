@@ -32,5 +32,11 @@ namespace MDP.Controllers
         {
             return new AllAccessoriesRequestHandler(conn).HandleRequest((int)AccessoryType.Demographic).Result;
         }
+
+        [HttpGet("age-ratings")]
+        public List<Accessory> GetAgeRatings()
+        {
+            return new AllAccessoriesRequestHandler(conn).HandleRequest((int)AccessoryType.AgeRating).Result;
+        }
     }
 }
