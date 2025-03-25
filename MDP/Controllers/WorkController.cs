@@ -1,4 +1,5 @@
 ﻿using MDP.Data;
+using MDP.Handlers.Companies;
 using MDP.Handlers.Participations;
 using MDP.Handlers.Work;
 using MDP.Models.Companies;
@@ -42,6 +43,12 @@ namespace MDP.Controllers
         public List<CompanyParticipation> UpdateCompanyParticipations(int id, List<CompanyParticipation> participations)
         {
             return new CompanyParticipationHandler(conn).UpdateArtifact(id, participations.Where(x => x.Artifact.Id == id).ToList()).Result;
+        }
+
+        [HttpGet("search")]
+        public List<Artifact> Search(string query)
+        {
+            return new WorkRequestHandler(conn).HandleSearch(query).Result;
         }
     }
 }

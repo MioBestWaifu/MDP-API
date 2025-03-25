@@ -1,6 +1,7 @@
 ﻿using MDP.Data;
 using MDP.Models;
 using MDP.Models.Works;
+using MDP.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace MDP.Handlers.Work
@@ -9,7 +10,7 @@ namespace MDP.Handlers.Work
     /// This returns a full Artifact. If you need a partial one, query elsewhere.
     /// </summary>
     /// <param name="conn"></param>
-    public class WorkRequestHandler(DatabaseConnector conn) : Handler(conn), ICrudHandler<Artifact, ArtifactInsert>
+    public class WorkRequestHandler(DatabaseConnector conn) : Handler(conn), ICrudHandler<Artifact, ArtifactInsert>, ISearchHandler<List<Artifact>>
     {
         public async Task<Artifact> Create(ArtifactInsert original)
         {
@@ -87,6 +88,16 @@ namespace MDP.Handlers.Work
                 .ToListAsync();
         }
 
+        public async Task<List<Artifact>> HandleSearch(string query, int page = 0)
+        {
+            return connector.Artifacts.Include(x => x.ShortName)
+                .Include(x => x.FullName)
+                .Where(x => x.ShortName.Literal.Contains(query) || x.FullName.Literal.Contains(query))
+                .Include(x => x.CardImage)
+                .Take(Constants.MAX_SEARCH_WORKS)
+                .ToList();
+        }
+
         public async Task<Artifact> Update(Artifact updated)
         {
             var existingEntity = await Get(updated.Id);
@@ -96,8 +107,6 @@ namespace MDP.Handlers.Work
                 //Images go in their own thing, not here
                 existingEntity.ShortName.Literal = updated.ShortName.Literal;
                 existingEntity.FullName.Literal = updated.FullName.Literal;
-                
-                
                 if (updated.OtherNames != null)
                 {
                     if (existingEntity.OtherNames == null)
@@ -121,7 +130,8 @@ namespace MDP.Handlers.Work
                 existingEntity.TargetDemographics = updated.TargetDemographics.Select(x => connector.Demographics.First(y => y.Id == x.Id)).ToList(); ;
                 existingEntity.AgeRating = connector.AgeRatings.Find(updated.AgeRating.Id);
                 existingEntity.ReleaseDate = updated.ReleaseDate;
-
+                existingEntity.CardImage.Content = updated.CardImage.Content;
+                existingEntity.MainImage.Content = updated.MainImage.Content;
                 await connector.SaveChangesAsync();
                 return existingEntity;
             }
