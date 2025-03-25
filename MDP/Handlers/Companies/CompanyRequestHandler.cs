@@ -4,6 +4,7 @@ using MDP.Models;
 using MDP.Models.Companies;
 using MDP.Models.Persons;
 using Microsoft.EntityFrameworkCore;
+using MDP.Utils;
 
 namespace MDP.Handlers.Companies
 {
@@ -11,7 +12,7 @@ namespace MDP.Handlers.Companies
     /// Returns a full Company. If you need a partial one, query elsewhere
     /// </summary>
     /// <param name="conn"></param>
-    public class CompanyRequestHandler(DatabaseConnector conn) : Handler(conn), ICrudHandler<Company, CompanyInsert>
+    public class CompanyRequestHandler(DatabaseConnector conn) : Handler(conn), ICrudHandler<Company, CompanyInsert>, ISearchHandler<List<Company>>
     {
         public async Task<Company> Create(CompanyInsert original)
         {
@@ -74,6 +75,17 @@ namespace MDP.Handlers.Companies
             .Skip((page - 1) * amount)
             .Take(amount)
             .ToListAsync();
+        }
+
+        public async Task<List<Company>> HandleSearch(string query, int page = 0)
+        {
+            return connector.Companies.Include(x => x.ShortName)
+                .Include(x => x.FullName)
+                .Where(x => x.ShortName.Literal.Contains(query) || x.FullName.Literal.Contains(query))
+                .Take(Constants.MAX_SEARCH_WORKS)
+                .Include(x => x.CardImage)
+                .Include(x => x.Roles)
+                .ToList();
         }
 
         public async Task<Company> Update(Company updated)

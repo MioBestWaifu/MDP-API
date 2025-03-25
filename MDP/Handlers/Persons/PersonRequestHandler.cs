@@ -6,12 +6,13 @@ using MDP.Models.Persons;
 using Microsoft.EntityFrameworkCore;
 using MDP.Models;
 using MDP.Models.Accessory;
+using MDP.Utils;
 namespace MDP.Handlers.Persons
 {
     /// <summary>
     /// Returns a full Person. If you need a partial one, query elsewhere.s
     /// </summary>
-    public class PersonRequestHandler(DatabaseConnector conn) : Handler(conn), ICrudHandler<Person,PersonInsert>
+    public class PersonRequestHandler(DatabaseConnector conn) : Handler(conn), ICrudHandler<Person, PersonInsert>, ISearchHandler<List<Person>>
     {
         public async Task<Person> Create(PersonInsert original)
         {
@@ -129,6 +130,17 @@ namespace MDP.Handlers.Persons
         public async Task<int> GetCount()
         {
             return await connector.People.CountAsync();
+        }
+
+        public async Task<List<Person>> HandleSearch(string query, int page = 0)
+        {
+            return connector.People.Include(x => x.ShortName)
+                .Include(x => x.FullName)
+                .Where(x => x.ShortName.Literal.Contains(query) || x.FullName.Literal.Contains(query))
+                .Take(Constants.MAX_SEARCH_WORKS)
+                .Include(x => x.CardImage)
+                .Include(x => x.Roles)
+                .ToList();        
         }
     }
 }

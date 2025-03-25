@@ -175,7 +175,7 @@ namespace MDP.Controllers
                 CardImage = new() { Content = "assets/imgs/works/1card.png", Type = ImageType.CardImage },
                 MainImage = new() { Content = "assets/imgs/works/1main.png", Type = ImageType.MainImage },
                 AverageRating = 4.5,
-                ReleaseDate = new DateTime(2016, 4, 4)
+                ReleaseDate = new DateOnly(2016, 4, 4)
             };
             connector.Artifacts.Add(artifact);
             connector.SaveChanges();

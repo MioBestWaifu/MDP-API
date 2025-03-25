@@ -25,7 +25,7 @@ namespace MDP.Models.Works
         public Image? MainImage { get; set; }
         public List<Image>? OtherImages { get; set; }
         public double AverageRating { get; set; }
-        public DateTime? ReleaseDate { get; set; }
+        public DateOnly? ReleaseDate { get; set; }
 
     }
 }

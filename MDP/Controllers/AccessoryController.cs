@@ -38,5 +38,11 @@ namespace MDP.Controllers
         {
             return new AllAccessoriesRequestHandler(conn).HandleRequest((int)AccessoryType.AgeRating).Result;
         }
+
+        [HttpGet("roles")]
+        public List<Accessory> GetRoles()
+        {
+            return new AllAccessoriesRequestHandler(conn).HandleRequest((int)AccessoryType.Role).Result;
+        }
     }
 }
