@@ -1,5 +1,7 @@
 ﻿using MDP.Data;
+using MDP.Handlers;
 using MDP.Handlers.Accessories;
+using MDP.Models;
 using MDP.Models.Accessory;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,6 +45,13 @@ namespace MDP.Controllers
         public List<Accessory> GetRoles()
         {
             return new AllAccessoriesRequestHandler(conn).HandleRequest((int)AccessoryType.Role).Result;
+        }
+
+        //Country não é um acessory, mas vai ficar aqui mesmo
+        [HttpGet("countries")]
+        public List<Country> GetCountries()
+        {
+            return new CountryRequestHandler(conn).GetAllCountries();
         }
     }
 }

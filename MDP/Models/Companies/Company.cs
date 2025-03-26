@@ -21,7 +21,7 @@ namespace MDP.Models.Companies
         //Company will only be used for actual companies.
         public Country Country { get; set; }
         public List<Role> Roles { get; set; }
-        public DateTime FoundingDate { get; set; }
+        public DateOnly FoundingDate { get; set; }
         public double AverageRating { get; set; }
     }
 }

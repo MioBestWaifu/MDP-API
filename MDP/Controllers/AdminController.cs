@@ -132,7 +132,7 @@ namespace MDP.Controllers
                     Content = "assets/imgs/companies/1card.png",
                     Type = ImageType.CardImage
                 },
-                FoundingDate = new DateTime(2007,4,1)
+                FoundingDate = new DateOnly(2007,4,1)
             };
             connector.Companies.Add(company);
             connector.SaveChanges();
@@ -199,7 +199,7 @@ namespace MDP.Controllers
             {
                 Company = company,
                 Person = person,
-                Start = new DateTime(2013, 4, 4)
+                Start = new DateOnly(2013, 4, 4)
             };
 
             connector.PersonParticipations.Add(personParticipation);

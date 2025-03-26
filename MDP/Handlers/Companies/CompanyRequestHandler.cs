@@ -101,6 +101,8 @@ namespace MDP.Handlers.Companies
             {
                 toUpdate.Roles.Add(await connector.Roles.FindAsync(role.Id));
             }
+            toUpdate.CardImage.Content = updated.CardImage.Content;
+            toUpdate.MainImage.Content = updated.MainImage.Content;
 
             await connector.SaveChangesAsync();
             return toUpdate;

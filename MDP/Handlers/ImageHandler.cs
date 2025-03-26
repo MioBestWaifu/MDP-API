@@ -1,5 +1,6 @@
 ﻿using MDP.Data;
 using MDP.Models;
+using MDP.Models.Companies;
 using MDP.Models.Works;
 
 namespace MDP.Handlers
@@ -8,10 +9,11 @@ namespace MDP.Handlers
     {
         public async Task<Image> Create(ImageInsert original)
         {
+            Image toInsert;
             switch (original.TargetType)
             {
                 case EntityType.Artifact:
-                    Image toInsert = new Image {
+                    toInsert = new Image {
                         Content = original.Content,
                         Type = original.Type
                     };
@@ -27,6 +29,28 @@ namespace MDP.Handlers
                     {
                         target.OtherImages ??= [];
                         target.OtherImages.Add(toInsert);
+                    }
+                    await connector.SaveChangesAsync();
+                    return toInsert;
+                case EntityType.Company:
+                   toInsert = new Image
+                    {
+                        Content = original.Content,
+                        Type = original.Type
+                    };
+                    Company targetCompany = connector.Companies.First(x => x.Id == original.TargetId);
+                    if (original.Type == ImageType.MainImage)
+                    {
+                        targetCompany.MainImage = toInsert;
+                    }
+                    else if (original.Type == ImageType.CardImage)
+                    {
+                        targetCompany.CardImage = toInsert;
+                    }
+                    else
+                    {
+                        targetCompany.OtherImages ??= [];
+                        targetCompany.OtherImages.Add(toInsert);
                     }
                     await connector.SaveChangesAsync();
                     return toInsert;

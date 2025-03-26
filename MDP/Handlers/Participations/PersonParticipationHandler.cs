@@ -1,6 +1,8 @@
 ﻿using MDP.Data;
 using MDP.Models.Accessory;
+using MDP.Models.Companies;
 using MDP.Models.Persons;
+using MDP.Models.Works;
 using Microsoft.EntityFrameworkCore;
 
 namespace MDP.Handlers.Participations
@@ -22,6 +24,15 @@ namespace MDP.Handlers.Participations
         {
             return connector.PersonParticipations.Where(x => x.Participant.Id == personId)
                 .Include(x => x.Participant)
+                .ToList();
+        }
+
+        public async Task<List<CompanyPerson>> GetFromCompany(int companyId)
+        {
+            return connector.CompanyPeople.Where(x => x.Company.Id == companyId)
+                .Include(x => x.Person)
+                .ThenInclude(y => y.CardImage)
+                .Include(x => x.Person.ShortName)
                 .ToList();
         }
 
@@ -55,7 +66,38 @@ namespace MDP.Handlers.Participations
                 p.AdditionalInformation = participation.AdditionalInformation;
             }
 
+            var toUpdateIds = toUpdate.Select(x => x.Id).ToList();
+
+            var toDelete = connector.PersonParticipations
+                .Where(x => x.Artifact.Id == artifactId && !toUpdateIds.Contains(x.Id))
+                .ToList();
+            connector.PersonParticipations.RemoveRange(toDelete);
+
             connector.PersonParticipations.AddRange(toInsert);
+            await connector.SaveChangesAsync();
+            return participations;
+        }
+
+        public async Task<List<CompanyPerson>> UpdateCompany(int companyId, List<CompanyPerson> participations)
+        {
+            foreach (var participation in participations)
+            {
+
+                participation.Person = connector.People.Find(participation.Person.Id);
+                participation.Company = connector.Companies.Find(participation.Company.Id);
+            }
+
+            var toUpdate = participations.Where(x => x.Id >= 1);
+            var toInsert = participations.Where(x => x.Id <= 0);
+
+            var toUpdateIds = toUpdate.Select(x => x.Id).ToList();
+
+            var toDelete = connector.CompanyPeople
+                .Where(x => x.Company.Id == companyId && !toUpdateIds.Contains(x.Id))
+                .ToList();
+            connector.CompanyPeople.RemoveRange(toDelete);
+
+            connector.CompanyPeople.AddRange(toInsert);
             await connector.SaveChangesAsync();
             return participations;
         }

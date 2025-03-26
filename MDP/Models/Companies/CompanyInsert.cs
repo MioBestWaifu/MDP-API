@@ -9,6 +9,6 @@ namespace MDP.Models.Companies
         public Country Country { get; set; }
         public List<Role> Roles { get; set; }
         public string Description { get; set; }
-        public DateTime FoundingDate { get; set; }
+        public DateOnly FoundingDate { get; set; }
     }
 }
