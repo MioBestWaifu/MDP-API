@@ -59,24 +59,25 @@ namespace MDP.Handlers.Persons
 
         public async Task<Person> Update(Person updated)
         {
-            Person toCreate = await Get(updated.Id);
-            if(toCreate == null)
+            Person toUpdate = await Get(updated.Id);
+            if(toUpdate == null)
             {
                 throw new InvalidOperationException("Person not found");
             }
-            toCreate.ShortName.Literal = updated.ShortName.Literal;
-            toCreate.FullName.Literal = updated.FullName.Literal;
+            toUpdate.ShortName.Literal = updated.ShortName.Literal;
+            toUpdate.FullName.Literal = updated.FullName.Literal;
 
             if(updated.Nicknames != null)
             {
-                if(toCreate.Nicknames == null)
-                    toCreate.Nicknames = new List<Name>();
+                if(toUpdate.Nicknames == null)
+                    toUpdate.Nicknames = new List<Name>();
 
-                toCreate.Nicknames.RemoveAll(x => !updated.Nicknames.Any(y => y.Id == x.Id));
+                var toKeepNicknames = updated.Nicknames.Select(x => x.Id);
+                toUpdate.Nicknames.RemoveAll(x=> !toKeepNicknames.Contains(x.Id));
 
                 foreach (Name nickname in updated.Nicknames)
                 {
-                    var orName = toCreate.Nicknames.Find(z=>z.Id == nickname.Id);
+                    var orName = toUpdate.Nicknames.Find(z=>z.Id == nickname.Id);
 
                     if (orName is null)
                         orName = new Name();
@@ -85,10 +86,10 @@ namespace MDP.Handlers.Persons
                 }
             }
 
-            toCreate.Description = updated.Description;
-            toCreate.Birthday = updated.Birthday;
-            toCreate.Gender = updated.Gender;
-            toCreate.Country = await connector.Countries.FindAsync(updated.Country.Id);
+            toUpdate.Description = updated.Description;
+            toUpdate.Birthday = updated.Birthday;
+            toUpdate.Gender = updated.Gender;
+            toUpdate.Country = await connector.Countries.FindAsync(updated.Country.Id);
 
             List<Role> buffer = [];
             foreach (Role role in updated.Roles)
@@ -96,10 +97,14 @@ namespace MDP.Handlers.Persons
                 buffer.Add(connector.Roles.Find(role.Id));
             }
 
-            toCreate.Roles = buffer;
+            toUpdate.Roles.Clear();
+            toUpdate.Roles = buffer;
+
+            toUpdate.CardImage.Content = updated.CardImage.Content;
+            toUpdate.MainImage.Content = updated.MainImage.Content;
 
             await connector.SaveChangesAsync();
-            return toCreate;
+            return toUpdate;
         }
 
         public async Task<bool> Delete(int id)
