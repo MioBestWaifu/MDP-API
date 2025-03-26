@@ -16,7 +16,7 @@ namespace MDP.Models.Persons
         public Country? Country { get; set; }
         public List<Role> Roles { get; set; }
         public string Description { get; set; }
-        public DateTime? Birthday { get; set; }
+        public DateOnly? Birthday { get; set; }
         public double AverageRating { get; set; }
         public Gender Gender { get; set; }
     }

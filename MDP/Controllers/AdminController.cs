@@ -158,7 +158,7 @@ namespace MDP.Controllers
                 ],
                 Description = "Sweetest voice in Japan. In the world, actually. I fucking love her.",
                 Gender = Gender.Female,
-                Birthday = new DateTime(1994, 02, 27)
+                Birthday = new DateOnly(1994, 02, 27)
             };
             connector.People.Add(person);
             connector.SaveChanges();

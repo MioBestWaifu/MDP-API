@@ -30,7 +30,7 @@ namespace MDP.Handlers.Persons
             toCreate.Description = original.Description;
             toCreate.Birthday = original.Birthday;
             toCreate.Gender = original.Gender;
-            toCreate.Country = await connector.Countries.FindAsync(original.Country);
+            toCreate.Country = await connector.Countries.FindAsync(original.Country.Id);
             toCreate.Roles = new List<Role>();
             foreach (Role role in original.Roles)
             {

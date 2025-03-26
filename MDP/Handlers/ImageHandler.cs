@@ -1,6 +1,7 @@
 ﻿using MDP.Data;
 using MDP.Models;
 using MDP.Models.Companies;
+using MDP.Models.Persons;
 using MDP.Models.Works;
 
 namespace MDP.Handlers
@@ -51,6 +52,28 @@ namespace MDP.Handlers
                     {
                         targetCompany.OtherImages ??= [];
                         targetCompany.OtherImages.Add(toInsert);
+                    }
+                    await connector.SaveChangesAsync();
+                    return toInsert;
+                case EntityType.Person:
+                    toInsert = new Image
+                    {
+                        Content = original.Content,
+                        Type = original.Type
+                    };
+                    Person targetPerson = connector.People.First(x => x.Id == original.TargetId);
+                    if (original.Type == ImageType.MainImage)
+                    {
+                        targetPerson.MainImage = toInsert;
+                    }
+                    else if (original.Type == ImageType.CardImage)
+                    {
+                        targetPerson.CardImage = toInsert;
+                    }
+                    else
+                    {
+                        targetPerson.OtherImages ??= [];
+                        targetPerson.OtherImages.Add(toInsert);
                     }
                     await connector.SaveChangesAsync();
                     return toInsert;
