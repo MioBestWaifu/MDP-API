@@ -1,6 +1,5 @@
 ﻿using MDP.Models.Users;
-using MySql.Data.MySqlClient;
-using System;
+using MDP.Models.Works;
 using System.ComponentModel.DataAnnotations;
 
 namespace MDP.Models
@@ -10,13 +9,10 @@ namespace MDP.Models
     public class Review
     {
         public int Id { get; set; }
-        [Required]
         public User User { get; set; }
-        [Required]
+        public int ArtifactId { get; set; }
         public int Rating { get; set; }
-        [Required]
         public string Comment { get; set; }
-        [Required]
         public DateOnly? Date { get; set; }
     }
 }

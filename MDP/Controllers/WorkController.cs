@@ -1,7 +1,9 @@
 ﻿using MDP.Data;
 using MDP.Handlers.Companies;
 using MDP.Handlers.Participations;
+using MDP.Handlers.Reviews;
 using MDP.Handlers.Work;
+using MDP.Models;
 using MDP.Models.Companies;
 using MDP.Models.Persons;
 using MDP.Models.Works;
@@ -49,6 +51,12 @@ namespace MDP.Controllers
         public List<Artifact> Search(string query)
         {
             return new WorkRequestHandler(conn).HandleSearch(query).Result;
+        }
+
+        [HttpGet("review")]
+        public bool Review(int artifactId, int userId, int rate)
+        {
+            return new ReviewRequestHandler(conn).Review(artifactId, userId, rate);
         }
     }
 }
