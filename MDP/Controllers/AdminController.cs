@@ -101,7 +101,7 @@ namespace MDP.Controllers
                 },
                 Country = country,
                 Description = "Just a regular guy",
-                Birthday = new DateTime(1990, 1, 1),
+                Birthday = new DateOnly(1990, 1, 1),
                 Gender = Gender.Male
             };
             connector.Users.Add(user);
