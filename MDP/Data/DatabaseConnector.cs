@@ -3,6 +3,7 @@ using MDP.Models.Accessory;
 using MDP.Models.Companies;
 using MDP.Models.Information;
 using MDP.Models.Persons;
+using MDP.Models.Recommendation;
 using MDP.Models.Users;
 using MDP.Models.Works;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +37,11 @@ namespace MDP.Data
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Name> Names { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<DemoAge> DemoAges { get; set; }
+        public DbSet<DemoCat> DemoCats { get; set; }
+        public DbSet<DemoCountry> DemoCountrys { get; set; }
+        public DbSet<DemoGender> DemoGenders { get; set; }
+        public DbSet<UserDemo> UserDemos { get; set; }
 
         public DatabaseConnector(IWebHostEnvironment environment, ILogger<DatabaseConnector> logger)
         {

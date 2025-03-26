@@ -33,10 +33,10 @@ namespace MDP.Controllers
             return new FavoritesPageRequestHandler(conn).HandleRequest(1).Result;
         }
 
-        [HttpGet("home")]
-        public HomePageModel GetHomePage()
+        [HttpGet("home/{id}")]
+        public HomePageModel GetHomePage(int id)
         {
-            return new HomePageRequestHandler(conn).HandleRequest(1).Result;
+            return new HomePageRequestHandler(conn).HandleRequest(id).Result;
         }
 
         [HttpGet("interestsetup")]

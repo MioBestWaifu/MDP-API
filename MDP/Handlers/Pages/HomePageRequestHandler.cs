@@ -14,7 +14,14 @@ namespace MDP.Handlers.Pages
         public async Task<HomePageModel> HandleRequest(int id)
         {
             HomePageModel toReturn = new HomePageModel();
-            toReturn.Artifacts = connector.Artifacts
+
+            var userDemographics = connector.UserDemos
+                .Include(x => x.Demographic)
+                .Where(x => x.User.Id == id)
+                .Select(x => x.Demographic)
+                .ToList();
+
+            var overlappingArtifacts = connector.Artifacts
                 .Include(a => a.Categories)
                 .Include(a => a.TargetDemographics)
                 .Include(a => a.AgeRating)
@@ -23,8 +30,26 @@ namespace MDP.Handlers.Pages
                 .Include(a => a.Media)
                 .Include(a => a.ShortName)
                 .Include(a => a.FullName)
-                .Take(10)
+                .Where(a => a.TargetDemographics.Any(td => userDemographics.Contains(td)))
+                .OrderBy(a => Guid.NewGuid())
+                .Take(16)
                 .ToList();
+
+            var nonOverlappingArtifacts = connector.Artifacts
+                .Include(a => a.Categories)
+                .Include(a => a.TargetDemographics)
+                .Include(a => a.AgeRating)
+                .Include(a => a.CardImage)
+                .Include(a => a.MainImage)
+                .Include(a => a.Media)
+                .Include(a => a.ShortName)
+                .Include(a => a.FullName)
+                .Where(a => !a.TargetDemographics.Any(td => userDemographics.Contains(td)))
+                .OrderBy(a => Guid.NewGuid())
+                .Take(4)
+                .ToList();
+
+            toReturn.Artifacts = overlappingArtifacts.Concat(nonOverlappingArtifacts).ToList();
 
             toReturn.NewsAndHighlights = connector.GlobalNews
                 .OrderByDescending(x=>x.News.Date)
