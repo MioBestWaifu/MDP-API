@@ -6,5 +6,7 @@
         public Task<K?> Get(int id);
         public Task<K> Update(K updated);
         public Task<bool> Delete(int id);
+        public Task<List<K>> GetPaginatedRange(int page, int amount);
+        public Task<int> GetCount();
     }
 }

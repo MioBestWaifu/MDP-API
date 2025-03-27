@@ -4,10 +4,12 @@ using MDP.Models.Accessory;
 using MDP.Models.Companies;
 using MDP.Models.Information;
 using MDP.Models.Persons;
+using MDP.Models.Recommendation;
 using MDP.Models.Users;
 using MDP.Models.Works;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MDP.Controllers
 {
@@ -60,6 +62,8 @@ namespace MDP.Controllers
                 new Category { Name = "Isekai" },
                 new Category { Name = "Drama" },
                 new Category { Name = "Hentai" },
+                new Category { Name = "Slice of Life" },
+                new Category { Name = "Battle" },
                 ];
             connector.Categories.AddRange(categories);
 
@@ -67,6 +71,8 @@ namespace MDP.Controllers
                 new Demographic { Name = "Shonen" },
                 new Demographic { Name = "Shoujo" },
                 new Demographic { Name = "Chads" },
+                new Demographic { Name = "Gooners" },
+                new Demographic { Name = "Weebs" },
                 ];
             connector.Demographics.AddRange(demographics);
 
@@ -86,6 +92,12 @@ namespace MDP.Controllers
                 Code = "JPN"
             };
 
+            var brazil = new Country
+            {
+                Name = "Brazil",
+                Code = "BRA"
+            };
+
             User user = new User
             {
                 Email = "user@example.com",
@@ -96,15 +108,16 @@ namespace MDP.Controllers
                 },
                 MainImage = new Image
                 {
-                    Url = "assets/imgs/users/1main.png",
+                    Content = "assets/imgs/users/1main.png",
                     Type = ImageType.MainImage
                 },
                 Country = country,
                 Description = "Just a regular guy",
-                Birthday = new DateTime(1990, 1, 1),
+                Birthday = new DateOnly(1990, 1, 1),
                 Gender = Gender.Male
             };
             connector.Users.Add(user);
+            connector.Countries.Add(brazil);
             connector.SaveChanges();
 
             Company company = new Company
@@ -124,15 +137,15 @@ namespace MDP.Controllers
                     ],
                 MainImage = new Image
                 {
-                    Url = "assets/imgs/companies/1main.png",
+                    Content = "assets/imgs/companies/1main.png",
                     Type = ImageType.MainImage
                 },
                 CardImage = new Image
                 {
-                    Url = "assets/imgs/companies/1card.png",
+                    Content = "assets/imgs/companies/1card.png",
                     Type = ImageType.CardImage
                 },
-                FoundingDate = new DateTime(2007,4,1)
+                FoundingDate = new DateOnly(2007,4,1)
             };
             connector.Companies.Add(company);
             connector.SaveChanges();
@@ -144,12 +157,12 @@ namespace MDP.Controllers
                 Nicknames = [new Name { Literal = "Rieri" }],
                 CardImage = new Image
                 {
-                    Url = "assets/imgs/persons/1card.png",
+                    Content = "assets/imgs/persons/1card.png",
                     Type = ImageType.CardImage
                 },
                 MainImage = new Image
                 {
-                    Url = "assets/imgs/persons/1main.png",
+                    Content = "assets/imgs/persons/1main.png",
                     Type = ImageType.MainImage
                 },
                 Country = country,
@@ -158,7 +171,7 @@ namespace MDP.Controllers
                 ],
                 Description = "Sweetest voice in Japan. In the world, actually. I fucking love her.",
                 Gender = Gender.Female,
-                Birthday = new DateTime(1994, 02, 27)
+                Birthday = new DateOnly(1994, 02, 27)
             };
             connector.People.Add(person);
             connector.SaveChanges();
@@ -172,12 +185,79 @@ namespace MDP.Controllers
                 Categories = [categories[0], categories[1]],
                 TargetDemographics = [demographics[2]],
                 AgeRating = ageRatings[1],
-                CardImage = new() { Url = "assets/imgs/works/1card.png", Type = ImageType.CardImage },
-                MainImage = new() { Url = "assets/imgs/works/1main.png", Type = ImageType.MainImage },
+                CardImage = new() { Content = "assets/imgs/works/1card.png", Type = ImageType.CardImage },
+                MainImage = new() { Content = "assets/imgs/works/1main.png", Type = ImageType.MainImage },
                 AverageRating = 4.5,
-                ReleaseDate = new DateTime(2016, 4, 4)
+                ReleaseDate = new DateOnly(2016, 4, 4)
+            };
+
+            var otherArtifacts = new List<Artifact> {
+                new Artifact {
+                    ShortName = new() { Literal = "Fate/stay night UBW" },
+                    FullName = new() { Literal = "Fate/stay night: Unlimited Blade Works" },
+                    Description = "Guy invokes great waifu from the past to fight other heroes for no good reason",
+                    Media = medias[0],
+                    Categories = [categories[4]],
+                    TargetDemographics = [demographics[0]],
+                    AgeRating = ageRatings[1],
+                    CardImage = new() { Content = "assets/imgs/works/2card.png", Type = ImageType.CardImage },
+                    MainImage = new() { Content = "assets/imgs/works/2main.png", Type = ImageType.MainImage },
+                    AverageRating = 9,
+                    ReleaseDate = new DateOnly(2015, 1, 1)
+                },
+                new Artifact {
+                    ShortName = new() { Literal = "Yagate Kimi ni Naru" },
+                    FullName = new() { Literal = "Yagate Kimi ni Naru" },
+                    Description = "Traumatized depressive girl and horny girl doing lesbianism",
+                    Media = medias[0],
+                    Categories = [categories[1]],
+                    TargetDemographics = [demographics[1]],
+                    AgeRating = ageRatings[1],
+                    CardImage = new() { Content = "assets/imgs/works/3card.png", Type = ImageType.CardImage },
+                    MainImage = new() { Content = "assets/imgs/works/3main.png", Type = ImageType.MainImage },
+                    AverageRating = 9,
+                    ReleaseDate = new DateOnly(2017, 1, 1)
+                },
+                new Artifact {
+                    ShortName = new() { Literal = "Kiss x Sis" },
+                    FullName = new() { Literal = "Kiss x Sis" },
+                    Description = "Some overly close step-sibilings",
+                    Media = medias[0],
+                    Categories = [categories[2]],
+                    TargetDemographics = [demographics[3]],
+                    AgeRating = ageRatings[2],
+                    CardImage = new() { Content = "assets/imgs/works/4card.png", Type = ImageType.CardImage },
+                    MainImage = new() { Content = "assets/imgs/works/4main.png", Type = ImageType.MainImage },
+                    AverageRating = 9,
+                    ReleaseDate = new DateOnly(2018, 1, 1)
+                },
+                new Artifact {
+                    ShortName = new() { Literal = "K-On" },
+                    FullName = new() { Literal = "K-On" },
+                    Description = "Cute music girls doing everything but music",
+                    Media = medias[0],
+                    Categories = [categories[3]],
+                    TargetDemographics = [demographics[4]],
+                    AgeRating = ageRatings[0],
+                    CardImage = new() { Content = "assets/imgs/works/5card.png", Type = ImageType.CardImage },
+                    MainImage = new() { Content = "assets/imgs/works/5main.png", Type = ImageType.MainImage },
+                    AverageRating = 9,
+                    ReleaseDate = new DateOnly(2019, 1, 1)
+                }
             };
             connector.Artifacts.Add(artifact);
+            connector.SaveChanges();
+
+            for (int i = 0; i < 4; i++)
+            {
+                connector.Artifacts.Add(Artifact.CloneArtifact(artifact));
+                foreach (var other in otherArtifacts)
+                {
+                    connector.Artifacts.Add(Artifact.CloneArtifact(other));
+                }
+            }
+
+            
             connector.SaveChanges();
 
             PersonParticipation personParticipation = new()
@@ -199,7 +279,7 @@ namespace MDP.Controllers
             {
                 Company = company,
                 Person = person,
-                Start = new DateTime(2013, 4, 4)
+                Start = new DateOnly(2013, 4, 4)
             };
 
             connector.PersonParticipations.Add(personParticipation);
@@ -215,7 +295,7 @@ namespace MDP.Controllers
                     Date = new DateTime(2023, 1, 1),
                     Images = new List<Image>(){
                         new Image(){
-                            Url = "assets/imgs/news/1main.png",
+                            Content = "assets/imgs/news/1main.png",
                             Type = ImageType.MainImage
                         },
                     }
@@ -226,7 +306,7 @@ namespace MDP.Controllers
                     Date = new DateTime(2023, 1, 1),
                     Images = new List<Image>(){
                         new Image(){
-                            Url = "assets/imgs/news/2main.png",
+                            Content = "assets/imgs/news/2main.png",
                             Type = ImageType.MainImage
                         },
                     }
@@ -237,7 +317,7 @@ namespace MDP.Controllers
                     Date = new DateTime(2023, 1, 1),
                     Images = new List<Image>(){
                         new Image(){
-                            Url = "assets/imgs/news/3main.png",
+                            Content = "assets/imgs/news/3main.png",
                             Type = ImageType.MainImage
                         },
                     }
@@ -254,7 +334,7 @@ namespace MDP.Controllers
                         Content = "Does he know?",
                         Images = [
                             new Image {
-                                Url = "assets/imgs/news/4main.png",
+                                Content = "assets/imgs/news/4main.png",
                                 Type = ImageType.MainImage
                             }
                             ]
@@ -265,7 +345,7 @@ namespace MDP.Controllers
                         Content = "He Doesnt know.",
                         Images = [
                             new Image {
-                                Url = "assets/imgs/news/5main.png",
+                                Content = "assets/imgs/news/5main.png",
                                 Type = ImageType.MainImage
                             }
                             ]
@@ -276,15 +356,42 @@ namespace MDP.Controllers
                         Content = "HE KNOWS!",
                         Images = [
                             new Image {
-                                Url = "assets/imgs/news/6main.png",
+                                Content = "assets/imgs/news/6main.png",
                                 Type = ImageType.MainImage
                             }
                             ]
                     }
                 }
-                ];
+            ];
+
+            var demoAges = new List<DemoAge> { 
+                new DemoAge { Demographic = demographics[0], RangeStart = 9, RangeEnd = 17, Weight = 0.4 },
+                new DemoAge { Demographic = demographics[1], RangeStart = 12, RangeEnd = 20, Weight = 0.5 },
+                new DemoAge { Demographic = demographics[2], RangeStart = 18, RangeEnd = 45, Weight = 0.5 },
+            };
+
+            var demoGenders = new List<DemoGender>
+            {
+                new DemoGender {Demographic = demographics[0], Gender = Gender.Male, Weight = 0.1},
+                new DemoGender {Demographic = demographics[1], Gender = Gender.Female, Weight = 0.2 },
+            };
+
+            var demoCountries = new List<DemoCountry>
+            {
+                new DemoCountry {Demographic = demographics[4], Country = brazil, Weight = 0.3},
+            };
+
+            var demoCats = new List<DemoCat>
+            {
+                new DemoCat {Demographic = demographics[2], Category = categories[3], Weight = 0.7},
+                new DemoCat {Demographic = demographics[3], Category = categories[2], Weight = 0.9},
+            };
             
             connector.GlobalNews.AddRange(globalNews);
+            connector.DemoAges.AddRange(demoAges);
+            connector.DemoGenders.AddRange(demoGenders);
+            connector.DemoCountrys.AddRange(demoCountries);
+            connector.DemoCats.AddRange(demoCats);
             connector.SaveChanges();
 
             return true;

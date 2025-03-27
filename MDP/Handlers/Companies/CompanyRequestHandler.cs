@@ -4,6 +4,7 @@ using MDP.Models;
 using MDP.Models.Companies;
 using MDP.Models.Persons;
 using Microsoft.EntityFrameworkCore;
+using MDP.Utils;
 
 namespace MDP.Handlers.Companies
 {
@@ -11,7 +12,7 @@ namespace MDP.Handlers.Companies
     /// Returns a full Company. If you need a partial one, query elsewhere
     /// </summary>
     /// <param name="conn"></param>
-    public class CompanyRequestHandler(DatabaseConnector conn) : Handler(conn), ICrudHandler<Company, CompanyInsert>
+    public class CompanyRequestHandler(DatabaseConnector conn) : Handler(conn), ICrudHandler<Company, CompanyInsert>, ISearchHandler<List<Company>>
     {
         public async Task<Company> Create(CompanyInsert original)
         {
@@ -20,11 +21,11 @@ namespace MDP.Handlers.Companies
             toCreate.FullName = new Name() { Literal = original.FullName };
             toCreate.Description = original.Description;
             toCreate.FoundingDate = original.FoundingDate;
-            toCreate.Country = await connector.Countries.FindAsync(original.Country);
+            toCreate.Country = await connector.Countries.FindAsync(original.Country.Id);
             toCreate.Roles = new List<Role>();
-            foreach (int roleId in original.Roles)
+            foreach (Role role in original.Roles)
             {
-                toCreate.Roles.Add(await connector.Roles.FindAsync(roleId));
+                toCreate.Roles.Add(await connector.Roles.FindAsync(role.Id));
             }
 
             await connector.Companies.AddAsync(toCreate);
@@ -62,6 +63,31 @@ namespace MDP.Handlers.Companies
             //Do averagerating
         }
 
+        public async Task<int> GetCount()
+        {
+            return await connector.Companies.CountAsync();
+        }
+
+        public async Task<List<Company>> GetPaginatedRange(int page, int amount)
+        {
+            return await connector.Companies
+            .OrderBy(a => a.Id)
+            .Skip((page - 1) * amount)
+            .Take(amount)
+            .ToListAsync();
+        }
+
+        public async Task<List<Company>> HandleSearch(string query, int page = 0)
+        {
+            return connector.Companies.Include(x => x.ShortName)
+                .Include(x => x.FullName)
+                .Where(x => x.ShortName.Literal.Contains(query) || x.FullName.Literal.Contains(query))
+                .Take(Constants.MAX_SEARCH_WORKS)
+                .Include(x => x.CardImage)
+                .Include(x => x.Roles)
+                .ToList();
+        }
+
         public async Task<Company> Update(Company updated)
         {
             Company toUpdate = await Get(updated.Id);
@@ -75,6 +101,8 @@ namespace MDP.Handlers.Companies
             {
                 toUpdate.Roles.Add(await connector.Roles.FindAsync(role.Id));
             }
+            toUpdate.CardImage.Content = updated.CardImage.Content;
+            toUpdate.MainImage.Content = updated.MainImage.Content;
 
             await connector.SaveChangesAsync();
             return toUpdate;

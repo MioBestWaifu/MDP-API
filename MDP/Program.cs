@@ -1,3 +1,4 @@
+using MDP;
 using MDP.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,13 +10,19 @@ builder.Services.AddCors(options =>
                       policy =>
                       {
                           policy.WithOrigins("http://localhost:4200",
-                                              "https://localhost:4200");
+                                              "https://localhost:4200")
+                          .AllowAnyMethod()
+                                .AllowAnyHeader();
                       });
 });
 
 // Add services to the container.
 builder.Services.AddDbContext<DatabaseConnector>();
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+{
+    options.SuppressModelStateInvalidFilter = true;
+}); ;
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -38,6 +45,8 @@ app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();
 
 app.UseResponseCaching();
+
+app.UseMiddleware<LoggingMiddleware>();
 
 app.MapControllers();
 

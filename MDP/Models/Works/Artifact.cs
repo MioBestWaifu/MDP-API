@@ -25,7 +25,25 @@ namespace MDP.Models.Works
         public Image? MainImage { get; set; }
         public List<Image>? OtherImages { get; set; }
         public double AverageRating { get; set; }
-        public DateTime? ReleaseDate { get; set; }
+        public DateOnly? ReleaseDate { get; set; }
+
+        public static Artifact CloneArtifact(Artifact original)
+        {
+            return new Artifact
+            {
+                ShortName = new Name { Literal = original.ShortName.Literal },
+                FullName = new Name { Literal = original.FullName.Literal },
+                Description = original.Description,
+                Media = original.Media,
+                Categories = original.Categories.ToList(),
+                TargetDemographics = original.TargetDemographics?.ToList(),
+                AgeRating = original.AgeRating,
+                CardImage = original.CardImage != null ? new Image { Content = original.CardImage.Content, Type = original.CardImage.Type } : null,
+                MainImage = original.MainImage != null ? new Image { Content = original.MainImage.Content, Type = original.MainImage.Type } : null,
+                AverageRating = original.AverageRating,
+                ReleaseDate = original.ReleaseDate
+            };
+        }
 
     }
 }

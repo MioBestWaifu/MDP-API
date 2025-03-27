@@ -15,8 +15,8 @@ namespace MDP.Models.Users
         public Image? MainImage { get; set; }
         public List<Image>? OtherImages { get; set; }
         public Country? Country { get; set; }
-        public string Description { get; set; }
-        public DateTime Birthday { get; set; }
+        public string? Description { get; set; }
+        public DateOnly Birthday { get; set; }
         public Gender Gender { get; set; }
         //Required by the interface, but should never be used.
         [NotMapped]

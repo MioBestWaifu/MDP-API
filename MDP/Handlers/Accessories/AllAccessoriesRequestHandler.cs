@@ -18,6 +18,8 @@ namespace MDP.Handlers.Accessories
                     return connector.Demographics.Select(x => x as Accessory).ToList();
                 case (int)AccessoryType.AgeRating:
                     return connector.AgeRatings.Select(x => x as Accessory).ToList();
+                case (int)AccessoryType.Role:
+                    return connector.Roles.Select(x => x as Accessory).ToList();
                 default:
                     throw new ArgumentException();
             }

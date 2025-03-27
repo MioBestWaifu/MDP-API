@@ -34,6 +34,18 @@ namespace MDP.Controllers
             return crudHandler.Get(id).Result;
         }
 
+        [HttpGet("paginated")]
+        public List<K> GetPaginatedRange(int page, int amount)
+        {
+            return crudHandler.GetPaginatedRange(page, amount).Result;
+        }
+
+        [HttpGet("count")]
+        public int GetCount()
+        {
+            return crudHandler.GetCount().Result;
+        }
+
         [HttpPatch]
         public K Update(K updated)
         {
