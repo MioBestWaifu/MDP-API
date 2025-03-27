@@ -248,7 +248,7 @@ namespace MDP.Controllers
             connector.Artifacts.Add(artifact);
             connector.SaveChanges();
 
-            for (int i = 0; i < 19; i++)
+            for (int i = 0; i < 4; i++)
             {
                 connector.Artifacts.Add(Artifact.CloneArtifact(artifact));
                 foreach (var other in otherArtifacts)
